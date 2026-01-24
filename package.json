@@ -65,7 +65,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "^19.0.0"
+      "@types/react": "^19.0.0",
+      "nx": "16.6.0"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
