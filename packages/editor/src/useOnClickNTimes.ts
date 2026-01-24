@@ -1,12 +1,12 @@
 import { RefObject, useEffect, useRef } from "react";
 
 export function useOnClickNTimes(
-  ref: RefObject<HTMLElement | undefined>,
+  ref: RefObject<HTMLElement | null>,
   count: number,
   event: () => void
 ): void {
   const counterRef = useRef<number>(0);
-  const timerRef = useRef<any>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (!ref.current) {

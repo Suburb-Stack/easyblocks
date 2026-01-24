@@ -49,9 +49,9 @@ function Video(props: VideoProps) {
   });
 
   return (
-    <Wrapper.type {...Wrapper.props}>
+    <Wrapper.type {...(Wrapper.props as Record<string, unknown>)}>
       <AspectRatioMaker.type
-        {...AspectRatioMaker.props}
+        {...(AspectRatioMaker.props as Record<string, unknown>)}
         style={{
           display:
             naturalAspectRatioPaddingBottom === undefined ? "block" : undefined,
@@ -59,12 +59,12 @@ function Video(props: VideoProps) {
       />
 
       <NaturalAspectRatioMaker.type
-        {...NaturalAspectRatioMaker.props}
+        {...(NaturalAspectRatioMaker.props as Record<string, unknown>)}
         style={{
           paddingBottom: naturalAspectRatioPaddingBottom,
         }}
       />
-      <ImageWrapper.type {...ImageWrapper.props}>
+      <ImageWrapper.type {...(ImageWrapper.props as Record<string, unknown>)}>
         <VideoRenderer {...props} video={video} />
       </ImageWrapper.type>
     </Wrapper.type>

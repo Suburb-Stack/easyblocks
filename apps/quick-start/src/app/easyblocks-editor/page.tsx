@@ -4,13 +4,9 @@ import { EasyblocksEditor } from "@easyblocks/editor";
 import { Config, EasyblocksBackend } from "@easyblocks/core";
 import { ReactElement } from "react";
 
-if (!process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN) {
-  throw new Error("Missing NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN");
-}
-
 const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
-    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN,
+    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN ?? "",
   }),
   locales: [
     {
@@ -183,8 +179,8 @@ function DummyBanner(props: { Root: ReactElement; Title: ReactElement }) {
   const { Root, Title } = props;
 
   return (
-    <Root.type {...Root.props}>
-      <Title.type {...Title.props} />
+    <Root.type {...(Root.props as Record<string, unknown>)}>
+      <Title.type {...(Title.props as Record<string, unknown>)} />
     </Root.type>
   );
 }

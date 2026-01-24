@@ -9,7 +9,7 @@ interface EditorIframeWrapperProps {
   width: number;
   height: number;
   transform: string;
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 function EditorIframe({

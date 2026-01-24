@@ -12,12 +12,17 @@ export function SimpleBanner(props: SimpleBannerProps) {
   const { Root, Title, Wrapper, Buttons, ButtonsWrapper } = props;
 
   return (
-    <Root.type {...Root.props}>
-      <Wrapper.type {...Wrapper.props}>
-        <Title.type {...Title.props} />
-        <ButtonsWrapper.type {...ButtonsWrapper.props}>
+    <Root.type {...(Root.props as Record<string, unknown>)}>
+      <Wrapper.type {...(Wrapper.props as Record<string, unknown>)}>
+        <Title.type {...(Title.props as Record<string, unknown>)} />
+        <ButtonsWrapper.type
+          {...(ButtonsWrapper.props as Record<string, unknown>)}
+        >
           {Buttons.map((Button, index) => (
-            <Button.type {...Button.props} key={index} />
+            <Button.type
+              {...(Button.props as Record<string, unknown>)}
+              key={index}
+            />
           ))}
         </ButtonsWrapper.type>
       </Wrapper.type>

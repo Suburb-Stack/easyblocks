@@ -3,7 +3,7 @@ export const AlertAction = (props: any) => {
 
   return (
     <TriggerElement.type
-      {...TriggerElement.props}
+      {...(TriggerElement.props as Record<string, unknown>)}
       as={"button"}
       onClick={() => {
         alert(text);

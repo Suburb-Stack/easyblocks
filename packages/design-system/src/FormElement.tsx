@@ -8,7 +8,7 @@ export type FormElementProps = {
   label: string;
   error?: string;
   required?: boolean;
-  children: React.ReactElement;
+  children: React.ReactElement<{ name?: string; hasError?: boolean }>;
 };
 
 const Root = styled.div`

@@ -6,13 +6,11 @@ import React, { ReactElement } from "react";
 import { Liquid } from "liquidjs";
 import { Parser, ProcessNodeDefinitions } from "html-to-react";
 
-if (!process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN) {
-  throw new Error("Missing NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN");
-}
+const accessToken = process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN || "";
 
 const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
-    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN,
+    accessToken,
   }),
   locales: [
     {

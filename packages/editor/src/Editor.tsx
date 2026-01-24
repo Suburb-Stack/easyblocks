@@ -343,12 +343,14 @@ function useBuiltContent(
 ): NonEmptyRenderableContent & {
   meta: CompilationMetadata;
 } {
-  const buildEntryResult = useRef<ReturnType<typeof buildEntry>>();
+  const buildEntryResult = useRef<ReturnType<typeof buildEntry> | undefined>(
+    undefined
+  );
 
   // cached inputs (needed to calculated "inputChanged")
-  const inputRawContent = useRef<NoCodeComponentEntry>();
-  const inputIsEditing = useRef<boolean>();
-  const inputBreakpointIndex = useRef<string>();
+  const inputRawContent = useRef<NoCodeComponentEntry | undefined>(undefined);
+  const inputIsEditing = useRef<boolean | undefined>(undefined);
+  const inputBreakpointIndex = useRef<string | undefined>(undefined);
 
   const inputChanged =
     inputRawContent.current !== rawContent ||
@@ -566,7 +568,7 @@ function calculateViewportRelatedStuff(
   };
 }
 
-function useRerenderOnIframeResize(iframe?: HTMLIFrameElement | null) {
+function useRerenderOnIframeResize(element?: HTMLElement | null) {
   const { forceRerender } = useForceRerender();
 
   const resizeObserver = useRef(
@@ -578,16 +580,16 @@ function useRerenderOnIframeResize(iframe?: HTMLIFrameElement | null) {
   );
 
   useEffect(() => {
-    if (!iframe) {
+    if (!element) {
       return;
     }
 
-    resizeObserver.current.observe(iframe);
+    resizeObserver.current.observe(element);
 
     return () => {
-      resizeObserver.current.unobserve(iframe);
+      resizeObserver.current.unobserve(element);
     };
-  }, [iframe]);
+  }, [element]);
 }
 
 const EditorContent = ({
@@ -602,7 +604,7 @@ const EditorContent = ({
     compilationContext.mainBreakpointIndex
   ); // "{ breakpoint }" or "fit-screen"
 
-  const iframeContainerRef = useRef<HTMLIFrameElement>(null);
+  const iframeContainerRef = useRef<HTMLDivElement>(null);
   const availableSize = iframeContainerRef.current
     ? {
         width: iframeContainerRef.current.clientWidth,

@@ -13,7 +13,7 @@ export default async function AssetsPage({
 }: {
   params: { id: string };
 }) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const homeDocumentContent = await buildAppShellContent();
   const assetScreenDocumentId = cookieStore.get("assetScreenDocumentId");
 

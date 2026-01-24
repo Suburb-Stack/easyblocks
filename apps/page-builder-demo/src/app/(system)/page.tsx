@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { DocumentWidgetInline, Document } from "@/app/DocumenWidgetInline";
 import { useSearchParams } from "next/navigation";
 
 const DOCUMENT_KEY = "easyblocksQuickDemoDocumentId_v2";
 
-export default function MainPage() {
+function MainPageContent() {
   const [document, setDocument] = useState<null | undefined | Document>(
     undefined
   );
@@ -256,5 +256,13 @@ function ArrowRightIcon() {
         clipRule="evenodd"
       ></path>
     </svg>
+  );
+}
+
+export default function MainPage() {
+  return (
+    <Suspense fallback={null}>
+      <MainPageContent />
+    </Suspense>
   );
 }

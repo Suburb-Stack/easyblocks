@@ -31,7 +31,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^3.0.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^18",
+    "@types/node": "^22",
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^5.24.0",
     "@typescript-eslint/parser": "^5.24.0",
@@ -60,9 +60,19 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "pnpm": {
     "overrides": {
-      "@types/react": "^18.2.20"
-    }
+      "@types/react": "^19.0.0"
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "nx",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }

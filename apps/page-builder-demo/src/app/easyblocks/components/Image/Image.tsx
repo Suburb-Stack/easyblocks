@@ -24,9 +24,9 @@ export function Image(props: ImageProps) {
     : "70%";
 
   return (
-    <Wrapper.type {...Wrapper.props}>
+    <Wrapper.type {...(Wrapper.props as Record<string, unknown>)}>
       <AspectRatioMaker.type
-        {...AspectRatioMaker.props}
+        {...(AspectRatioMaker.props as Record<string, unknown>)}
         style={{
           display:
             naturalAspectRatioPaddingBottom === undefined ? "block" : undefined,
@@ -34,13 +34,13 @@ export function Image(props: ImageProps) {
       />
 
       <NaturalAspectRatioMaker.type
-        {...NaturalAspectRatioMaker.props}
+        {...(NaturalAspectRatioMaker.props as Record<string, unknown>)}
         style={{
           paddingBottom: naturalAspectRatioPaddingBottom,
         }}
       />
 
-      <ImageWrapper.type {...ImageWrapper.props}>
+      <ImageWrapper.type {...(ImageWrapper.props as Record<string, unknown>)}>
         <ImageRenderer image={image} />
       </ImageWrapper.type>
     </Wrapper.type>

@@ -49,7 +49,7 @@ function VideoRenderer(props: VideoRendererProps) {
       {!videoUrl && <VideoPlaceholder />}
       {videoUrl && (
         <Video.type
-          {...Video.props}
+          {...(Video.props as Record<string, unknown>)}
           autoPlay={autoplay}
           muted={true}
           loop={true}
@@ -61,10 +61,12 @@ function VideoRenderer(props: VideoRendererProps) {
         </Video.type>
       )}
 
-      <ControlsContainer.type {...ControlsContainer.props}>
+      <ControlsContainer.type
+        {...(ControlsContainer.props as Record<string, unknown>)}
+      >
         {enableSoundControls && (isEditing || !muted) && (
           <UnmuteButton.type
-            {...UnmuteButton.props}
+            {...(UnmuteButton.props as Record<string, unknown>)}
             onClick={() => {
               setMuted(true);
             }}
@@ -72,7 +74,7 @@ function VideoRenderer(props: VideoRendererProps) {
         )}
         {enableSoundControls && (isEditing || muted) && (
           <MuteButton.type
-            {...MuteButton.props}
+            {...(MuteButton.props as Record<string, unknown>)}
             onClick={() => {
               setMuted(false);
             }}
@@ -80,7 +82,7 @@ function VideoRenderer(props: VideoRendererProps) {
         )}
         {enablePlaybackControls && (isEditing || !playing) && (
           <PlayButton.type
-            {...PlayButton.props}
+            {...(PlayButton.props as Record<string, unknown>)}
             onClick={() => {
               setPlaying(true);
             }}
@@ -88,7 +90,7 @@ function VideoRenderer(props: VideoRendererProps) {
         )}
         {enablePlaybackControls && (isEditing || playing) && (
           <PauseButton.type
-            {...PauseButton.props}
+            {...(PauseButton.props as Record<string, unknown>)}
             onClick={() => {
               setPlaying(false);
             }}

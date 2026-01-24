@@ -1,5 +1,5 @@
 "use client";
-import type { ElementType, ReactNode } from "react";
+import type { ElementType, JSX, ReactNode } from "react";
 import React, { ComponentPropsWithRef } from "react";
 import styled, { css } from "styled-components";
 import { Colors } from "./colors";

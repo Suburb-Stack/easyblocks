@@ -144,7 +144,9 @@ function RichTextEditor(props: RichTextProps) {
    * Whether the content editable is enabled or not. We enable it through double click.
    */
   const [isEnabled, setIsEnabled] = useState(false);
-  const previousRichTextComponentConfig = useRef<RichTextComponentConfig>();
+  const previousRichTextComponentConfig = useRef<
+    RichTextComponentConfig | undefined
+  >(undefined);
   const currentSelectionRef = useRef<BaseRange | null>(null);
 
   const isConfigChanged = !isConfigEqual(

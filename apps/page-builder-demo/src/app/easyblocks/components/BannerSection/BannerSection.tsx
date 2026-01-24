@@ -46,7 +46,7 @@ export function BannerSection(
       SubheaderStackContainer__={SubheaderStackContainer__}
       headerMode={headerMode}
     >
-      <SectionRoot.type {...SectionRoot.props}>
+      <SectionRoot.type {...(SectionRoot.props as Record<string, unknown>)}>
         <BannerCard
           Container={Container}
           Root={Root}

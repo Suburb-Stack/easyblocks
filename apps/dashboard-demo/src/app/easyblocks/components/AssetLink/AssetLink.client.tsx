@@ -6,7 +6,13 @@ function AssetLink({
 }: NoCodeActionComponentProps) {
   const url = asset ? `/assets/${asset.id}` : "";
 
-  return <TriggerElement.type {...TriggerElement.props} as="a" href={url} />;
+  return (
+    <TriggerElement.type
+      {...(TriggerElement.props as Record<string, unknown>)}
+      as="a"
+      href={url}
+    />
+  );
 }
 
 export { AssetLink };

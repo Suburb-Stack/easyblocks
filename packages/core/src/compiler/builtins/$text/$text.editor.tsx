@@ -21,8 +21,9 @@ function TextEditor(props: TextProps) {
   const configValue = dotNotationGet(form.values, valuePath);
   const isLocalTextReference = configValue.id?.startsWith("local.");
 
+  const textProps = Text.props as Record<string, unknown>;
   return (
-    <Text.type {...Text.props} as={"div"}>
+    <Text.type {...textProps} as="div">
       {isLocalTextReference ? (
         <InlineTextarea
           path={path}

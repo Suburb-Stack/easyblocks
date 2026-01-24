@@ -9,7 +9,7 @@ import { easyblocksConfig } from "./easyblocks/easyblocks.config";
 import { fetchExternalData } from "./easyblocks/fetchExternalData";
 
 export default async function HomePage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   const appShellDocumentContent = await buildAppShellContent();
   const welcomeScreenDocumentId = cookieStore.get("welcomeScreenDocumentId");

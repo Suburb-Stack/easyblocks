@@ -3,7 +3,6 @@ import { createMyCustomFetch } from "@/app/easyblocks/myCustomFetch";
 import { components } from "@/app/easyblocks/components";
 import { buildDocument } from "@easyblocks/core";
 import { EasyblocksContent } from "./EasyblocksContent";
-import { useSearchParams } from "next/navigation";
 
 const fetch = createMyCustomFetch();
 

@@ -5,7 +5,7 @@ import { easyblocksConfig } from "./easyblocks.config";
 import { fetchExternalData } from "./fetchExternalData";
 
 async function buildAppShellContent() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const appShellDocumentId = cookieStore.get("appShellDocumentId");
 
   if (!appShellDocumentId) {

@@ -42,13 +42,17 @@ function TwoCards(
       SubheaderStackContainer__={SubheaderStackContainer__}
       headerMode={headerMode}
     >
-      <Root.type {...Root.props}>
-        <Card1Container.type {...Card1Container.props}>
-          <Card1.type {...Card1.props} />
+      <Root.type {...(Root.props as Record<string, unknown>)}>
+        <Card1Container.type
+          {...(Card1Container.props as Record<string, unknown>)}
+        >
+          <Card1.type {...(Card1.props as Record<string, unknown>)} />
         </Card1Container.type>
 
-        <Card2Container.type {...Card2Container.props}>
-          <Card2.type {...Card2.props} />
+        <Card2Container.type
+          {...(Card2Container.props as Record<string, unknown>)}
+        >
+          <Card2.type {...(Card2.props as Record<string, unknown>)} />
         </Card2Container.type>
       </Root.type>
     </SectionWrapper>

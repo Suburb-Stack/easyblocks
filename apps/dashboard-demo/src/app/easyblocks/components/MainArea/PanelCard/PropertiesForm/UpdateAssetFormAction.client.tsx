@@ -11,7 +11,7 @@ function UpdateAssetFormAction({
 
   return (
     <Target.type
-      {...Target.props}
+      {...(Target.props as Record<string, unknown>)}
       onSubmit={(event: FormEvent) => {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);

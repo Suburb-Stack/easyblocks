@@ -30,7 +30,7 @@ const documents = [
 ];
 
 export default async function DocumentsPage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return (
     <main className="container mx-auto">

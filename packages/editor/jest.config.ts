@@ -11,6 +11,7 @@ const config: Config.InitialOptions = {
      **/
     "@easyblocks/core/_internals": "@easyblocks/core/dist/cjs/_internals.cjs",
   },
+  setupFiles: ["<rootDir>/jest.setup.ts"],
 };
 
 export default config;
