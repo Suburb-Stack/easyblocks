@@ -4,13 +4,13 @@ describe("check locales correctness", () => {
   test("throws when empty array", () => {
     expect(() => {
       checkLocalesCorrectness([]);
-    }).toThrowError("can't be empty");
+    }).toThrow("can't be empty");
   });
 
   test("throws when there is no default locale", () => {
     expect(() => {
       checkLocalesCorrectness([{ code: "en" }, { code: "pl" }, { code: "de" }]);
-    }).toThrowError("One locale must be set as default");
+    }).toThrow("One locale must be set as default");
   });
 
   test("throws when there are more than 1 locales", () => {
@@ -20,7 +20,7 @@ describe("check locales correctness", () => {
         { code: "pl", isDefault: true },
         { code: "de" },
       ]);
-    }).toThrowError("you set more than one");
+    }).toThrow("you set more than one");
   });
 
   test("throws when default locale has fallback", () => {
@@ -29,7 +29,7 @@ describe("check locales correctness", () => {
         { code: "en", isDefault: true, fallback: "pl" },
         { code: "pl" },
       ]);
-    }).toThrowError("fallback");
+    }).toThrow("fallback");
   });
 
   test("throws when there are incorrect fallbacks", () => {
@@ -39,7 +39,7 @@ describe("check locales correctness", () => {
         { code: "pl", fallback: "en" },
         { code: "de", fallback: "enxxx" },
       ]);
-    }).toThrowError("doesn't exist in the locales list");
+    }).toThrow("doesn't exist in the locales list");
   });
 
   test("throws when circulars are there", () => {
@@ -50,7 +50,7 @@ describe("check locales correctness", () => {
         { code: "pl2", fallback: "pl3" },
         { code: "pl3", fallback: "pl1" },
       ]);
-    }).toThrowError("circular");
+    }).toThrow("circular");
   });
 
   test("returns true if everything correct", () => {
@@ -60,7 +60,7 @@ describe("check locales correctness", () => {
         { code: "pl", fallback: "en" },
         { code: "pl2", fallback: "pl" },
         { code: "de" },
-      ])
+      ]),
     ).toBe(true);
   });
 });

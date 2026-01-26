@@ -88,7 +88,7 @@ describe("resop2", () => {
   };
 
   const callback: (val: { [key: string]: any }) => { [key: string]: any } = (
-    vals
+    vals,
   ) => {
     return {
       styled: {
@@ -103,7 +103,7 @@ describe("resop2", () => {
           justValue: "xxx",
           spaceVal: vals.values.schemaValSpace * 3,
           array: Array(vals.values.schemaValSpace).fill(
-            `${vals.values.schemaVal1} ${vals.values.schemaVal2}`
+            `${vals.values.schemaVal1} ${vals.values.schemaVal2}`,
           ),
         },
         Box2: {
@@ -120,7 +120,7 @@ describe("resop2", () => {
 
   // This type only narrows result of `styles.styled` property
   function scalar<T>(
-    value: ScalarOrCollection<T>
+    value: ScalarOrCollection<T>,
   ): Exclude<ScalarOrCollection<T>, Array<T>> {
     return value as Exclude<ScalarOrCollection<T>, Array<T>>;
   }
@@ -243,7 +243,7 @@ describe("resop2", () => {
             },
           };
         },
-        devices
+        devices,
       );
 
       expect(result.styled.output).toBe("unset");
@@ -261,7 +261,7 @@ describe("resop2", () => {
             },
           };
         },
-        devices
+        devices,
       );
 
       expect(result.styled.output).toBe("unset");
@@ -287,7 +287,7 @@ describe("resop2", () => {
             };
           }
         },
-        devices
+        devices,
       );
 
       expect(result.styled.output1).toEqual({
@@ -314,7 +314,7 @@ describe("resop2", () => {
             },
           };
         },
-        devices
+        devices,
       );
 
       expect(result.styled.output).toEqual({
@@ -352,7 +352,7 @@ describe("resop2", () => {
             };
           }
         },
-        devices
+        devices,
       );
 
       expect(scalar(result.styled.Nested).Output.output1).toEqual({
@@ -383,7 +383,7 @@ describe("resop2", () => {
             },
           };
         },
-        devices
+        devices,
       );
 
       expect(scalar(result.styled.Nested).Output.output).toEqual({
@@ -410,7 +410,7 @@ describe("resop2", () => {
 
         return {};
       },
-      devices
+      devices,
     );
 
     test("works", () => {
@@ -480,7 +480,7 @@ describe("resop2", () => {
         };
       },
       devices,
-      ComponentWithFontDefinition
+      ComponentWithFontDefinition,
     );
 
     expect(scalar(result.styled.Box1).xfont).toMatchObject({
@@ -550,37 +550,37 @@ describe("resop2", () => {
       },
       callback,
       devices,
-      testComponentDefinition
+      testComponentDefinition,
     );
 
-    expect(callback).toBeCalledTimes(5);
+    expect(callback).toHaveBeenCalledTimes(5);
 
     expect(callback.mock.calls[0][0].values.Card[0].someProp).toEqual(
-      responsiveValue
+      responsiveValue,
     );
     expect(callback.mock.calls[0][0].values.Cards[0].someProp).toEqual(10);
     expect(callback.mock.calls[0][0].values.Cards[0].schemaItemProp).toBe(10);
 
     expect(callback.mock.calls[1][0].values.Card[0].someProp).toEqual(
-      responsiveValue
+      responsiveValue,
     );
     expect(callback.mock.calls[1][0].values.Cards[0].someProp).toEqual(40);
     expect(callback.mock.calls[1][0].values.Cards[0].schemaItemProp).toBe(40);
 
     expect(callback.mock.calls[2][0].values.Card[0].someProp).toEqual(
-      responsiveValue
+      responsiveValue,
     );
     expect(callback.mock.calls[2][0].values.Cards[0].someProp).toEqual(40);
     expect(callback.mock.calls[2][0].values.Cards[0].schemaItemProp).toBe(40);
 
     expect(callback.mock.calls[3][0].values.Card[0].someProp).toEqual(
-      responsiveValue
+      responsiveValue,
     );
     expect(callback.mock.calls[3][0].values.Cards[0].someProp).toEqual(40);
     expect(callback.mock.calls[3][0].values.Cards[0].schemaItemProp).toBe(40);
 
     expect(callback.mock.calls[4][0].values.Card[0].someProp).toEqual(
-      responsiveValue
+      responsiveValue,
     );
     expect(callback.mock.calls[4][0].values.Cards[0].someProp).toEqual(40);
     expect(callback.mock.calls[4][0].values.Cards[0].schemaItemProp).toBe(40);
@@ -598,10 +598,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"__props must be object, it is not for breakpoint: b1"`
+          `"__props must be object, it is not for breakpoint: b1"`,
         );
       });
 
@@ -616,7 +616,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
 
         expect(result.props.myProp).toBeUndefined();
@@ -634,10 +634,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop: undefined value (breakpoints: b1) for __props.myProp. Template: $TestComponent"`
+          `"resop: undefined value (breakpoints: b1) for __props.myProp. Template: $TestComponent"`,
         );
       });
 
@@ -652,7 +652,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
         expect(result.props.myProp).toEqual({
           $res: true,
@@ -675,10 +675,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop error: component must be undefined or an object, it is not for device b1 and prop Card. Template: $TestComponent"`
+          `"resop error: component must be undefined or an object, it is not for device b1 and prop Card. Template: $TestComponent"`,
         );
       });
 
@@ -695,7 +695,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
 
         expect(result.components.Card.myProp).toBeUndefined();
@@ -715,10 +715,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop: undefined value (breakpoints b1) for Card.myProp. Template: $TestComponent"`
+          `"resop: undefined value (breakpoints b1) for Card.myProp. Template: $TestComponent"`,
         );
       });
 
@@ -735,7 +735,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
         expect(result.components.Card.myProp).toEqual({
           $res: true,
@@ -772,10 +772,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop error: item props must be undefined or an array (Cards). Template: $TestComponent"`
+          `"resop error: item props must be undefined or an array (Cards). Template: $TestComponent"`,
         );
       });
 
@@ -794,10 +794,10 @@ describe("resop2", () => {
                 };
               },
               devices,
-              testComponentDefinition
-            )
+              testComponentDefinition,
+            ),
           ).toThrowErrorMatchingInlineSnapshot(
-            `"resop: incompatible item props arrays length for component: Cards. Template: $TestComponent"`
+            `"resop: incompatible item props arrays length for component: Cards. Template: $TestComponent"`,
           );
         });
 
@@ -813,10 +813,10 @@ describe("resop2", () => {
                 };
               },
               devices,
-              testComponentDefinition
-            )
+              testComponentDefinition,
+            ),
           ).toThrowErrorMatchingInlineSnapshot(
-            `"resop: item props arrays length incompatible with items length for component: Cards. Template: $TestComponent"`
+            `"resop: item props arrays length incompatible with items length for component: Cards. Template: $TestComponent"`,
           );
         });
 
@@ -831,7 +831,7 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
+            testComponentDefinition,
           );
 
           expect(result.components.Cards.itemProps[0].test).toEqual({
@@ -855,7 +855,7 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
+            testComponentDefinition,
           );
 
           expect(result.components.Cards.itemProps).toEqual([]);
@@ -874,10 +874,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop error: item in itemProps array must be object (Cards.itemProps.0). Template: $TestComponent"`
+          `"resop error: item in itemProps array must be object (Cards.itemProps.0). Template: $TestComponent"`,
         );
       });
 
@@ -898,7 +898,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
 
         expect(result.components.Cards.itemProps).toEqual([{}, {}, {}]);
@@ -922,10 +922,10 @@ describe("resop2", () => {
               };
             },
             devices,
-            testComponentDefinition
-          )
+            testComponentDefinition,
+          ),
         ).toThrowErrorMatchingInlineSnapshot(
-          `"resop: undefined value (breakpoints b1) for Cards.0.prop. Template: $TestComponent"`
+          `"resop: undefined value (breakpoints b1) for Cards.0.prop. Template: $TestComponent"`,
         );
       });
 
@@ -957,7 +957,7 @@ describe("resop2", () => {
             };
           },
           devices,
-          testComponentDefinition
+          testComponentDefinition,
         );
 
         expect(result.components.Cards.itemProps).toEqual([
@@ -988,7 +988,7 @@ describe("resop2", () => {
         },
         callback,
         devices,
-        testComponentDefinition
+        testComponentDefinition,
       );
 
       expect(true).toBe(true); // if resop2 falls into infinite loop it will never get here

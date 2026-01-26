@@ -171,14 +171,14 @@ test("Should not traverse further when cannot find component definition", () => 
       },
     },
     compilationContext,
-    callback
+    callback,
   );
 
-  expect(warn).toBeCalledWith(
+  expect(warn).toHaveBeenCalledWith(
     "[traverseComponents] Unknown component definition",
-    { _component: "NOT_DEFINED_COMPONENT" }
+    { _component: "NOT_DEFINED_COMPONENT" },
   );
-  expect(callback).toBeCalledTimes(1);
+  expect(callback).toHaveBeenCalledTimes(1);
   expect(callback).toHaveBeenNthCalledWith(1, {
     componentConfig: {
       _id: "xxx",

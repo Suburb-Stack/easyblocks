@@ -21,7 +21,7 @@ describe("preOrderPathComparator", () => {
       ({ a, b, expectedOutput }) => {
         const actual = preOrderPathComparator()(a, b);
         expect(actual).toEqual(expectedOutput);
-      }
+      },
     );
   });
 
@@ -45,7 +45,7 @@ describe("preOrderPathComparator", () => {
       ({ a, b, expectedOutput }) => {
         const actual = preOrderPathComparator("descending")(a, b);
         expect(actual).toEqual(expectedOutput);
-      }
+      },
     );
   });
 
@@ -55,8 +55,8 @@ describe("preOrderPathComparator", () => {
       ${"notAPathToCompare"} | ${"data.0"}
       ${"data.0"}            | ${"anotherWrongPath"}
     `("given $a and $b to compare should throw error", ({ a, b }) => {
-      expect(() => preOrderPathComparator()(a, b)).toThrowError(
-        `Cannot compare paths '${a}' and '${b}'.`
+      expect(() => preOrderPathComparator()(a, b)).toThrow(
+        `Cannot compare paths '${a}' and '${b}'.`,
       );
     });
   });
