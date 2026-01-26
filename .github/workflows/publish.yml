@@ -2,8 +2,9 @@ name: Publish to GitHub Packages
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+      - porting-to-next-16
   workflow_dispatch:
     inputs:
       dry_run:
@@ -16,7 +17,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -44,9 +45,29 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Calculate version
+        id: version
+        run: |
+          # Get branch name (remove refs/heads/ prefix)
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          # Sanitize branch name for npm (replace / with -)
+          SAFE_BRANCH=$(echo "$BRANCH_NAME" | sed 's/[^a-zA-Z0-9-]/-/g')
+          # Get short commit SHA
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          # Get current base version from lerna.json
+          BASE_VERSION=$(node -p "require('./lerna.json').version")
+          # Create prerelease version: base-branch.sha
+          VERSION="${BASE_VERSION}-${SAFE_BRANCH}.${SHORT_SHA}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Calculated version: $VERSION"
+
+      - name: Update package versions
+        run: |
+          pnpm exec lerna version ${{ steps.version.outputs.version }} --yes --no-git-tag-version --no-push --force-publish
+
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: pnpm exec lerna publish from-git --yes --no-private
+        run: pnpm exec lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,6 +75,7 @@ jobs:
         if: ${{ github.event.inputs.dry_run == 'true' }}
         run: |
           echo "=== Dry run mode - showing packages that would be published ==="
+          echo "Version: ${{ steps.version.outputs.version }}"
           pnpm exec lerna ls --json --no-private | jq -r '.[].name'
           echo ""
           echo "=== Package versions ==="
