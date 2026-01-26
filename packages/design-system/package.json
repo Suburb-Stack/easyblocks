@@ -1,6 +1,6 @@
 {
   "name": "@suburb-stack/design-system",
-  "version": "1.0.11",
+  "version": "1.0.10-porting-to-next-16.a6b001d",
   "repository": {
     "type": "git",
     "url": "https://github.com/Suburb-Stack/easyblocks.git",
