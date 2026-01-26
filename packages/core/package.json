@@ -3,6 +3,11 @@
   "type": "module",
   "version": "1.0.11",
   "description": "No-code ecommerce builder for headless CMS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Suburb-Stack/easyblocks.git",
+    "directory": "packages/core"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

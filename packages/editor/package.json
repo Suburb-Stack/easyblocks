@@ -1,6 +1,11 @@
 {
   "name": "@suburb-stack/editor",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Suburb-Stack/easyblocks.git",
+    "directory": "packages/editor"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
