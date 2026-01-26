@@ -1,6 +1,6 @@
 {
   "name": "@suburb-stack/build-tools",
-  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a",
+  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a-main.85770d1",
   "private": true,
   "main": "./src/index.js",
   "types": "./src/index.js"
