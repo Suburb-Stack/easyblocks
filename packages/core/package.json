@@ -1,7 +1,7 @@
 {
   "name": "@suburb-stack/core",
   "type": "module",
-  "version": "1.0.11",
+  "version": "1.0.10-porting-to-next-16.a6b001d",
   "description": "No-code ecommerce builder for headless CMS",
   "repository": {
     "type": "git",
@@ -37,11 +37,11 @@
   "devDependencies": {
     "@babel/core": "^7.28.6",
     "@babel/plugin-transform-runtime": "^7.28.5",
+    "@jest/types": "^30.2.0",
     "@suburb-stack/build-tools": "workspace:*",
     "@suburb-stack/reduce-css-calc": "workspace:*",
     "@suburb-stack/test-utils": "workspace:*",
     "@suburb-stack/utils": "workspace:*",
-    "@jest/types": "^30.2.0",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.0",
     "@types/react": "^19.0.0",
