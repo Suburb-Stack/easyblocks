@@ -2,7 +2,7 @@ import { LocalTextReference, ResponsiveValue } from "@easyblocks/core";
 import { InternalField, useTextValue } from "@easyblocks/core/_internals";
 import { Input } from "@easyblocks/design-system";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { useEditorContext } from "../../../EditorContext";
 import { parse } from "./textFormat";
 import { FieldMetaWrapper } from "./wrapFieldWithMeta";

@@ -1,7 +1,7 @@
 import { LocalValue } from "@easyblocks/core";
 import { InternalField } from "@easyblocks/core/_internals";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { EditorContextType, useEditorContext } from "../../../EditorContext";
 import { MissingWidget } from "./MissingWidget";
 import { wrapFieldsWithMeta } from "./wrapFieldWithMeta";

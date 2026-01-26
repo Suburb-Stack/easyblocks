@@ -1,6 +1,6 @@
 import { InternalField } from "@easyblocks/core/_internals";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import {
   Position,
   PositionPickerInput,

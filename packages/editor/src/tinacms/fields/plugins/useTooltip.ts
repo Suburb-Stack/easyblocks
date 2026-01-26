@@ -1,6 +1,19 @@
+import {
+  useFloating,
+  arrow,
+  offset,
+  flip,
+  shift,
+  FloatingArrow,
+} from "@floating-ui/react";
 import { TooltipTriggerAria, useTooltipTrigger } from "@react-aria/tooltip";
-import { CSSProperties, MouseEvent, RefCallback, useState } from "react";
-import { usePopper } from "react-popper";
+import {
+  CSSProperties,
+  MouseEvent,
+  RefCallback,
+  useRef,
+  useState,
+} from "react";
 
 interface TooltipOptions {
   isDisabled?: boolean;
@@ -20,20 +33,12 @@ function useTooltip({
   onClick,
 }: TooltipOptions = {}): TooltipResult {
   const [isOpen, setIsOpen] = useState(false);
-  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(
-    null
-  );
-  const [tooltipElement, setTooltipElement] = useState<HTMLElement | null>(
-    null
-  );
-  const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
+  const arrowRef = useRef<SVGSVGElement | null>(null);
 
-  const { styles, attributes } = usePopper(triggerElement, tooltipElement, {
-    strategy: "absolute",
+  const { refs, floatingStyles } = useFloating({
     placement: "bottom",
-    modifiers: [
-      { name: "arrow", options: { element: arrowElement, padding: 6 } },
-    ],
+    strategy: "absolute",
+    middleware: [offset(6), flip(), shift(), arrow({ element: arrowRef })],
   });
 
   const tooltipTrigger = useTooltipTrigger(
@@ -50,11 +55,11 @@ function useTooltip({
         setIsOpen(false);
       },
     },
-    { current: triggerElement }
+    refs.reference as React.RefObject<HTMLElement>
   );
 
   const triggerProps = {
-    ref: setTriggerElement,
+    ref: refs.setReference,
     ...tooltipTrigger.triggerProps,
     onClick:
       onClick === undefined
@@ -66,15 +71,14 @@ function useTooltip({
   };
 
   const tooltipProps = {
-    ref: setTooltipElement,
-    style: styles.popper,
-    ...attributes.popper,
+    ref: refs.setFloating,
+    style: floatingStyles,
     ...tooltipTrigger.tooltipProps,
   };
 
   const arrowProps = {
-    ref: setArrowElement,
-    style: styles.arrow,
+    ref: arrowRef as unknown as RefCallback<HTMLElement>,
+    style: {} as CSSProperties,
   };
 
   return {

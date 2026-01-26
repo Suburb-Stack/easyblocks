@@ -10,7 +10,7 @@ import {
 import { ButtonGhost, Icons, Typography } from "@easyblocks/design-system";
 import { toArray } from "@easyblocks/utils";
 import React, { useContext } from "react";
-import type { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { css } from "styled-components";
 import { useEditorContext } from "../../../EditorContext";
 import { isMixedFieldValue } from "../components/isMixedFieldValue";
