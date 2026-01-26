@@ -3,8 +3,8 @@
   "version": "1.0.10",
   "private": true,
   "scripts": {
-    "dev": "json-server seed.js --port 3200 & next dev",
-    "build": "next build",
+    "dev": "json-server seed.js --port 3200 & next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint"
   },

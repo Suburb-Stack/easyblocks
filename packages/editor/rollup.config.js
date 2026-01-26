@@ -9,8 +9,8 @@ import {
   isDevelopment,
   isProduction,
 } from "@easyblocks/build-tools";
-import visualizer from "rollup-plugin-visualizer";
-import packageJson from "./package.json";
+import { visualizer } from "rollup-plugin-visualizer";
+import packageJson from "./package.json" with { type: "json" };
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
@@ -46,7 +46,7 @@ function getPlugins(format) {
       visualizer({
         filename: format === "es" ? "stats/index.html" : "stats/cjs/index.html",
         gzipSize: true,
-      })
+      }),
     );
   }
 

@@ -2,8 +2,8 @@
   "name": "design-system-app",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3400",
-    "build": "next build",
+    "dev": "next dev --port 3400 --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,6 +15,7 @@
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "styled-components": "^6.0.7",
     "typescript": "^5.3.3"
   },
   "version": "1.0.10"

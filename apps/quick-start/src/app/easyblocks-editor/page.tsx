@@ -1,8 +1,14 @@
 "use client";
 
-import { EasyblocksEditor } from "@easyblocks/editor";
+import nextDynamic from "next/dynamic";
 import { Config, EasyblocksBackend } from "@easyblocks/core";
 import { ReactElement } from "react";
+
+// Dynamically import EasyblocksEditor with SSR disabled to avoid styled-components SSR issues
+const EasyblocksEditor = nextDynamic(
+  () => import("@easyblocks/editor").then((mod) => mod.EasyblocksEditor),
+  { ssr: false },
+);
 
 const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
@@ -184,6 +190,9 @@ function DummyBanner(props: { Root: ReactElement; Title: ReactElement }) {
     </Root.type>
   );
 }
+
+// Disable static generation for this page due to styled-components SSR incompatibility
+export const dynamic = "force-dynamic";
 
 export default function EeasyblocksEditorPage() {
   return (

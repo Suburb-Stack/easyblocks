@@ -8,11 +8,10 @@ import { easyblocksComponents } from "../../easyblocks/components";
 import { easyblocksConfig } from "../../easyblocks/easyblocks.config";
 import { fetchExternalData } from "../../easyblocks/fetchExternalData";
 
-export default async function AssetsPage({
-  params,
-}: {
-  params: { id: string };
+export default async function AssetsPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const cookieStore = await cookies();
   const homeDocumentContent = await buildAppShellContent();
   const assetScreenDocumentId = cookieStore.get("assetScreenDocumentId");

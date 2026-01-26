@@ -47,10 +47,10 @@
   "devDependencies": {
     "@easyblocks/build-tools": "workspace:*",
     "@easyblocks/utils": "workspace:*",
-    "@jest/types": "^26.6.2",
+    "@jest/types": "^29.6.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.0.0",
-    "@types/jest": "^29.0.0",
+    "@types/jest": "^29.5.0",
     "@types/lodash.throttle": "^4.1.9",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

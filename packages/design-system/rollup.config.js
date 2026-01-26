@@ -9,9 +9,9 @@ import {
   isDevelopment,
   isProduction,
 } from "@easyblocks/build-tools";
-import visualizer from "rollup-plugin-visualizer";
+import { visualizer } from "rollup-plugin-visualizer";
 import preserveDirectives from "rollup-plugin-preserve-directives";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
@@ -44,11 +44,7 @@ function getPlugins(format) {
 
     json(),
 
-    {
-      ...preserveDirectivesPlugin,
-      // @ts-expect-error preserveDirectivesPlugin is incompatible by default with our version or rollup
-      renderChunk: preserveDirectivesPlugin.renderChunk.handler,
-    },
+    preserveDirectivesPlugin,
   ];
 
   if (isProduction) {
@@ -56,7 +52,7 @@ function getPlugins(format) {
       visualizer({
         filename: format === "es" ? "stats/index.html" : "stats/cjs/index.html",
         gzipSize: true,
-      })
+      }),
     );
   }
 
@@ -82,7 +78,7 @@ const baseConfig = {
 
     if (
       warning.message.includes(
-        "Module level directives cause errors when bundled, 'use client' was ignored."
+        "Module level directives cause errors when bundled, 'use client' was ignored.",
       )
     ) {
       return;

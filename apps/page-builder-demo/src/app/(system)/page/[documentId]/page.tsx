@@ -6,13 +6,12 @@ import { EasyblocksContent } from "./EasyblocksContent";
 
 const fetch = createMyCustomFetch();
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { documentId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function Page(props: {
+  params: Promise<{ documentId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const locale =
     typeof searchParams?.locale === "string" ? searchParams.locale : "en-US";
 

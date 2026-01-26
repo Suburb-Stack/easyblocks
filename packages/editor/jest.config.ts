@@ -4,12 +4,11 @@ const config: Config.InitialOptions = {
   transform: {
     "\\.[jt]sx?$": ["babel-jest", { rootMode: "upward" }],
   },
+  testEnvironment: "jsdom",
   moduleNameMapper: {
-    /**
-     *  Currently used jest version doesn't accept "exports" in package.json of @easyblocks/core. That's why we remap _internals to dist/cjs/_internals directly.
-     *  It seems that new updates in jest support this so when jest is upgraded, we can think of removing this.
-     **/
-    "@easyblocks/core/_internals": "@easyblocks/core/dist/cjs/_internals.cjs",
+    // Map @easyblocks/core packages to source files for proper mocking support
+    "^@easyblocks/core/_internals$": "<rootDir>/../core/src/_internals.ts",
+    "^@easyblocks/core$": "<rootDir>/../core/src/index.ts",
   },
   setupFiles: ["<rootDir>/jest.setup.ts"],
 };
