@@ -113,6 +113,7 @@ const configCjs = {
     preserveModules: true,
     preserveModulesRoot: "src",
     exports: "auto",
+    interop: "auto",
   },
   plugins: getPlugins("cjs"),
 };

@@ -93,6 +93,7 @@ const configCjs = {
     dir: "./dist/cjs",
     banner: `"use client";`,
     entryFileNames: "[name].cjs",
+    interop: "auto",
   },
   plugins: getPlugins("cjs"),
 };
