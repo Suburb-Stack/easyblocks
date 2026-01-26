@@ -67,7 +67,13 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "^19.0.0"
+      "@types/react": "^19.0.0",
+      "tar": "^7.5.4",
+      "braces": "^3.0.3",
+      "micromatch": "^4.0.8",
+      "cross-spawn": "^7.0.6",
+      "mem": "^10.0.0",
+      "yargs-parser": "^21.0.0"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
