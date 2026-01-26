@@ -10,7 +10,7 @@ on:
       dry_run:
         description: "Dry run (skip actual publish)"
         required: false
-        default: "false"
+        default: false
         type: boolean
 
 jobs:
@@ -67,7 +67,7 @@ jobs:
 
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: pnpm exec lerna publish from-package --yes --no-private
+        run: pnpm exec lerna publish from-package --yes --no-private --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
