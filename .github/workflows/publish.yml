@@ -46,12 +46,15 @@ jobs:
 
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: lerna publish from-git --yes --no-private
+        run: pnpm exec lerna publish from-git --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Dry run publish
+      - name: Dry run - show what would be published
         if: ${{ github.event.inputs.dry_run == 'true' }}
-        run: lerna publish from-git --yes --no-private --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== Dry run mode - showing packages that would be published ==="
+          pnpm exec lerna ls --json --no-private | jq -r '.[].name'
+          echo ""
+          echo "=== Package versions ==="
+          pnpm exec lerna ls -l --no-private
