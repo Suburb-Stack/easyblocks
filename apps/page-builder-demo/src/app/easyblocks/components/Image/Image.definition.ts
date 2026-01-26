@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 import { ImageSrc } from "../../externalData/types";
 import { last } from "../../utils/last";
 import { imageStyles } from "./Image.styles";

@@ -2,10 +2,10 @@ import {
   SectionProps,
   SectionWrapper,
 } from "@/app/easyblocks/components/utils/sectionWrapper/SectionWrapper";
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 
 function TwoCards(
-  props: NoCodeComponentProps & Record<string, any> & SectionProps
+  props: NoCodeComponentProps & Record<string, any> & SectionProps,
 ) {
   const {
     // TwoCards styled components

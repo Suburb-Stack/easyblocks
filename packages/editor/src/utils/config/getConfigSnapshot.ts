@@ -1,5 +1,5 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
-import { deepClone } from "@easyblocks/utils";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
+import { deepClone } from "@suburb-stack/utils";
 
 /**
  * Outputs comparable config that is FULL COPY of config

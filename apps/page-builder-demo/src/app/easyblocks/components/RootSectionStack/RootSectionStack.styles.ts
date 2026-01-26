@@ -1,4 +1,4 @@
-import type { NoCodeComponentStylesFunction } from "@easyblocks/core";
+import type { NoCodeComponentStylesFunction } from "@suburb-stack/core";
 
 export const rootSectionStackStyles: NoCodeComponentStylesFunction = ({
   values,

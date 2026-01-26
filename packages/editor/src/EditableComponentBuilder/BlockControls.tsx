@@ -9,10 +9,13 @@ import {
   CompiledShopstoryComponentConfig,
   ComponentCollectionSchemaProp,
   SerializedRenderableComponentDefinition,
-} from "@easyblocks/core";
-import { parsePath, useEasyblocksMetadata } from "@easyblocks/core/_internals";
-import { Colors } from "@easyblocks/design-system";
-import { toArray } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import {
+  parsePath,
+  useEasyblocksMetadata,
+} from "@suburb-stack/core/_internals";
+import { Colors } from "@suburb-stack/design-system";
+import { toArray } from "@suburb-stack/utils";
 import React, { Fragment } from "react";
 import { SelectionFrameController } from "./SelectionFrameController";
 import {
@@ -58,12 +61,12 @@ export function BlocksControls({
     .includes(path);
 
   const isChildComponentActive = focussedField.some((focusedField) =>
-    focusedField.startsWith(path)
+    focusedField.startsWith(path),
   );
 
   const entryPathParseResult = parsePath(path, form);
   const entryComponentDefinition = meta.vars.definitions.components.find(
-    (c) => c.id === entryPathParseResult.parent!.templateId
+    (c) => c.id === entryPathParseResult.parent!.templateId,
   );
 
   // component` could be draggable, but right now we only support collections.
@@ -71,11 +74,11 @@ export function BlocksControls({
     entryComponentDefinition!.schema.some(
       (s) =>
         s.prop === entryPathParseResult.parent!.fieldName &&
-        s.type === "component"
+        s.type === "component",
     );
 
   const isAncestorComponentActive = focussedField.some((f) =>
-    entryPathParseResult.parent!.path.startsWith(f)
+    entryPathParseResult.parent!.path.startsWith(f),
   );
 
   const isMultiSelection = focussedField.length > 1;
@@ -92,7 +95,7 @@ export function BlocksControls({
 
   const draggedComponentDefinition = draggedEntryPathParseResult
     ? meta.vars.definitions.components.find(
-        (c) => c.id === draggedEntryPathParseResult.templateId
+        (c) => c.id === draggedEntryPathParseResult.templateId,
       )
     : null;
 
@@ -167,7 +170,7 @@ export function BlocksControls({
       if (isMultipleSelection) {
         if (focussedField.includes(path)) {
           const result = focussedField.filter(
-            (fieldName) => fieldName !== path
+            (fieldName) => fieldName !== path,
           );
 
           if (result.length > 0) {
@@ -239,12 +242,12 @@ export function BlocksControls({
 }
 
 function getAllowedComponentTypes(
-  componentDefinition: SerializedRenderableComponentDefinition
+  componentDefinition: SerializedRenderableComponentDefinition,
 ) {
   const collectionSchemaProps =
     componentDefinition.schema.filter<ComponentCollectionSchemaProp>(
       (s): s is ComponentCollectionSchemaProp =>
-        s.type === "component-collection"
+        s.type === "component-collection",
     );
 
   const allowedComponentTypes = collectionSchemaProps.flatMap((s) => s.accepts);

@@ -1,4 +1,4 @@
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 
 function TextLink({
   Link,

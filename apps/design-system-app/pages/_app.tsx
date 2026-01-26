@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 // Dynamically import GlobalModalStyles to avoid styled-components SSR issues
 const GlobalModalStyles = dynamic(
   () =>
-    import("@easyblocks/design-system").then((mod) => mod.GlobalModalStyles),
+    import("@suburb-stack/design-system").then((mod) => mod.GlobalModalStyles),
   { ssr: false },
 );
 

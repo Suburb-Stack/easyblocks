@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 import { assertDefined } from "../../utils/assert";
 import { pxValueNormalize } from "../utils/pxValueNormalize";
 import { buttonStyles } from "./Button.styles";
@@ -277,7 +277,7 @@ export const buttonComponentDefinition: NoCodeComponentDefinition = {
   editing: ({ editingInfo, values, params }) => {
     const minHeightField = assertDefined(
       editingInfo.fields.find((field) => field.path === "minHeight"),
-      "minHeight field not found in StandardButton component fields"
+      "minHeight field not found in StandardButton component fields",
     );
 
     if (values.variant === "icon") {
@@ -287,7 +287,7 @@ export const buttonComponentDefinition: NoCodeComponentDefinition = {
     if (params.noAction) {
       const actionField = assertDefined(
         editingInfo.fields.find((field) => field.path === "Action"),
-        "Action field not found in StandardButton component fields"
+        "Action field not found in StandardButton component fields",
       );
       actionField.visible = false;
     }

@@ -1,5 +1,5 @@
 import { twoCardsAuto } from "@/app/easyblocks/components/TwoCards/TwoCards.auto";
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 import { range } from "../../utils/range";
 import {
   SectionWrapperValues,
@@ -146,7 +146,7 @@ const twoCardsComponentDefinition: NoCodeComponentDefinition<
     const { editingInfo, values } = args;
 
     const fields = Object.fromEntries(
-      editingInfo.fields.map((f) => [f.path, f])
+      editingInfo.fields.map((f) => [f.path, f]),
     );
 
     fields.card1Width.visible = false;

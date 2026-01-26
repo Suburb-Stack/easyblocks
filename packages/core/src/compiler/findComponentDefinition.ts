@@ -1,4 +1,4 @@
-import { toArray } from "@easyblocks/utils";
+import { toArray } from "@suburb-stack/utils";
 import { NoCodeComponentEntry } from "../types";
 import {
   InternalComponentDefinition,
@@ -8,7 +8,7 @@ import {
 type AnyContextWithDefinitions = { definitions: InternalComponentDefinitions };
 
 function allDefs(
-  context?: AnyContextWithDefinitions
+  context?: AnyContextWithDefinitions,
 ): InternalComponentDefinition[] {
   return context?.definitions.components || [];
 }
@@ -19,24 +19,24 @@ function allDefs(
 
 export function findComponentDefinition(
   config: NoCodeComponentEntry | undefined | null,
-  context: AnyContextWithDefinitions
+  context: AnyContextWithDefinitions,
 ): InternalComponentDefinition | undefined {
   return $findComponentDefinition(config, context);
 }
 
 export function findComponentDefinitionById(
   id: string,
-  context: AnyContextWithDefinitions
+  context: AnyContextWithDefinitions,
 ): InternalComponentDefinition | undefined {
   return $findComponentDefinitionById(id, context);
 }
 
 export function findComponentDefinitionsByType(
   tag: string,
-  context: AnyContextWithDefinitions
+  context: AnyContextWithDefinitions,
 ): InternalComponentDefinition[] {
   return allDefs(context).filter((def) =>
-    toArray(def.type ?? []).includes(tag)
+    toArray(def.type ?? []).includes(tag),
   );
 }
 
@@ -46,7 +46,7 @@ export function findComponentDefinitionsByType(
 
 function $findComponentDefinition(
   config: NoCodeComponentEntry | undefined | null,
-  context?: AnyContextWithDefinitions
+  context?: AnyContextWithDefinitions,
 ): InternalComponentDefinition | undefined {
   if (!config) {
     return undefined;
@@ -57,7 +57,7 @@ function $findComponentDefinition(
 
 function $findComponentDefinitionById(
   id: string,
-  context?: AnyContextWithDefinitions
+  context?: AnyContextWithDefinitions,
 ): InternalComponentDefinition | undefined {
   return allDefs(context).find((component) => component.id === id);
 }

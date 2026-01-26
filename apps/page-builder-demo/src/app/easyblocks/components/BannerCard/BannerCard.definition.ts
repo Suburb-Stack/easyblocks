@@ -2,7 +2,7 @@ import {
   NoCodeComponentDefinition,
   SchemaProp,
   EditingField,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 import { toStartEnd } from "@/app/easyblocks/components/utils/toStartEnd";
 import {
@@ -20,7 +20,7 @@ import { bannerCardAuto } from "@/app/easyblocks/components/BannerCard/BannerCar
 function noFillPaddingSchemaProp(
   prop: string,
   label: string,
-  group: string
+  group: string,
 ): SchemaProp {
   return {
     prop,
@@ -186,22 +186,22 @@ export const bannerCardDefinition: NoCodeComponentDefinition = {
     const paddingLeft = calculatePadding(
       values.paddingLeft,
       values.noFillPaddingLeft,
-      paddingModes.left
+      paddingModes.left,
     );
     const paddingRight = calculatePadding(
       values.paddingRight,
       values.noFillPaddingRight,
-      paddingModes.right
+      paddingModes.right,
     );
     const paddingTop = calculatePadding(
       values.paddingTop,
       values.noFillPaddingTop,
-      paddingModes.top
+      paddingModes.top,
     );
     const paddingBottom = calculatePadding(
       values.paddingBottom,
       values.noFillPaddingBottom,
-      paddingModes.bottom
+      paddingModes.bottom,
     );
 
     if (coverPosition === "hide") {
@@ -325,7 +325,7 @@ export const bannerCardDefinition: NoCodeComponentDefinition = {
     const setPaddingFieldVisibilityBasedOnMode = (
       standardPaddingField: EditingField,
       noFillPaddingField: EditingField,
-      paddingMode: PaddingMode
+      paddingMode: PaddingMode,
     ) => {
       if (paddingMode === "standard") {
         standardPaddingField.visible = true;
@@ -358,22 +358,22 @@ export const bannerCardDefinition: NoCodeComponentDefinition = {
     setPaddingFieldVisibilityBasedOnMode(
       paddingLeft,
       noFillPaddingLeft,
-      paddingModes.left
+      paddingModes.left,
     );
     setPaddingFieldVisibilityBasedOnMode(
       paddingRight,
       noFillPaddingRight,
-      paddingModes.right
+      paddingModes.right,
     );
     setPaddingFieldVisibilityBasedOnMode(
       paddingTop,
       noFillPaddingTop,
-      paddingModes.top
+      paddingModes.top,
     );
     setPaddingFieldVisibilityBasedOnMode(
       paddingBottom,
       noFillPaddingBottom,
-      paddingModes.bottom
+      paddingModes.bottom,
     );
 
     paddingInternal.visible = paddingModes.internal === "standard";
@@ -474,7 +474,7 @@ function calculateBannerCardStuff(values: Record<string, any>) {
 function calculatePadding(
   padding: string,
   noFillPadding: string,
-  paddingMode: PaddingMode
+  paddingMode: PaddingMode,
 ) {
   if (paddingMode === "none") {
     return "0px";
@@ -488,7 +488,7 @@ function calculatePadding(
 function paddingSchemaProp(
   prop: string,
   label: string,
-  group: string
+  group: string,
 ): SchemaProp {
   return {
     prop,

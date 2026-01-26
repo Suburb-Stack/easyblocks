@@ -1,12 +1,12 @@
-import { SchemaProp } from "@easyblocks/core";
+import { SchemaProp } from "@suburb-stack/core";
 import {
   CompilationContextType,
   InternalRenderableComponentDefinition,
   PathInfo,
   findComponentDefinitionById,
   parsePath,
-} from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import { Form } from "../form";
 import { insertCommand } from "./insert";
 
@@ -21,11 +21,11 @@ export type ResolveDestination = ReturnType<typeof destinationResolver>;
 function getSchema(path: PathInfo, context: CompilationContextType) {
   const parentDefinition = findComponentDefinitionById(
     path.parent?.templateId ?? "",
-    context
+    context,
   );
 
   const schema = (parentDefinition?.schema ?? []).find(
-    (s) => s.prop === path.parent?.fieldName
+    (s) => s.prop === path.parent?.fieldName,
   );
 
   return schema;
@@ -74,7 +74,7 @@ function destinationResolver({
 
       const definition = findComponentDefinitionById(
         parsed.templateId ?? "",
-        context
+        context,
       );
 
       if (!definition) {
@@ -123,7 +123,7 @@ function destinationResolver({
           pathsQueue.push(
             ...Array.from(Array(slotValues.length).keys())
               .map((idx) => `${slotPath}.${idx}`)
-              .reverse()
+              .reverse(),
           );
         }
       }

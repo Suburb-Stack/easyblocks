@@ -1,8 +1,8 @@
 import {
   EditorContextType,
   duplicateConfig,
-} from "@easyblocks/core/_internals";
-import { dotNotationGet, preOrderPathComparator } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { dotNotationGet, preOrderPathComparator } from "@suburb-stack/utils";
 import { useEffect } from "react";
 
 const GLOBAL_SHORTCUTS_KEYS = [
@@ -52,7 +52,7 @@ function useEditorGlobalKeyboardShortcuts(editorContext: EditorContextType) {
       event.preventDefault();
       event.clipboardData?.setData(
         DATA_TRANSFER_FORMAT,
-        JSON.stringify(configs)
+        JSON.stringify(configs),
       );
     }
 
@@ -66,7 +66,7 @@ function useEditorGlobalKeyboardShortcuts(editorContext: EditorContextType) {
       event.preventDefault();
       event.clipboardData?.setData(
         DATA_TRANSFER_FORMAT,
-        JSON.stringify(configs)
+        JSON.stringify(configs),
       );
 
       actions.removeItems(focusedFields);
@@ -119,7 +119,7 @@ function isTargetInputElement(target: EventTarget | null): boolean {
 }
 
 function isTargetHtmlElement(
-  element: EventTarget | null
+  element: EventTarget | null,
 ): element is HTMLElement {
   return element !== null;
 }

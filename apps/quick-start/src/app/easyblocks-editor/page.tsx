@@ -1,12 +1,12 @@
 "use client";
 
 import nextDynamic from "next/dynamic";
-import { Config, EasyblocksBackend } from "@easyblocks/core";
+import { Config, EasyblocksBackend } from "@suburb-stack/core";
 import { ReactElement } from "react";
 
 // Dynamically import EasyblocksEditor with SSR disabled to avoid styled-components SSR issues
 const EasyblocksEditor = nextDynamic(
-  () => import("@easyblocks/editor").then((mod) => mod.EasyblocksEditor),
+  () => import("@suburb-stack/editor").then((mod) => mod.EasyblocksEditor),
   { ssr: false },
 );
 

@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 
 const panelCardDefinition: NoCodeComponentDefinition = {
   id: "PanelCard",

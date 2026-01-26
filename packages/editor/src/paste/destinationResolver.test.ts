@@ -1,4 +1,4 @@
-import { CompilationContextType } from "@easyblocks/core/_internals";
+import { CompilationContextType } from "@suburb-stack/core/_internals";
 import { testEditorContext } from "../utils/tests";
 import { destinationResolver } from "./destinationResolver";
 import { Form } from "../form";
@@ -230,8 +230,8 @@ describe("destinationResolver", () => {
       const destinations = resolve(path);
 
       expect(destinations.map((x) => `${x.name}.${x.index}`)).toEqual(
-        expectedPaths
+        expectedPaths,
       );
-    }
+    },
   );
 });

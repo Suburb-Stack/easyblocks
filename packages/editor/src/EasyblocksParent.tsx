@@ -3,13 +3,13 @@ import {
   FetchOutputResources,
   InlineTypeWidgetComponentProps,
   WidgetComponentProps,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   ModalContext,
   GlobalModalStyles,
   Toaster,
   TooltipProvider,
-} from "@easyblocks/design-system";
+} from "@suburb-stack/design-system";
 import isPropValid from "@emotion/is-prop-valid";
 import React, { ComponentType } from "react";
 import { ShouldForwardProp, StyleSheetManager } from "styled-components";

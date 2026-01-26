@@ -1,5 +1,5 @@
 "use client";
-import { dotNotationGet } from "@easyblocks/utils";
+import { dotNotationGet } from "@suburb-stack/utils";
 import React, { ReactElement } from "react";
 import { InternalNoCodeComponentProps } from "../../../components/ComponentBuilder/ComponentBuilder";
 import { InlineTextarea } from "./InlineTextarea";
@@ -31,7 +31,7 @@ function TextEditor(props: TextProps) {
           stitches={runtime.stitches}
         />
       ) : (
-        value ?? <span>&nbsp;</span>
+        (value ?? <span>&nbsp;</span>)
       )}
     </Text.type>
   );

@@ -19,7 +19,7 @@ import {
   responsiveValueFlatten,
   responsiveValueMap,
   Devices,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 export const sectionWrapperSchemaProps: {
   margins: SchemaProp[];
@@ -257,7 +257,7 @@ export type SectionWrapperValues = {
 export function sectionWrapperCalculateMarginAndMaxWidth(
   containerMargin: string,
   containerMaxWidth: number,
-  device: DeviceRange
+  device: DeviceRange,
 ) {
   const maxWidth = containerMaxWidth === -1 ? null : containerMaxWidth;
 
@@ -316,7 +316,7 @@ export function sectionWrapperStyles({
   const { margin } = sectionWrapperCalculateMarginAndMaxWidth(
     values.containerMargin,
     values.containerMaxWidth,
-    device
+    device,
   );
 
   if (values.headerMode === "1-stack") {
@@ -333,8 +333,8 @@ export function sectionWrapperStyles({
       values.layout1Stack === "left"
         ? "flex-start"
         : values.layout1Stack === "right"
-        ? "flex-end"
-        : "center";
+          ? "flex-end"
+          : "center";
 
     styles.HeaderStack.passedAlign = values.layout1Stack;
   } else if (values.headerMode === "2-stacks") {
@@ -531,7 +531,7 @@ export const sectionWrapperEditing: NoCodeComponentEditingFunction = ({
  */
 export const sectionWrapperGetContainerWidths = (
   values: Record<string, any>,
-  devices: Devices
+  devices: Devices,
 ) => {
   const widths: TrulyResponsiveValue<number> = { $res: true };
 
@@ -539,28 +539,28 @@ export const sectionWrapperGetContainerWidths = (
     const escapeMargin = responsiveValueGetDefinedValue(
       values.escapeMargin,
       device.id,
-      devices
+      devices,
     );
     const containerMargin = escapeMargin
       ? "0px"
       : responsiveValueForceGet(
           responsiveValueFlatten(
             responsiveValueMap(values.containerMargin, (val) => val.value),
-            devices
+            devices,
           ),
-          device.id
+          device.id,
         ); // TODO: we should have helpers to make those operations easier
 
     const containerMaxWidth = responsiveValueGetDefinedValue(
       values.containerMaxWidth,
       device.id,
-      devices
+      devices,
     ).value;
 
     const { containerWidth } = sectionWrapperCalculateMarginAndMaxWidth(
       escapeMargin ? "0px" : containerMargin,
       containerMaxWidth,
-      device
+      device,
     );
 
     widths[device.id] = containerWidth.px;

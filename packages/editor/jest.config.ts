@@ -6,9 +6,9 @@ const config: Config.InitialOptions = {
   },
   testEnvironment: "jsdom",
   moduleNameMapper: {
-    // Map @easyblocks/core packages to source files for proper mocking support
-    "^@easyblocks/core/_internals$": "<rootDir>/../core/src/_internals.ts",
-    "^@easyblocks/core$": "<rootDir>/../core/src/index.ts",
+    // Map @suburb-stack/core packages to source files for proper mocking support
+    "^@suburb-stack/core/_internals$": "<rootDir>/../core/src/_internals.ts",
+    "^@suburb-stack/core$": "<rootDir>/../core/src/index.ts",
   },
   setupFiles: ["<rootDir>/jest.setup.ts"],
 };

@@ -1,5 +1,5 @@
 {
-  "name": "@easyblocks/reduce-css-calc",
+  "name": "@suburb-stack/reduce-css-calc",
   "version": "1.0.10",
   "private": true,
   "description": "Reduce CSS calc() function to the maximum",

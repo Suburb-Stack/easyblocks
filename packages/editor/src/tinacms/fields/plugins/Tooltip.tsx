@@ -1,4 +1,4 @@
-import { Fonts } from "@easyblocks/design-system";
+import { Fonts } from "@suburb-stack/design-system";
 import React, { CSSProperties, forwardRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
@@ -15,9 +15,9 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       <div style={{ ...style, zIndex: 100100 }} ref={ref} {...rest}>
         {children}
       </div>,
-      document.body
+      document.body,
     );
-  }
+  },
 );
 
 const TooltipBody: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`

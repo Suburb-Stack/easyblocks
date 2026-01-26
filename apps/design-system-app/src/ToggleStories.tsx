@@ -1,4 +1,4 @@
-import { Toggle, Typography } from "@easyblocks/design-system";
+import { Toggle, Typography } from "@suburb-stack/design-system";
 
 export function ToggleStories() {
   return (

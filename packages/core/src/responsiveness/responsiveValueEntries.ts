@@ -1,8 +1,8 @@
-import { entries } from "@easyblocks/utils";
+import { entries } from "@suburb-stack/utils";
 import { TrulyResponsiveValue } from "../types";
 
 function responsiveValueEntries<T>(
-  value: TrulyResponsiveValue<T>
+  value: TrulyResponsiveValue<T>,
 ): Array<[string, T]> {
   const values: Array<[string, T]> = [];
 

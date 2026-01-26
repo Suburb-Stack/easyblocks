@@ -1,4 +1,4 @@
-import type { NoCodeComponentEntry } from "@easyblocks/core";
+import type { NoCodeComponentEntry } from "@suburb-stack/core";
 import { useRef } from "react";
 import ReactDOM from "react-dom";
 import { EditorHistory, HistoryEntry } from "./EditorHistory";

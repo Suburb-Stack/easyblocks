@@ -2,13 +2,13 @@ import {
   ComponentSchemaProp,
   Field,
   NoCodeComponentEntry,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   findComponentDefinitionById,
   parsePath,
-} from "@easyblocks/core/_internals";
-import { ButtonGhost, Icons, Typography } from "@easyblocks/design-system";
-import { toArray } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { ButtonGhost, Icons, Typography } from "@suburb-stack/design-system";
+import { toArray } from "@suburb-stack/utils";
 import React, { useContext } from "react";
 import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { css } from "styled-components";
@@ -16,8 +16,10 @@ import { useEditorContext } from "../../../EditorContext";
 import { isMixedFieldValue } from "../components/isMixedFieldValue";
 import { PanelContext } from "./BlockFieldPlugin";
 
-interface IdentityFieldProps
-  extends FieldRenderProps<NoCodeComponentEntry, HTMLElement> {
+interface IdentityFieldProps extends FieldRenderProps<
+  NoCodeComponentEntry,
+  HTMLElement
+> {
   field: Field;
 }
 
@@ -34,7 +36,7 @@ function IdentityField({ input, field }: IdentityFieldProps) {
 
   const componentDefinition = findComponentDefinitionById(
     config._component,
-    editorContext
+    editorContext,
   );
 
   const configPaths = toArray(field.name);
@@ -45,7 +47,7 @@ function IdentityField({ input, field }: IdentityFieldProps) {
     ? findComponentDefinitionById(parent.templateId, editorContext)
     : undefined;
   const parentSchemaProp = parentComponentDefinition?.schema.find(
-    (schemaProp) => schemaProp.prop === parent!.fieldName
+    (schemaProp) => schemaProp.prop === parent!.fieldName,
   );
 
   const isNonRemovable =

@@ -1,8 +1,11 @@
 {
-  "name": "@easyblocks/core",
+  "name": "@suburb-stack/core",
   "type": "module",
   "version": "1.0.11",
   "description": "No-code ecommerce builder for headless CMS",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "NODE_ENV=development concurrently -n bundle,emit-declarations 'rollup -c rollup.config.js --watch' 'tsc --watch --preserveWatchOutput'",
     "build": "npm run bundle && npm run emit-declarations",
@@ -29,10 +32,10 @@
   "devDependencies": {
     "@babel/core": "^7.28.6",
     "@babel/plugin-transform-runtime": "^7.28.5",
-    "@easyblocks/build-tools": "workspace:*",
-    "@easyblocks/reduce-css-calc": "workspace:*",
-    "@easyblocks/test-utils": "workspace:*",
-    "@easyblocks/utils": "workspace:*",
+    "@suburb-stack/build-tools": "workspace:*",
+    "@suburb-stack/reduce-css-calc": "workspace:*",
+    "@suburb-stack/test-utils": "workspace:*",
+    "@suburb-stack/utils": "workspace:*",
     "@jest/types": "^30.2.0",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.0",

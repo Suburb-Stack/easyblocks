@@ -9,10 +9,10 @@ test("idle", () => {
 //   DocumentDTO,
 //   DocumentWithResolvedConfigDTO,
 //   ResponsiveValue,
-// } from "@easyblocks/core";
-// import { normalize } from "@easyblocks/core/_internals";
-// import { mock, mockConsoleMethod } from "@easyblocks/test-utils";
-// import { assertDefined, deepClone, dotNotationSet } from "@easyblocks/utils";
+// } from "@suburb-stack/core";
+// import { normalize } from "@suburb-stack/core/_internals";
+// import { mock, mockConsoleMethod } from "@suburb-stack/test-utils";
+// import { assertDefined, deepClone, dotNotationSet } from "@suburb-stack/utils";
 // import { renderHook } from "@testing-library/react";
 // import React from "react";
 // import { PartialDeep } from "type-fest";

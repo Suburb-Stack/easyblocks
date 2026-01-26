@@ -1,4 +1,4 @@
-import type { WidgetComponentProps } from "@easyblocks/core";
+import type { WidgetComponentProps } from "@suburb-stack/core";
 import { MediaPicker } from "./MediaPicker";
 
 export function MockImagePicker({

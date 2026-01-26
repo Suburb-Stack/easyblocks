@@ -9,7 +9,7 @@ import {
   responsiveValueMap,
   responsiveValueFlatten,
   spacingToPx,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 import { responsiveAuto } from "../utils/responsiveAuto";
 import {
@@ -21,21 +21,21 @@ function calculateContainerWidth(
   config: Record<string, any>,
   device: DeviceRange,
   devices: Devices,
-  widths: TrulyResponsiveValue<number>
+  widths: TrulyResponsiveValue<number>,
 ) {
   const edgeMargin: string =
     responsiveValueGetDefinedValue(
       config.edgeMargin,
       device.id,
       devices,
-      widths
+      widths,
     ) ?? "0px";
   const snappedToEdge =
     responsiveValueGetDefinedValue(
       config.snappedToEdge,
       device.id,
       devices,
-      widths
+      widths,
     ) ?? 0;
   const width = responsiveValueForceGet(widths, device.id);
 
@@ -76,7 +76,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
       return {
         shouldSliderItemsBeVisibleOnMargin,
       };
-    }
+    },
   );
 
   /**
@@ -104,7 +104,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
         closestDefinedValues,
         width,
       },
-      { config, widths, device }
+      { config, widths, device },
     ) => {
       if (values.numberOfItems !== undefined) {
         if (device.id === "xs" && values.fractionalItemWidth === undefined) {
@@ -133,7 +133,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
         ? parseInt(lowerDefinedValues.numberOfItems.value)
         : 1;
       const maxNumberOfItems = parseInt(
-        higherDefinedValues.numberOfItems.value
+        higherDefinedValues.numberOfItems.value,
       );
       const variant = closestDefinedValues.variant.value;
 
@@ -157,7 +157,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
          */
         const higherWidth = higherDefinedValues.numberOfItems.width;
         const higherNumberOfItems = parseInt(
-          higherDefinedValues.numberOfItems.value
+          higherDefinedValues.numberOfItems.value,
         );
         const higherItemWidth = higherWidth / higherNumberOfItems;
         const current2ItemsWidth = width / 2;
@@ -179,7 +179,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
         config,
         device,
         devices,
-        widths
+        widths,
       );
 
       let bestNum = minNumberOfItems;
@@ -215,14 +215,14 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
         const num = pair.numberOfItems + pair.fraction;
 
         const higherNumberOfItems = parseInt(
-          higherDefinedValues.numberOfItems.value
+          higherDefinedValues.numberOfItems.value,
         );
         const higherIsRow = higherNumberOfItems <= config.Cards.length;
         const higherContainerWidth = calculateContainerWidth(
           config,
           higherDefinedValues.numberOfItems.device,
           devices,
-          widths
+          widths,
         );
         const higherItemWidth = higherContainerWidth / higherNumberOfItems;
 
@@ -260,7 +260,7 @@ export const gridAuto: NoCodeComponentAutoFunction<any, any> = ({
         numberOfItems: bestNum.toString(),
         fractionalItemWidth: (bestFraction + 1).toString(),
       };
-    }
+    },
   );
 
   return valuesAfterAuto;

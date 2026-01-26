@@ -2,8 +2,8 @@ import {
   Position,
   PositionHorizontal,
   PositionVertical,
-} from "@easyblocks/core";
-import { Colors } from "@easyblocks/design-system";
+} from "@suburb-stack/core";
+import { Colors } from "@suburb-stack/design-system";
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import React from "react";
 import styled from "styled-components";
@@ -21,7 +21,7 @@ const positions: ReadonlyArray<{ label: string; value: Position }> = [
 ];
 
 function horizontalPositionToFlexJustifyContentValue(
-  position: "left" | "center" | "right"
+  position: "left" | "center" | "right",
 ) {
   switch (position) {
     case "left":
@@ -34,7 +34,7 @@ function horizontalPositionToFlexJustifyContentValue(
 }
 
 function verticalPositionToFlexAlignItemsValue(
-  position: "top" | "center" | "bottom"
+  position: "top" | "center" | "bottom",
 ) {
   switch (position) {
     case "top":
@@ -70,7 +70,7 @@ function PositionPickerInput({
       {positions.map((p) => {
         const [vertical, horizontal] = p.value.split("-") as [
           PositionVertical,
-          PositionHorizontal
+          PositionHorizontal,
         ];
 
         return (
@@ -83,7 +83,7 @@ function PositionPickerInput({
               position: relative;
               display: flex;
               justify-content: ${horizontalPositionToFlexJustifyContentValue(
-                horizontal
+                horizontal,
               )};
               align-items: ${verticalPositionToFlexAlignItemsValue(vertical)};
               box-sizing: border-box;
@@ -112,7 +112,7 @@ function PositionPickerInput({
                 flex-direction: column;
                 justify-content: center;
                 align-items: ${horizontalPositionToFlexJustifyContentValue(
-                  horizontal
+                  horizontal,
                 )};
                 gap: 2px;
                 width: 16px;

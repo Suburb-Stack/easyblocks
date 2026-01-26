@@ -3,13 +3,13 @@ import {
   NoCodeComponentEntry,
   ComponentSchemaProp,
   SchemaProp,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   CompilationContextType,
   duplicateConfig,
   findComponentDefinition,
-} from "@easyblocks/core/_internals";
-import { includesAny } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { includesAny } from "@suburb-stack/utils";
 import { Form } from "../form";
 import { normalizeToStringArray } from "../normalizeToStringArray";
 import { reconcile } from "./reconcile";

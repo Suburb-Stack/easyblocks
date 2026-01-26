@@ -35,8 +35,8 @@ const easyblocksConfig: Config = {
 Now let's define the widget UI component responsible for displaying the value for `url` field type and updating it:
 
 ```tsx
-import { InlineTypeWidgetComponentProps } from "@easyblocks/core";
-import { Input } from "@easyblocks/design-system";
+import { InlineTypeWidgetComponentProps } from "@suburb-stack/core";
+import { Input } from "@suburb-stack/design-system";
 import { useEffect, useState } from "react";
 
 function UrlWidget(props: InlineTypeWidgetComponentProps<string>) {
@@ -177,8 +177,8 @@ const easyblocksConfig: Config = {
 Now we need to also define a UI responsible for rendering a custom input for `url` type:
 
 ```tsx
-import type { TokenTypeWidgetComponentProps } from "@easyblocks/core";
-import { Input } from "@easyblocks/design-system";
+import type { TokenTypeWidgetComponentProps } from "@suburb-stack/core";
+import { Input } from "@suburb-stack/design-system";
 import { useState } from "react";
 
 function validateURL(value: string) {

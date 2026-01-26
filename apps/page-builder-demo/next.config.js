@@ -11,7 +11,7 @@ const nextConfig = {
 
     return config;
   },
-  transpilePackages: ["@easyblocks/utils"],
+  transpilePackages: ["@suburb-stack/utils"],
 };
 
 module.exports = nextConfig;

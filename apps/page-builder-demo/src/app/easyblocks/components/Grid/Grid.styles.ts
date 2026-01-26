@@ -1,8 +1,8 @@
 import type {
   InferNoCodeComponentStylesFunctionInput,
   NoCodeComponentStylesFunctionResult,
-} from "@easyblocks/core";
-import { spacingToPx } from "@easyblocks/core";
+} from "@suburb-stack/core";
+import { spacingToPx } from "@suburb-stack/core";
 import {
   sectionWrapperCalculateMarginAndMaxWidth,
   sectionWrapperStyles,
@@ -45,7 +45,7 @@ function gridStyles({
   const { margin, containerWidth } = sectionWrapperCalculateMarginAndMaxWidth(
     values.escapeMargin ? "0px" : values.containerMargin,
     values.containerMaxWidth,
-    device
+    device,
   );
 
   const cssAbsoluteLeftPosition = margin.css;
@@ -280,7 +280,7 @@ function gridStyles({
   const itemPositions = buildItemPositions(
     rows,
     cardStyles.length,
-    isSlider ? cardStyles.length : numberOfItems
+    isSlider ? cardStyles.length : numberOfItems,
   );
 
   const colGapPx = spacingToPx(values.columnGap, containerWidth.px);

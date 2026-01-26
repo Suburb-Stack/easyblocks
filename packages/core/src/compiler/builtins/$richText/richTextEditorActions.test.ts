@@ -1,4 +1,4 @@
-// import { uniqueId } from "@easyblocks/utils";
+// import { uniqueId } from "@suburb-stack/utils";
 import { createEditor, Editor, Transforms } from "slate";
 import { withReact } from "slate-react";
 import {
@@ -770,7 +770,7 @@ describe("updateSelection", () => {
 
 function setup(
   editorState: Editor["children"],
-  editorSelection: NonNullable<Editor["selection"]>
+  editorSelection: NonNullable<Editor["selection"]>,
 ) {
   const editor = withEasyblocks(withReact(createEditor()));
   editor.children = editorState;

@@ -1,4 +1,4 @@
-import { NoCodeComponentChangeFunction } from "@easyblocks/core";
+import { NoCodeComponentChangeFunction } from "@suburb-stack/core";
 import { TWO_CARDS_COL_NUM } from "./twoCardsConstants";
 
 type WidthRelatedValues = {
@@ -9,7 +9,7 @@ type WidthRelatedValues = {
 
 function correctCardWidths(
   values: WidthRelatedValues,
-  fixedWidthField: "card1Width" | "card2Width"
+  fixedWidthField: "card1Width" | "card2Width",
 ): WidthRelatedValues {
   const ret: WidthRelatedValues = { ...values };
 
@@ -55,7 +55,7 @@ export const twoCardsChange: NoCodeComponentChangeFunction = ({
       if (prop === "collapse") {
         return correctCardWidths(
           { ...definedValues, collapse: newValue },
-          "card1Width"
+          "card1Width",
         );
       } else if (prop === "card1Width" || prop === "card2Width") {
         return {

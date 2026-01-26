@@ -1,11 +1,11 @@
 import type {
   NoCodeComponentStylesFunctionInput,
   NoCodeComponentStylesFunctionResult,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { imageStyles } from "../Image/Image.styles";
 
 export default function styles(
-  input: NoCodeComponentStylesFunctionInput
+  input: NoCodeComponentStylesFunctionInput,
 ): NoCodeComponentStylesFunctionResult {
   const imageBoxes = imageStyles(input);
   const { values } = input;

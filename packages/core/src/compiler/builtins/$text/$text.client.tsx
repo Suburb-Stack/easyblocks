@@ -1,4 +1,4 @@
-import { cleanString } from "@easyblocks/utils";
+import { cleanString } from "@suburb-stack/utils";
 import React, { ReactElement } from "react";
 
 type TextProps = {

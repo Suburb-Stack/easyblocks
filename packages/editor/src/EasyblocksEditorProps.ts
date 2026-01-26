@@ -5,13 +5,13 @@ import {
   ExternalData,
   InlineTypeWidgetComponentProps,
   WidgetComponentProps,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import React, { ComponentType } from "react";
 import { TemplatePicker } from "./TemplatePicker";
 
 export type ExternalDataChangeHandler = (
   externalData: RequestedExternalData,
-  contextParams: ContextParams
+  contextParams: ContextParams,
 ) => void;
 
 export type EasyblocksEditorProps = {

@@ -1,4 +1,4 @@
-import { dotNotationSet } from "@easyblocks/utils";
+import { dotNotationSet } from "@suburb-stack/utils";
 import { EasyblocksBackend } from "./EasyblocksBackend";
 import { createCompilationContext } from "./compiler/createCompilationContext";
 import { Devices } from "./types";
@@ -61,7 +61,7 @@ function createTestCompilationContext() {
       components: [{ id: "TestComponent", schema: [] }],
     },
     { locale: "en" },
-    "TestComponent"
+    "TestComponent",
   );
 }
 

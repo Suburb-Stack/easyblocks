@@ -1,5 +1,5 @@
 {
-  "name": "@easyblocks/utils",
+  "name": "@suburb-stack/utils",
   "version": "1.0.10",
   "private": true,
   "main": "src/index.ts",

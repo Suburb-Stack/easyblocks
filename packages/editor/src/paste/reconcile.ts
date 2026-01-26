@@ -1,6 +1,6 @@
-import { CompilationContextType } from "@easyblocks/core/_internals";
-import { normalize } from "@easyblocks/core/_internals";
-import { NoCodeComponentEntry } from "@easyblocks/core";
+import { CompilationContextType } from "@suburb-stack/core/_internals";
+import { normalize } from "@suburb-stack/core/_internals";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
 
 export function reconcile({
   context,
@@ -32,7 +32,7 @@ export function reconcile({
           },
         },
       },
-      context
+      context,
     );
   };
 }

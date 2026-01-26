@@ -1,4 +1,4 @@
-import { Colors } from "@easyblocks/design-system";
+import { Colors } from "@suburb-stack/design-system";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ExtraKeys, useWindowKeyDown } from "./useWindowKeyDown";

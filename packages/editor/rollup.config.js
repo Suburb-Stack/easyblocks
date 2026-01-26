@@ -8,7 +8,7 @@ import {
   getFullySpecifiedEnvs,
   isDevelopment,
   isProduction,
-} from "@easyblocks/build-tools";
+} from "@suburb-stack/build-tools";
 import { visualizer } from "rollup-plugin-visualizer";
 import packageJson from "./package.json" with { type: "json" };
 
@@ -64,7 +64,7 @@ const baseConfig = {
     /@babel\/runtime/,
     /lodash/,
     /react-dom/,
-    /@easyblocks\/core/,
+    /@suburb-stack\/core/,
   ],
 };
 

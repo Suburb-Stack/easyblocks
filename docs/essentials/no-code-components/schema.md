@@ -38,7 +38,7 @@ export const simpleBannerDefinition: NoCodeComponentDefinition = {
       prop: "Title",
       type: "component",
       required: true,
-      accepts: ["@easyblocks/text"],
+      accepts: ["@suburb-stack/text"],
     },
     {
       prop: "Buttons",
@@ -112,7 +112,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
     "xl": {
       "tokenId": "sky-blue",
       "value": "#7DABDA",
-      "widgetId": "@easyblocks/color"
+      "widgetId": "@suburb-stack/color"
     }
   },
   "hasBorder": {
@@ -124,7 +124,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
     "xl": {
       "tokenId": "48",
       "value": "48px",
-      "widgetId": "@easyblocks/space"
+      "widgetId": "@suburb-stack/space"
     }
   },
   "gap": {
@@ -132,7 +132,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
     "xl": {
       "tokenId": "16",
       "value": "16px",
-      "widgetId": "@easyblocks/space"
+      "widgetId": "@suburb-stack/space"
     }
   },
   "buttonsGap": {
@@ -140,26 +140,26 @@ Under the hood each No-Code Component instance added to the canvas is represente
     "xl": {
       "tokenId": "12",
       "value": "12px",
-      "widgetId": "@easyblocks/space"
+      "widgetId": "@suburb-stack/space"
     }
   },
   "Title": [
     {
       "_id": "eb6c8c9a-63b7-4b58-8ab3-9f0d310c68d2",
-      "_component": "@easyblocks/text",
+      "_component": "@suburb-stack/text",
       "value": {
         "id": "local.9d550249-cdfa-4e01-8fd1-edeb69a1f7ba",
         "value": {
           "en-US": "Lorem ipsum dolor."
         },
-        "widgetId": "@easyblocks/local-text"
+        "widgetId": "@suburb-stack/local-text"
       },
       "color": {
         "$res": true,
         "xl": {
           "tokenId": "black",
           "value": "#000000",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "font": {
@@ -202,18 +202,18 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "value": {
           "en-US": "Primary button"
         },
-        "widgetId": "@easyblocks/local-text"
+        "widgetId": "@suburb-stack/local-text"
       },
       "icon": {
         "value": "<svg viewBox=\"0 -960 960 960\"><path fill=\"currentColor\" d=\"m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z\"/></svg>",
-        "widgetId": "@easyblocks/icon"
+        "widgetId": "@suburb-stack/icon"
       },
       "color": {
         "$res": true,
         "xl": {
           "tokenId": "grey_01",
           "value": "#f9f8f3",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "minHeight": {
@@ -229,7 +229,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "value": "16px",
           "tokenId": "16",
-          "widgetId": "@easyblocks/space"
+          "widgetId": "@suburb-stack/space"
         }
       },
       "gap": {
@@ -237,7 +237,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "value": "6px",
           "tokenId": "6",
-          "widgetId": "@easyblocks/space"
+          "widgetId": "@suburb-stack/space"
         }
       },
       "cornerMode": {
@@ -274,7 +274,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "tokenId": "grey_05",
           "value": "#252525",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "hasBorder": false,
@@ -286,7 +286,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "$res": true,
         "xl": {
           "value": "#000000",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "boxShadow": {
@@ -312,18 +312,18 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "value": {
           "en-US": "Click me"
         },
-        "widgetId": "@easyblocks/local-text"
+        "widgetId": "@suburb-stack/local-text"
       },
       "icon": {
         "value": "<svg viewBox=\"0 -960 960 960\"><path fill=\"currentColor\" d=\"m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z\"/></svg>",
-        "widgetId": "@easyblocks/icon"
+        "widgetId": "@suburb-stack/icon"
       },
       "color": {
         "$res": true,
         "xl": {
           "value": "#252525",
           "tokenId": "grey_05",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "minHeight": {
@@ -339,7 +339,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "value": "16px",
           "tokenId": "16",
-          "widgetId": "@easyblocks/space"
+          "widgetId": "@suburb-stack/space"
         }
       },
       "gap": {
@@ -347,7 +347,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "value": "6px",
           "tokenId": "6",
-          "widgetId": "@easyblocks/space"
+          "widgetId": "@suburb-stack/space"
         }
       },
       "cornerMode": {
@@ -384,7 +384,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "xl": {
           "value": "#f9f8f3",
           "tokenId": "grey_01",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "hasBorder": false,
@@ -396,7 +396,7 @@ Under the hood each No-Code Component instance added to the canvas is represente
         "$res": true,
         "xl": {
           "value": "#000000",
-          "widgetId": "@easyblocks/color"
+          "widgetId": "@suburb-stack/color"
         }
       },
       "boxShadow": {
@@ -496,7 +496,7 @@ Value of field of type `text` is stored in No-Code Entry in the following way:
 }
 ```
 
-Easyblocks offers a built-in component `@easyblocks/text` utilising `text` type.&#x20;
+Easyblocks offers a built-in component `@suburb-stack/text` utilising `text` type.&#x20;
 
 ### Responsiveness
 
@@ -653,7 +653,7 @@ Component field creates a slot which can be filled with single component.
 {
   prop: "Component",
   type: "component",
-  accepts: ["@easyblocks/rich-text"]
+  accepts: ["@suburb-stack/rich-text"]
 }
 ```
 
@@ -738,13 +738,13 @@ It's great when your component should have a fixed element. Imagine a card compo
     {
       prop: "Heading",
       type: "component",
-      accepts: ["@easyblocks/rich-text"],
+      accepts: ["@suburb-stack/rich-text"],
       required: true
     },
     {
       prop: "Subheading",
       type: "component",
-      accepts: ["@easyblocks/rich-text"],
+      accepts: ["@suburb-stack/rich-text"],
     }
   ]
 }
@@ -754,8 +754,8 @@ It's great when your component should have a fixed element. Imagine a card compo
 
 Easyblocks is shipped with two built-in components that can be handy:
 
-- `@easyblocks/rich-text` - rich text component for text editing values that's also localizable
-- `@easyblocks/text` - a simpler version component for text editing component that's also localizable, but without being rich (single font and color, no links).
+- `@suburb-stack/rich-text` - rich text component for text editing values that's also localizable
+- `@suburb-stack/text` - a simpler version component for text editing component that's also localizable, but without being rich (single font and color, no links).
 
 ### Component Collection
 
@@ -767,7 +767,7 @@ Component collection field creates a slot which can be filled with any number of
 {
   prop: "Components",
   type: "component-collection",
-  accepts: ["@easyblocks/rich-text"]
+  accepts: ["@suburb-stack/rich-text"]
 }
 ```
 
@@ -795,7 +795,7 @@ By default, when you use `component-collection` field and start adding items on 
 {
   prop: "Components",
   type: "component-collection",
-  accepts: ["@easyblocks/rich-text"],
+  accepts: ["@suburb-stack/rich-text"],
   editing({ values }) {
     return {
       components: {

@@ -1,9 +1,9 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
 import {
   CompilationContextType,
   createTestCompilationContext,
   // @ts-ignore
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 import { configMap } from "./configMap";
 
 function createCard(color: string) {
@@ -126,7 +126,7 @@ describe("configMap", () => {
         }
 
         return value;
-      }
+      },
     );
 
     expect(mappedConfig).toEqual({
@@ -245,7 +245,7 @@ describe("configMap", () => {
           return "!" + value;
         }
         return value;
-      }
+      },
     );
 
     expect(mappedConfig).toEqual({
@@ -277,7 +277,7 @@ describe("configMap", () => {
       compilationContext,
       ({ value }) => {
         return value;
-      }
+      },
     );
 
     expect(mappedConfig.Card).toEqual(undefined);
@@ -291,7 +291,7 @@ describe("configMap", () => {
     testCaseConfig.LocalisedCards.__fallback = true;
 
     expect(() =>
-      configMap(config, compilationContext, jest.fn())
+      configMap(config, compilationContext, jest.fn()),
     ).not.toThrow();
   });
 });

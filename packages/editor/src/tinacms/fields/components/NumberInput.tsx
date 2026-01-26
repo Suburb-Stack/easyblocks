@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Input } from "@easyblocks/design-system";
+import { Input } from "@suburb-stack/design-system";
 
-interface NumberProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+interface NumberProps extends React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> {
   step?: string | number;
 }
 

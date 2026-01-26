@@ -1,4 +1,4 @@
-import { deepCompare, keys, uniqueId } from "@easyblocks/utils";
+import { deepCompare, keys, uniqueId } from "@suburb-stack/utils";
 import {
   Editor,
   NodeEntry,
@@ -99,7 +99,7 @@ export { withEasyblocks };
 
 function unwrapBlockElementsNestedWithinBlockElement(
   editor: Editor,
-  entry: NodeEntry<SlateNode>
+  entry: NodeEntry<SlateNode>,
 ): boolean {
   const [node, path] = entry;
 
@@ -107,7 +107,7 @@ function unwrapBlockElementsNestedWithinBlockElement(
     SlateElement.isElement(node) &&
     // This cast is fine since `RichTextBlockElementType` overlaps with type of `node.type`.
     ["bulleted-list", "numbered-list", "paragraph"].includes(
-      node.type as RichTextBlockElementType
+      node.type as RichTextBlockElementType,
     )
   ) {
     const nodeParent = SlateNode.parent(editor, path);
@@ -124,7 +124,7 @@ function unwrapBlockElementsNestedWithinBlockElement(
       if (
         nodeParent.type !== node.type &&
         ["bulleted-list", "numbered-list", "paragraph"].includes(
-          nodeParent.type as RichTextBlockElementType
+          nodeParent.type as RichTextBlockElementType,
         )
       ) {
         Transforms.liftNodes(editor, { at: path });
@@ -138,7 +138,7 @@ function unwrapBlockElementsNestedWithinBlockElement(
 
 function updateNonUniqueIds(
   editor: Editor,
-  entry: NodeEntry<SlateNode>
+  entry: NodeEntry<SlateNode>,
 ): boolean {
   const [node, path] = entry;
 
@@ -155,7 +155,7 @@ function updateNonUniqueIds(
           at: path,
           match: (n) =>
             (Text.isText(n) || SlateElement.isElement(n)) && n.id === node.id,
-        }
+        },
       );
       return true;
     } else {
@@ -168,7 +168,7 @@ function updateNonUniqueIds(
 
 function mergeVisuallyTheSameOrEmptyTextNodes(
   editor: Editor,
-  entry: NodeEntry<SlateNode>
+  entry: NodeEntry<SlateNode>,
 ): boolean {
   const [node, path] = entry;
 
@@ -226,7 +226,7 @@ function mergeVisuallyTheSameOrEmptyTextNodes(
               {
                 at: currentChildPath,
                 match: (node) => Text.isText(node),
-              }
+              },
             );
           }
         }
@@ -295,7 +295,7 @@ function mergeVisuallyTheSameOrEmptyTextNodes(
 function filterNonComparableProperties(obj: Text): ComparableText {
   return keys(obj)
     .filter<keyof ComparableText>((key): key is keyof ComparableText =>
-      ["color", "font", "TextWrapper"].includes(key)
+      ["color", "font", "TextWrapper"].includes(key),
     )
     .reduce((filteredObject, currentKey) => {
       filteredObject[currentKey] = obj[currentKey];

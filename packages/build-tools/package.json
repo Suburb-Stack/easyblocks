@@ -1,5 +1,5 @@
 {
-  "name": "@easyblocks/build-tools",
+  "name": "@suburb-stack/build-tools",
   "version": "1.0.10",
   "private": true,
   "main": "./src/index.js",

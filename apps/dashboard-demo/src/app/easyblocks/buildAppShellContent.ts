@@ -1,4 +1,4 @@
-import { buildDocument } from "@easyblocks/core";
+import { buildDocument } from "@suburb-stack/core";
 import { cookies } from "next/headers";
 import "server-only";
 import { easyblocksConfig } from "./easyblocks.config";

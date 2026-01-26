@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@easyblocks/core": "workspace:*",
-    "@easyblocks/design-system": "workspace:*",
-    "@easyblocks/editor": "workspace:*",
+    "@suburb-stack/core": "workspace:*",
+    "@suburb-stack/design-system": "workspace:*",
+    "@suburb-stack/editor": "workspace:*",
     "@types/node": "^22",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

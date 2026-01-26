@@ -1,5 +1,5 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
-import { dotNotationSet } from "@easyblocks/utils";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
+import { dotNotationSet } from "@suburb-stack/utils";
 import { createEvent, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { Form } from "./form";
@@ -11,7 +11,7 @@ function renderTestComponent(
   overrides: Partial<
     Parameters<typeof useEditorGlobalKeyboardShortcuts>["0"]
   > = {},
-  wrapper?: React.JSXElementConstructor<{ children: React.ReactElement }>
+  wrapper?: React.JSXElementConstructor<{ children: React.ReactElement }>,
 ) {
   const editorContext: Parameters<typeof useEditorGlobalKeyboardShortcuts> = [
     {
@@ -80,7 +80,7 @@ test.each(["INPUT", "TEXTAREA", "SELECT"])(
     Object.values(editorContext.actions).forEach((action) => {
       expect(action).not.toHaveBeenCalled();
     });
-  }
+  },
 );
 
 test.each([
@@ -100,7 +100,7 @@ test.each([
     Object.values(editorContext.actions).forEach((action) => {
       expect(action).not.toHaveBeenCalled();
     });
-  }
+  },
 );
 
 test.each(["Enter", "A", "Space"])(
@@ -115,7 +115,7 @@ test.each(["Enter", "A", "Space"])(
     Object.values(editorContext.actions).forEach((action) => {
       expect(action).not.toHaveBeenCalled();
     });
-  }
+  },
 );
 
 test('logs selected component config when "l" key is pressed', () => {
@@ -142,7 +142,7 @@ describe("remove", () => {
       expect(editorContext.actions.removeItems).toHaveBeenNthCalledWith(1, [
         "data.0",
       ]);
-    }
+    },
   );
 });
 
@@ -160,7 +160,7 @@ describe("move up", () => {
     expect(editorContext.actions.moveItems).toHaveBeenNthCalledWith(
       1,
       ["data.2"],
-      "top"
+      "top",
     );
   });
 
@@ -177,9 +177,9 @@ describe("move up", () => {
       expect(editorContext.actions.moveItems).toHaveBeenNthCalledWith(
         1,
         ["data.2", "data.1"],
-        "top"
+        "top",
       );
-    }
+    },
   );
 });
 
@@ -199,9 +199,9 @@ describe("move down", () => {
       expect(editorContext.actions.moveItems).toHaveBeenNthCalledWith(
         1,
         ["data.0"],
-        "bottom"
+        "bottom",
       );
-    }
+    },
   );
 
   it.each(MOVE_DOWN_KEYS)(
@@ -217,9 +217,9 @@ describe("move down", () => {
       expect(editorContext.actions.moveItems).toHaveBeenNthCalledWith(
         1,
         ["data.0", "data.1"],
-        "bottom"
+        "bottom",
       );
-    }
+    },
   );
 });
 
@@ -359,7 +359,7 @@ describe("copy", () => {
 
     expect(setData).toHaveBeenCalledWith(
       "text/x-shopstory",
-      expect.stringMatching(JSON.stringify([expectedData]))
+      expect.stringMatching(JSON.stringify([expectedData])),
     );
   });
 });
@@ -402,12 +402,12 @@ describe("cut", () => {
 
       expect(setData).toHaveBeenCalledWith(
         expectedFormat,
-        expect.stringMatching(expectedPayload)
+        expect.stringMatching(expectedPayload),
       );
       expect(editorContext.actions.removeItems).toHaveBeenCalledWith(
-        focussedField
+        focussedField,
       );
-    }
+    },
   );
 });
 
@@ -439,9 +439,9 @@ describe("paste", () => {
 
       expect(getData).toHaveBeenCalledWith("text/x-shopstory");
       expect(editorContext.actions.pasteItems).toHaveBeenCalledWith(
-        expectedData
+        expectedData,
       );
-    }
+    },
   );
 
   it.each`
@@ -472,7 +472,7 @@ describe("paste", () => {
 
       expect(getData).toHaveBeenCalledWith("text/x-shopstory");
       expect(editorContext.actions.pasteItems).not.toHaveBeenCalled();
-    }
+    },
   );
 
   it.each`
@@ -503,6 +503,6 @@ describe("paste", () => {
 
       expect(getData).toHaveBeenCalledWith("text/x-shopstory");
       expect(editorContext.actions.pasteItems).not.toHaveBeenCalled();
-    }
+    },
   );
 });

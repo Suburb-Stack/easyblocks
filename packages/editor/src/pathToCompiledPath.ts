@@ -1,31 +1,31 @@
-import { SchemaProp } from "@easyblocks/core";
+import { SchemaProp } from "@suburb-stack/core";
 import {
   findComponentDefinitionById,
   isSchemaPropActionTextModifier,
   isSchemaPropTextModifier,
   parsePath,
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 import { EditorContextType } from "./EditorContext";
 
 export function pathToCompiledPath(
   path: string,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ): string {
   const pathInfo = parsePath(path, editorContext.form);
 
   if (pathInfo.parent) {
     const definition = findComponentDefinitionById(
       pathInfo.parent.templateId,
-      editorContext
+      editorContext,
     )!;
 
     const schemaProp = definition.schema.find(
-      (schemaProp) => schemaProp.prop === pathInfo.parent!.fieldName
+      (schemaProp) => schemaProp.prop === pathInfo.parent!.fieldName,
     )!;
 
     const result = `${pathToCompiledPath(
       pathInfo.parent.path,
-      editorContext
+      editorContext,
     )}.${getPropertyNameFromSchemaProp(schemaProp)}.${
       pathInfo.parent.fieldName
     }.${pathInfo.index!}`;

@@ -1,5 +1,5 @@
 import { TrulyResponsiveValue } from "../types";
-import { entries } from "@easyblocks/utils";
+import { entries } from "@suburb-stack/utils";
 
 function responsiveValueValues<T>(value: TrulyResponsiveValue<T>): Array<T> {
   const values: Array<T> = [];

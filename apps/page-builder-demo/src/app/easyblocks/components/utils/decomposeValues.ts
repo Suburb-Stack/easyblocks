@@ -10,7 +10,7 @@ import {
   responsiveValueGetDefinedValue,
   responsiveValueGetFirstHigherValue,
   responsiveValueGetFirstLowerValue,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 type ValueForWidth = { value: any; width: number; device: DeviceRange };
 
@@ -26,7 +26,7 @@ export function decomposeValues(
   config: Record<string, any>,
   widths: TrulyResponsiveValue<number>,
   devices: Devices,
-  deviceId: string
+  deviceId: string,
 ): DecomposedValues {
   const width = widths[deviceId]! as number;
   const device = devices.find((device) => device.id === deviceId)!;
@@ -63,7 +63,7 @@ export function decomposeValues(
         value,
         deviceId,
         devices,
-        widths
+        widths,
       );
 
       if (defaultDefinedDevice) {
@@ -72,13 +72,13 @@ export function decomposeValues(
             value,
             deviceId,
             devices,
-            widths
+            widths,
           ),
           width: responsiveValueGetDefinedValue(
             widths,
             defaultDefinedDevice.id,
             devices,
-            widths
+            widths,
           )!,
           device: defaultDefinedDevice,
         };
@@ -88,7 +88,7 @@ export function decomposeValues(
         value,
         deviceId,
         devices,
-        widths
+        widths,
       );
 
       if (lowerDefinedDevice) {
@@ -97,13 +97,13 @@ export function decomposeValues(
             value,
             deviceId,
             devices,
-            widths
+            widths,
           ),
           width: responsiveValueGetDefinedValue(
             widths,
             lowerDefinedDevice.id,
             devices,
-            widths
+            widths,
           )!,
           device: lowerDefinedDevice,
         };
@@ -114,7 +114,7 @@ export function decomposeValues(
           value,
           deviceId,
           devices,
-          widths
+          widths,
         );
 
       if (higherDefinedDevice) {
@@ -123,13 +123,13 @@ export function decomposeValues(
             value,
             deviceId,
             devices,
-            widths
+            widths,
           ),
           width: responsiveValueGetDefinedValue(
             widths,
             higherDefinedDevice.id,
             devices,
-            widths
+            widths,
           )!,
           device: higherDefinedDevice,
         };

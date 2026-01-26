@@ -1,8 +1,8 @@
 import type {
   NoCodeComponentStylesFunctionInput,
   NoCodeComponentStylesFunctionResult,
-} from "@easyblocks/core";
-import { spacingToPx } from "@easyblocks/core";
+} from "@suburb-stack/core";
+import { spacingToPx } from "@suburb-stack/core";
 import type { StackCompiledValues, StackParams } from "./Stack.types";
 
 export function stackStyles({
@@ -102,7 +102,7 @@ export function stackStyles({
               item.width === "max" ? Number.MAX_VALUE : parseInt(item.width),
               params.$width -
                 spacingToPx(params.paddingLeft ?? "0px", device.w) -
-                spacingToPx(params.paddingRight ?? "0px", device.w)
+                spacingToPx(params.paddingRight ?? "0px", device.w),
             ),
             $widthAuto: false,
           };

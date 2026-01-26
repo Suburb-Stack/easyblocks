@@ -1,4 +1,4 @@
-import { nonNullable } from "@easyblocks/utils";
+import { nonNullable } from "@suburb-stack/utils";
 import { BaseRange, Editor, Node, Range, Text, Transforms } from "slate";
 import { SetNonNullable } from "type-fest";
 import { RichTextComponentConfig } from "./$richText";
@@ -17,7 +17,7 @@ function updateSelection<
   T extends keyof Omit<
     RichTextPartComponentConfig,
     "_id" | "_component" | "value"
-  >
+  >,
 >(
   editor: Editor,
   key: T,
@@ -46,12 +46,12 @@ function updateSelection<
       if (values[0].length > 0) {
         const firstSelectedNodeEntry = Node.first(
           editor,
-          editor.selection.anchor.path
+          editor.selection.anchor.path,
         );
 
         const lastSelectedNodeEntry = Node.last(
           editor,
-          editor.selection.focus.path
+          editor.selection.focus.path,
         );
 
         if (Text.isText(firstSelectedNodeEntry[0])) {
@@ -67,7 +67,7 @@ function updateSelection<
               },
               {
                 match: Text.isText,
-              }
+              },
             );
           }
         }
@@ -80,14 +80,14 @@ function updateSelection<
     const selectedTextNodeEntries = Array.from(
       Editor.nodes<Text>(editor, {
         match: Text.isText,
-      })
+      }),
     );
 
     const selectedTextNodesRanges = selectedTextNodeEntries
       .map(([, textNodePath]) => {
         return Range.intersection(
           editor.selection,
-          Editor.range(editor, textNodePath)
+          Editor.range(editor, textNodePath),
         );
       })
       .filter<BaseRange>(nonNullable());
@@ -103,14 +103,14 @@ function updateSelection<
             at: range,
             match: Text.isText,
             split: true,
-          }
+          },
         );
       });
     });
   }
 
   const richTextElements = convertEditorValueToRichTextElements(
-    editor.children as Array<BlockElement>
+    editor.children as Array<BlockElement>,
   );
 
   const newFocusedRichTextParts = getFocusedRichTextPartsConfigPaths(editor);

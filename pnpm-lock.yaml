@@ -140,15 +140,6 @@ importers:
 
   apps/dashboard-demo:
     dependencies:
-      '@easyblocks/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@easyblocks/design-system':
-        specifier: workspace:*
-        version: link:../../packages/design-system
-      '@easyblocks/editor':
-        specifier: workspace:*
-        version: link:../../packages/editor
       '@radix-ui/react-dialog':
         specifier: ^1.1.0
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.9))(@types/react@19.2.9)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -158,6 +149,15 @@ importers:
       '@radix-ui/themes':
         specifier: ^3.0.0
         version: 3.2.1(@types/react-dom@19.2.3(@types/react@19.2.9))(@types/react@19.2.9)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@suburb-stack/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@suburb-stack/design-system':
+        specifier: workspace:*
+        version: link:../../packages/design-system
+      '@suburb-stack/editor':
+        specifier: workspace:*
+        version: link:../../packages/editor
       '@types/node':
         specifier: ^22
         version: 22.19.7
@@ -206,7 +206,7 @@ importers:
 
   apps/design-system-app:
     dependencies:
-      '@easyblocks/design-system':
+      '@suburb-stack/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
       '@types/node':
@@ -236,10 +236,10 @@ importers:
 
   apps/liquid-demo:
     dependencies:
-      '@easyblocks/core':
+      '@suburb-stack/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@easyblocks/editor':
+      '@suburb-stack/editor':
         specifier: workspace:*
         version: link:../../packages/editor
       '@types/node':
@@ -287,13 +287,13 @@ importers:
 
   apps/page-builder-demo:
     dependencies:
-      '@easyblocks/core':
+      '@suburb-stack/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@easyblocks/design-system':
+      '@suburb-stack/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
-      '@easyblocks/editor':
+      '@suburb-stack/editor':
         specifier: workspace:*
         version: link:../../packages/editor
       '@types/node':
@@ -348,10 +348,10 @@ importers:
 
   apps/quick-start:
     dependencies:
-      '@easyblocks/core':
+      '@suburb-stack/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@easyblocks/editor':
+      '@suburb-stack/editor':
         specifier: workspace:*
         version: link:../../packages/editor
       '@types/node':
@@ -438,21 +438,21 @@ importers:
       '@babel/plugin-transform-runtime':
         specifier: ^7.28.5
         version: 7.28.5(@babel/core@7.28.6)
-      '@easyblocks/build-tools':
-        specifier: workspace:*
-        version: link:../build-tools
-      '@easyblocks/reduce-css-calc':
-        specifier: workspace:*
-        version: link:../reduce-css-calc
-      '@easyblocks/test-utils':
-        specifier: workspace:*
-        version: link:../test-utils
-      '@easyblocks/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@jest/types':
         specifier: ^30.2.0
         version: 30.2.0
+      '@suburb-stack/build-tools':
+        specifier: workspace:*
+        version: link:../build-tools
+      '@suburb-stack/reduce-css-calc':
+        specifier: workspace:*
+        version: link:../reduce-css-calc
+      '@suburb-stack/test-utils':
+        specifier: workspace:*
+        version: link:../test-utils
+      '@suburb-stack/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -511,7 +511,7 @@ importers:
         specifier: ^6.0.7
         version: 6.3.8(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     devDependencies:
-      '@easyblocks/build-tools':
+      '@suburb-stack/build-tools':
         specifier: workspace:*
         version: link:../build-tools
       '@types/lodash':
@@ -538,12 +538,6 @@ importers:
       '@dnd-kit/sortable':
         specifier: ^7.0.2
         version: 7.0.2(@dnd-kit/core@6.3.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
-      '@easyblocks/core':
-        specifier: workspace:*
-        version: link:../core
-      '@easyblocks/design-system':
-        specifier: workspace:*
-        version: link:../design-system
       '@emotion/is-prop-valid':
         specifier: ^1.2.1
         version: 1.4.0
@@ -556,6 +550,12 @@ importers:
       '@react-aria/tooltip':
         specifier: ^3.7.0
         version: 3.9.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@suburb-stack/core':
+        specifier: workspace:*
+        version: link:../core
+      '@suburb-stack/design-system':
+        specifier: workspace:*
+        version: link:../design-system
       final-form:
         specifier: ^4.20.4
         version: 4.20.10
@@ -584,15 +584,15 @@ importers:
         specifier: ^3.21.4
         version: 3.25.76
     devDependencies:
-      '@easyblocks/build-tools':
-        specifier: workspace:*
-        version: link:../build-tools
-      '@easyblocks/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@jest/types':
         specifier: ^30.2.0
         version: 30.2.0
+      '@suburb-stack/build-tools':
+        specifier: workspace:*
+        version: link:../build-tools
+      '@suburb-stack/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@testing-library/jest-dom':
         specifier: ^6.0.0
         version: 6.9.1
@@ -13648,8 +13648,8 @@ snapshots:
       '@next/eslint-plugin-next': 16.1.4
       eslint: 9.39.2(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.2(jiti@2.6.1))
@@ -13695,21 +13695,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
-    dependencies:
-      '@nolyfill/is-core-module': 1.0.39
-      debug: 4.4.3
-      eslint: 9.39.2(jiti@2.6.1)
-      get-tsconfig: 4.13.0
-      is-bun-module: 2.0.0
-      stable-hash: 0.0.5
-      tinyglobby: 0.2.15
-      unrs-resolver: 1.11.1
-    optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
-    transitivePeerDependencies:
-      - supports-color
-
   eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
@@ -13725,17 +13710,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
-    dependencies:
-      debug: 3.2.7
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      eslint: 9.39.2(jiti@2.6.1)
-      eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
-    transitivePeerDependencies:
-      - supports-color
-
   eslint-module-utils@2.12.1(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       debug: 3.2.7
@@ -13745,35 +13719,6 @@ snapshots:
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
     transitivePeerDependencies:
-      - supports-color
-
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
-    dependencies:
-      '@rtsao/scc': 1.1.0
-      array-includes: 3.1.9
-      array.prototype.findlastindex: 1.2.6
-      array.prototype.flat: 1.3.3
-      array.prototype.flatmap: 1.3.3
-      debug: 3.2.7
-      doctrine: 2.1.0
-      eslint: 9.39.2(jiti@2.6.1)
-      eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
-      hasown: 2.0.2
-      is-core-module: 2.16.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.fromentries: 2.0.8
-      object.groupby: 1.0.3
-      object.values: 1.2.1
-      semver: 6.3.1
-      string.prototype.trimend: 1.0.9
-      tsconfig-paths: 3.15.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
       - supports-color
 
   eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1)):

@@ -1,4 +1,4 @@
-import { dotNotationGet, nonNullable, range } from "@easyblocks/utils";
+import { dotNotationGet, nonNullable, range } from "@suburb-stack/utils";
 import { Locale, getFallbackLocaleForLocale } from "../../../locales";
 import {
   NoCodeComponentDefinition,
@@ -43,7 +43,7 @@ const editing: RichTextEditingFunction = ({
     editorContext,
     (config): config is RichTextBlockElementComponentConfig => {
       return config._component === "@easyblocks/rich-text-block-element";
-    }
+    },
   );
 
   const richTextBlockPath =
@@ -52,7 +52,7 @@ const editing: RichTextEditingFunction = ({
       : undefined;
 
   const accessibilityRoleFieldIndex = editingInfo.fields.findIndex(
-    (field) => field.path === "accessibilityRole"
+    (field) => field.path === "accessibilityRole",
   );
 
   const fieldsBeforeAccessibilityRole = editingInfo.fields
@@ -74,7 +74,7 @@ const editing: RichTextEditingFunction = ({
 
       const richTextBlockType = dotNotationGet(
         editorContext.form.values,
-        `${richTextBlockPath}.type`
+        `${richTextBlockPath}.type`,
       );
 
       if (richTextBlockType !== "paragraph") {
@@ -110,28 +110,28 @@ const editing: RichTextEditingFunction = ({
     editorContext,
     (config): config is RichTextPartComponentConfig => {
       return config._component === "@easyblocks/rich-text-part";
-    }
+    },
   );
 
   let currentLocaleRichTextPartPaths = richTextPartPaths.filter(
-    isRichTextPartPathForLocale(editorContext.contextParams.locale)
+    isRichTextPartPathForLocale(editorContext.contextParams.locale),
   );
 
   if (currentLocaleRichTextPartPaths.length === 0) {
     const fallbackLocale = getFallbackLocaleForLocale(
       editorContext.contextParams.locale,
-      editorContext.locales
+      editorContext.locales,
     );
 
     if (fallbackLocale) {
       currentLocaleRichTextPartPaths = richTextPartPaths.filter(
-        isRichTextPartPathForLocale(fallbackLocale)
+        isRichTextPartPathForLocale(fallbackLocale),
       );
     }
   }
 
   const richTextPartSources = currentLocaleRichTextPartPaths.map(
-    (path) => `${pathPrefix}.${path}`
+    (path) => `${pathPrefix}.${path}`,
   );
 
   return {

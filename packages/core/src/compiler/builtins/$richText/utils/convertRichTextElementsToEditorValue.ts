@@ -1,4 +1,4 @@
-import { uniqueId } from "@easyblocks/utils";
+import { uniqueId } from "@suburb-stack/utils";
 import type { Text } from "slate";
 import type { RichTextComponentConfig } from "../$richText";
 import type { BlockElement } from "../$richText.types";
@@ -6,7 +6,7 @@ import type { RichTextBlockElementComponentConfig } from "../$richTextBlockEleme
 import type { RichTextPartComponentConfig } from "../$richTextPart/$richTextPart";
 
 function convertRichTextElementsToEditorValue(
-  richTextElements: RichTextComponentConfig["elements"][string] | undefined
+  richTextElements: RichTextComponentConfig["elements"][string] | undefined,
 ): Array<BlockElement> {
   if (!richTextElements || richTextElements.length === 0) {
     return getPlaceholderRichTextElements();
@@ -14,7 +14,7 @@ function convertRichTextElementsToEditorValue(
 
   return richTextElements.map((richTextBlockElementComponentConfig) => {
     return convertRichTextBlockElementComponentConfigToEditorElement(
-      richTextBlockElementComponentConfig
+      richTextBlockElementComponentConfig,
     );
   });
 }
@@ -22,7 +22,7 @@ function convertRichTextElementsToEditorValue(
 export { convertRichTextElementsToEditorValue };
 
 function convertRichTextPartComponentConfigToEditorText(
-  richTextPartComponentConfig: RichTextPartComponentConfig
+  richTextPartComponentConfig: RichTextPartComponentConfig,
 ): Text {
   return {
     color: richTextPartComponentConfig.color,
@@ -34,7 +34,7 @@ function convertRichTextPartComponentConfigToEditorText(
 }
 
 function convertRichTextBlockElementComponentConfigToEditorElement(
-  blockElementComponentConfig: RichTextBlockElementComponentConfig
+  blockElementComponentConfig: RichTextBlockElementComponentConfig,
 ): BlockElement {
   if (
     blockElementComponentConfig.type === "bulleted-list" ||
@@ -51,12 +51,12 @@ function convertRichTextBlockElementComponentConfigToEditorElement(
             children: lineElementComponentConfig.elements.map(
               (childComponentConfig) => {
                 return convertRichTextPartComponentConfigToEditorText(
-                  childComponentConfig
+                  childComponentConfig,
                 );
-              }
+              },
             ),
           };
-        }
+        },
       ),
     };
   }
@@ -72,12 +72,12 @@ function convertRichTextBlockElementComponentConfigToEditorElement(
           children: lineElementComponentConfig.elements.map(
             (childComponentConfig) => {
               return convertRichTextPartComponentConfigToEditorText(
-                childComponentConfig
+                childComponentConfig,
               );
-            }
+            },
           ),
         };
-      }
+      },
     ),
   };
 }

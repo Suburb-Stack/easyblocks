@@ -1,4 +1,4 @@
-import { DeviceRange, NoCodeComponentDefinition } from "@easyblocks/core";
+import { DeviceRange, NoCodeComponentDefinition } from "@suburb-stack/core";
 
 import { bannerCardDefinition } from "@/app/easyblocks/components/BannerCard/BannerCard.definition";
 import {
@@ -15,7 +15,7 @@ function getBannerCardValues(values: Record<string, any>, device: DeviceRange) {
   const { margin } = sectionWrapperCalculateMarginAndMaxWidth(
     values.containerMargin,
     values.containerMaxWidth,
-    device
+    device,
   );
 
   return {
@@ -70,7 +70,7 @@ export const bannerSectionDefinition: NoCodeComponentDefinition<
     const { margin } = sectionWrapperCalculateMarginAndMaxWidth(
       values.containerMargin,
       values.containerMaxWidth,
-      device
+      device,
     );
 
     return {

@@ -1,4 +1,4 @@
-import { Spacing } from "@easyblocks/core";
+import { Spacing } from "@suburb-stack/core";
 
 export type StackCompiledValues = {
   Items: Array<{

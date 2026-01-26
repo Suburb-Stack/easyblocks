@@ -3,7 +3,7 @@ import {
   Fonts,
   Modal,
   ThumbnailButton,
-} from "@easyblocks/design-system";
+} from "@suburb-stack/design-system";
 import React, { useState } from "react";
 import type { Media } from "./Media";
 import { MOCK_ASSETS } from "./mockAssets";
@@ -142,7 +142,7 @@ export const MediaPicker: React.FC<{
               setOpen(false);
             }}
             items={MOCK_ASSETS.filter(
-              (a) => a.isVideo === (mediaType === "video")
+              (a) => a.isVideo === (mediaType === "video"),
             )}
             mediaType={mediaType}
           />

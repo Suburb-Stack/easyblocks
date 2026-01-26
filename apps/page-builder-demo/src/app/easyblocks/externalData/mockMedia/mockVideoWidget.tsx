@@ -1,4 +1,4 @@
-import type { Widget } from "@easyblocks/core";
+import type { Widget } from "@suburb-stack/core";
 
 export const mockVideoWidget: Widget = {
   id: "mockVideo",

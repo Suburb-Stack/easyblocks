@@ -1,16 +1,16 @@
 import {
   NoCodeComponentEntry,
   NoCodeComponentDefinition,
-} from "@easyblocks/core";
-import * as internals from "@easyblocks/core/_internals";
-import { uniqueId } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import * as internals from "@suburb-stack/core/_internals";
+import { uniqueId } from "@suburb-stack/utils";
 import { Form } from "../form";
 import { insertCommand } from "./insert";
 import * as reconcile from "./reconcile";
 
-// Mock the @easyblocks/core/_internals module to allow spying
-jest.mock("@easyblocks/core/_internals", () => ({
-  ...jest.requireActual("@easyblocks/core/_internals"),
+// Mock the @suburb-stack/core/_internals module to allow spying
+jest.mock("@suburb-stack/core/_internals", () => ({
+  ...jest.requireActual("@suburb-stack/core/_internals"),
   findComponentDefinition: jest.fn(),
   duplicateConfig: jest.fn(),
 }));

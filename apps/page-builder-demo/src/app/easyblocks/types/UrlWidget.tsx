@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { InlineTypeWidgetComponentProps } from "@easyblocks/core";
-import { Input } from "@easyblocks/design-system";
+import { InlineTypeWidgetComponentProps } from "@suburb-stack/core";
+import { Input } from "@suburb-stack/design-system";
 import { useState } from "react";
 
 function UrlWidget(props: InlineTypeWidgetComponentProps<string>) {

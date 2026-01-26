@@ -1,14 +1,14 @@
 {
-  "name": "root",
+  "name": "@suburb-stack/monorepo",
   "private": true,
   "scripts": {
-    "dev": "lerna run --stream dev --scope '@easyblocks/core' --scope '@easyblocks/editor'",
+    "dev": "lerna run --stream dev --scope '@suburb-stack/core' --scope '@suburb-stack/editor'",
     "nuke": "./scripts/nuke.sh",
     "clean": "./scripts/clean.sh",
     "build": "nx run-many --target build --exclude website",
     "test": "nx run-many --target test",
     "lint": "nx affected --target lint --base origin/main -- --quiet",
-    "lint:packages": "nx run-many --target lint --projects '@easyblocks/*' -- --quiet",
+    "lint:packages": "nx run-many --target lint --projects '@suburb-stack/*' -- --quiet",
     "lint:all": "nx run-many --target lint -- --quiet",
     "check": "nx run-many --target check",
     "prepare": "husky",

@@ -1,4 +1,4 @@
-import { Select, SelectItem, Typography } from "@easyblocks/design-system";
+import { Select, SelectItem, Typography } from "@suburb-stack/design-system";
 import { useState } from "react";
 
 export function SelectStories() {

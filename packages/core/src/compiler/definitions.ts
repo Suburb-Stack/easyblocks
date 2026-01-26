@@ -1,4 +1,4 @@
-import { uniqueId } from "@easyblocks/utils";
+import { uniqueId } from "@suburb-stack/utils";
 import { SetOptional } from "type-fest";
 import { isLocalValue } from "..";
 import { getFallbackForLocale, getFallbackLocaleForLocale } from "../locales";
@@ -68,13 +68,13 @@ type SchemaPropDefinition<Type, CompiledType = Type> = {
       | EditingInfoComponentCollection
       | undefined,
     configPrefix: string,
-    cache: CompilationCache
+    cache: CompilationCache,
   ) => CompiledType;
   normalize: (value: any) => Type; // produces valid internal type
   getHash: (
     value: Type,
     breakpointIndex: string,
-    devices: Devices
+    devices: Devices,
   ) => string | undefined;
 };
 
@@ -133,43 +133,43 @@ type Component$$$SchemaPropDefinition = SchemaPropDefinition<
 export type SchemaPropDefinitionProviders = {
   text: (
     schemaProp: TextSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => TextSchemaPropDefinition;
   string: (
     schemaProp: StringSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => StringSchemaPropDefinition;
   number: (
     schemaProp: NumberSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => NumberSchemaPropDefinition;
   boolean: (
     schemaProp: BooleanSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => BooleanSchemaPropDefinition;
   select: (
     schemaProp: SelectSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => SelectSchemaPropDefinition;
   "radio-group": (
     schemaProp: RadioGroupSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => RadioGroupSchemaPropDefinition;
   component: (
     schemaProp: ComponentSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => ComponentSchemaPropDefinition;
   "component-collection": (
     schemaProp: ComponentCollectionSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => ComponentCollectionSchemaPropDefinition;
   "component-collection-localised": (
     schemaProp: ComponentCollectionLocalisedSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => ComponentCollectionLocalisedSchemaPropDefinition;
   component$$$: (
     schemaProp: Component$$$SchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => Component$$$SchemaPropDefinition;
   // external: (
   //   schemaProp: ExternalSchemaProp,
@@ -177,14 +177,14 @@ export type SchemaPropDefinitionProviders = {
   // ) => ExternalSchemaPropDefinition;
   position: (
     schemaProp: PositionSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => SchemaPropDefinition<
     ResponsiveValue<Position>,
     ResponsiveValue<Position>
   >;
   custom: (
     schemaProp: ExternalSchemaProp | LocalSchemaProp | TokenSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ) => SchemaPropDefinition<
     ResponsiveValue<ExternalReference | LocalValue | TokenValue>,
     ExternalReference | string
@@ -196,7 +196,7 @@ type SchemaPropDefinitionProvider =
 
 const textProvider: SchemaPropDefinitionProviders["text"] = (
   schemaProp,
-  compilationContext
+  compilationContext,
 ) => {
   const checkIfValid = (x: any) => {
     if (typeof x !== "object" || x === null) {
@@ -244,7 +244,7 @@ const textProvider: SchemaPropDefinitionProviders["text"] = (
             getFallbackForLocale(
               x.value,
               compilationContext.contextParams.locale,
-              compilationContext.locales
+              compilationContext.locales,
             ) ?? "";
 
           return {
@@ -288,7 +288,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
       compilationContext,
       schemaProp.defaultValue,
       0,
-      (x) => (typeof x === "number" ? x : undefined)
+      (x) => (typeof x === "number" ? x : undefined),
     );
     return {
       normalize,
@@ -305,10 +305,10 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           compilationContext,
           schemaProp.defaultValue,
           "",
-          (x) => (typeof x === "string" ? x : undefined)
+          (x) => (typeof x === "string" ? x : undefined),
         )
       : getNormalize(compilationContext, schemaProp.defaultValue, "", (x) =>
-          typeof x === "string" ? x : undefined
+          typeof x === "string" ? x : undefined,
         );
 
     return {
@@ -330,10 +330,10 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           compilationContext,
           schemaProp.defaultValue,
           false,
-          (x) => (typeof x === "boolean" ? x : undefined)
+          (x) => (typeof x === "boolean" ? x : undefined),
         )
       : getNormalize(compilationContext, schemaProp.defaultValue, false, (x) =>
-          typeof x === "boolean" ? x : undefined
+          typeof x === "boolean" ? x : undefined,
         );
 
     return {
@@ -356,7 +356,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
 
   component: (
     schemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ): ComponentSchemaPropDefinition => {
     // Here:
     // 1. if non-fixed => block field.
@@ -368,13 +368,13 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         for (const componentIdOrType of schemaProp.accepts) {
           componentDefinition = findComponentDefinitionById(
             componentIdOrType,
-            compilationContext
+            compilationContext,
           );
 
           if (!componentDefinition) {
             const componentDefinitionsByType = findComponentDefinitionsByType(
               componentIdOrType,
-              compilationContext
+              compilationContext,
             );
 
             if (componentDefinitionsByType.length > 0) {
@@ -392,15 +392,15 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
               `Missing component definition for prop "${
                 schemaProp.prop
               }" for specified accepted types: [${schemaProp.accepts.join(
-                ", "
-              )}]`
+                ", ",
+              )}]`,
             );
           }
 
           return [
             normalizeComponent(
               { _component: componentDefinition.id },
-              compilationContext
+              compilationContext,
             ),
           ];
         }
@@ -419,7 +419,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         serializedDefinitions,
         editingInfoComponent,
         configPrefix,
-        cache
+        cache,
       ) => {
         if (arg.length === 0) {
           return [];
@@ -435,7 +435,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           },
           cache,
           editingInfoComponent,
-          `${configPrefix}.0`
+          `${configPrefix}.0`,
         );
 
         return [
@@ -451,7 +451,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           if (process.env.NODE_ENV === "development") {
             console.assert(
               value.length === 1,
-              "component prop should have only one element"
+              "component prop should have only one element",
             );
           }
 
@@ -465,14 +465,14 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
 
   "component-collection": (
     _,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ): ComponentCollectionSchemaPropDefinition => {
     const normalize = (x: any) => {
       if (!Array.isArray(x)) {
         return [];
       }
       const ret = (x || []).map((item: NoCodeComponentEntry) =>
-        normalizeComponent(item, compilationContext)
+        normalizeComponent(item, compilationContext),
       );
 
       return ret;
@@ -486,7 +486,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         serializedDefinitions,
         editingInfoComponents,
         configPrefix,
-        cache
+        cache,
       ) => {
         return arr.map((componentConfig, index) =>
           compileComponent(
@@ -500,8 +500,8 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
                 | EditingInfoComponentCollection
                 | undefined
             )?.items?.[index],
-            `${configPrefix}.${index}`
-          )
+            `${configPrefix}.${index}`,
+          ),
         );
       },
       getHash: (value) => {
@@ -512,7 +512,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
 
   "component-collection-localised": (
     schemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ): ComponentCollectionLocalisedSchemaPropDefinition => {
     const collectionSchemaPropDefinition = schemaPropDefinitions[
       "component-collection"
@@ -530,7 +530,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           }
 
           normalized[locale] = collectionSchemaPropDefinition.normalize(
-            x[locale]
+            x[locale],
           );
         }
 
@@ -542,11 +542,11 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         serializedDefinitions,
         editingInfoComponents,
         configPrefix,
-        cache
+        cache,
       ) => {
         const resolvedLocalisedValue = resolveLocalisedValue(
           value,
-          compilationContext
+          compilationContext,
         );
 
         return collectionSchemaPropDefinition.compile(
@@ -558,14 +558,14 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
             resolvedLocalisedValue?.locale ??
             compilationContext.contextParams.locale
           }`,
-          cache
+          cache,
         );
       },
       getHash: (value, breakpoint, devices) => {
         return collectionSchemaPropDefinition.getHash(
           value[compilationContext.contextParams.locale] ?? [],
           breakpoint,
-          devices
+          devices,
         );
       },
     };
@@ -638,7 +638,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         "top-left",
         (x) => {
           return typeof x === "string" ? (x as Position) : "top-left";
-        }
+        },
       ),
       compile: (x) => x,
       getHash: (value, currentBreakpoint) => {
@@ -696,7 +696,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
               compilationContext,
               defaultValue,
               defaultValue,
-              normalizeScalar
+              normalizeScalar,
             );
 
             return normalize(value);
@@ -707,7 +707,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
             schemaProp.responsive
           ) {
             console.warn(
-              `Custom type "${schemaProp.type}" is marked as "never" responsive, but schema prop is marked as responsive. This is not supported and the value for this field is going to stay not responsive. Please change custom type definition or schema prop definition.`
+              `Custom type "${schemaProp.type}" is marked as "never" responsive, but schema prop is marked as responsive. This is not supported and the value for this field is going to stay not responsive. Please change custom type definition or schema prop definition.`,
             );
           }
 
@@ -729,7 +729,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
           const themeValues =
             compilationContext.theme[customTypeDefinition.token];
           const defaultThemeValueEntry = Object.entries(themeValues).find(
-            ([, v]) => v.isDefault
+            ([, v]) => v.isDefault,
           );
 
           const defaultValue = (() => {
@@ -758,9 +758,9 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
                       themeValues as ResponsiveValue<any>,
                       defaultValue,
                       defaultWidgetId,
-                      normalizeScalar ?? ((x) => x)
+                      normalizeScalar ?? ((x) => x),
                     );
-                  }
+                  },
                 )
               : getNormalize(
                   compilationContext,
@@ -772,9 +772,9 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
                       themeValues as ResponsiveValue<any>,
                       defaultValue,
                       defaultWidgetId,
-                      normalizeScalar ?? ((x) => x)
+                      normalizeScalar ?? ((x) => x),
                     );
-                  }
+                  },
                 );
           };
 
@@ -810,7 +810,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
                 themeValues as Record<string, ThemeTokenValue<string>>,
                 customTypeDefinition.defaultValue,
                 defaultWidgetId,
-                scalarValueNormalize
+                scalarValueNormalize,
               ) ?? customTypeDefinition.defaultValue;
 
             return (
@@ -819,7 +819,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
                 themeValues as Record<string, ThemeTokenValue<string>>,
                 iconDefaultValue,
                 defaultWidgetId,
-                scalarValueNormalize
+                scalarValueNormalize,
               ) ?? value
             );
           }
@@ -842,7 +842,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
               compilationContext,
               defaultValue,
               defaultValue,
-              externalNormalize(schemaProp.type)
+              externalNormalize(schemaProp.type),
             );
 
             return normalize(value);
@@ -850,7 +850,7 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
 
           const normalized = externalNormalize(schemaProp.type)(
             value,
-            compilationContext
+            compilationContext,
           );
 
           if (!normalized) {
@@ -876,13 +876,13 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
 
         const flattened = responsiveValueFlatten(
           val,
-          compilationContext.devices
+          compilationContext.devices,
         );
 
         return responsiveValueFill(
           flattened,
           compilationContext.devices,
-          getDevicesWidths(compilationContext.devices)
+          getDevicesWidths(compilationContext.devices),
         );
       },
       getHash: (value, breakpointIndex) => {
@@ -907,14 +907,14 @@ export const schemaPropDefinitions: SchemaPropDefinitionProviders = {
         if (customTypeDefinition.type === "external") {
           return externalReferenceGetHash(
             value as ResponsiveValue<ExternalReference>,
-            breakpointIndex
+            breakpointIndex,
           );
         }
 
         if (isTrulyResponsiveValue(value)) {
           const breakpointValue = responsiveValueAt(
             value as TrulyResponsiveValue<LocalValue | TokenValue>,
-            breakpointIndex
+            breakpointIndex,
           );
 
           if (!breakpointValue) {
@@ -948,8 +948,8 @@ function getNormalize<T>(
   fallbackDefaultValue: T,
   normalize: (
     x: any,
-    compilationContext: CompilationContextType
-  ) => T | undefined = (x) => x
+    compilationContext: CompilationContextType,
+  ) => T | undefined = (x) => x,
 ) {
   return (val: any): T => {
     const normalizedVal = normalize(val, compilationContext);
@@ -972,8 +972,8 @@ function getResponsiveNormalize<ScalarType>(
   fallbackDefaultValue: ScalarType,
   normalize: (
     x: any,
-    compilationContext: CompilationContextType
-  ) => ScalarType | undefined = (x) => x
+    compilationContext: CompilationContextType,
+  ) => ScalarType | undefined = (x) => x,
 ) {
   if (isTrulyResponsiveValue(defaultValue)) {
     /**
@@ -988,7 +988,7 @@ function getResponsiveNormalize<ScalarType>(
       compilationContext,
       defaultValue,
       fallbackDefaultValue,
-      normalize
+      normalize,
     );
 
     // if value is not really responsive
@@ -1016,7 +1016,7 @@ function getResponsiveNormalize<ScalarType>(
 function getSelectSchemaPropDefinition() {
   return (
     schemaProp: SelectSchemaProp | RadioGroupSchemaProp,
-    compilationContext: CompilationContextType
+    compilationContext: CompilationContextType,
   ): SelectSchemaPropDefinition => {
     return {
       normalize: schemaProp.responsive
@@ -1028,7 +1028,7 @@ function getSelectSchemaPropDefinition() {
               return isSelectValueCorrect(x, schemaProp.params.options)
                 ? x
                 : undefined;
-            }
+            },
           )
         : getNormalize(
             compilationContext,
@@ -1038,7 +1038,7 @@ function getSelectSchemaPropDefinition() {
               return isSelectValueCorrect(x, schemaProp.params.options)
                 ? x
                 : undefined;
-            }
+            },
           ),
       compile: (x) => x,
       getHash: (value, currentBreakpoint) => {
@@ -1069,7 +1069,7 @@ function getSelectValue(arg: string | Option): string {
 }
 
 function getFirstOptionValue(
-  schemaProp: SelectSchemaProp | RadioGroupSchemaProp
+  schemaProp: SelectSchemaProp | RadioGroupSchemaProp,
 ) {
   if (schemaProp.params.options.length === 0) {
     throw new Error("Select field can't have 0 options");
@@ -1087,7 +1087,7 @@ function normalizeTokenValue<T>(
   themeValues: { [key: string]: ThemeTokenValue<T> },
   defaultValue: { tokenId: string } | { value: any },
   defaultWidgetId: string | undefined,
-  scalarValueNormalize: (x: any) => T | undefined = (x) => undefined
+  scalarValueNormalize: (x: any) => T | undefined = (x) => undefined,
 ): TokenValue<T> | undefined {
   const input = x ?? defaultValue;
   const widgetId = input.widgetId ?? defaultWidgetId;
@@ -1135,10 +1135,10 @@ function normalizeTokenValue<T>(
 }
 
 function externalNormalize(
-  externalType: string
+  externalType: string,
 ): (
   x: any,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ) => ExternalReference | undefined {
   return (x, compilationContext) => {
     if (typeof x === "object" && x !== null) {
@@ -1174,7 +1174,7 @@ function externalNormalize(
 
 function externalReferenceGetHash(
   value: ResponsiveValue<ExternalReference>,
-  breakpointIndex: string
+  breakpointIndex: string,
 ): string | undefined {
   if (isTrulyResponsiveValue(value)) {
     const breakpointValue = responsiveValueAt(value, breakpointIndex);
@@ -1193,7 +1193,7 @@ function externalReferenceGetHash(
 
 export function normalizeComponent(
   configComponent: SetOptional<NoCodeComponentEntry, "_id">,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ): NoCodeComponentEntry {
   const ret: NoCodeComponentEntry = {
     _id: configComponent._id ?? uniqueId(),
@@ -1214,10 +1214,10 @@ export function normalizeComponent(
 
         const ownerDefinition = findComponentDefinitionById(
           templateId,
-          compilationContext
+          compilationContext,
         )!;
         const ownerSchemaProp = ownerDefinition.schema.find(
-          (x) => x.prop === fieldName
+          (x) => x.prop === fieldName,
         ) as ComponentCollectionSchemaProp | undefined;
 
         if (!ownerSchemaProp) {
@@ -1228,7 +1228,7 @@ export function normalizeComponent(
           ret._itemProps[templateId][fieldName][itemFieldSchemaProp.prop] =
             getSchemaDefinition(
               itemFieldSchemaProp,
-              compilationContext
+              compilationContext,
             ).normalize(values[itemFieldSchemaProp.prop]);
         });
       }
@@ -1237,12 +1237,12 @@ export function normalizeComponent(
 
   const componentDefinition = findComponentDefinitionById(
     configComponent._component,
-    compilationContext
+    compilationContext,
   );
 
   if (!componentDefinition) {
     console.warn(
-      `[normalize] Unknown _component ${configComponent._component}`
+      `[normalize] Unknown _component ${configComponent._component}`,
     );
     return ret;
   }
@@ -1250,7 +1250,7 @@ export function normalizeComponent(
   componentDefinition.schema.forEach((schemaProp) => {
     ret[schemaProp.prop] = getSchemaDefinition(
       schemaProp,
-      compilationContext
+      compilationContext,
     ).normalize(configComponent[schemaProp.prop]);
   });
 
@@ -1266,10 +1266,10 @@ export function normalizeComponent(
       const richTextConfig = buildRichTextNoCodeEntry({
         locale: compilationContext.contextParams.locale,
         color: Object.entries(compilationContext.theme.colors ?? {}).find(
-          ([, value]) => value.isDefault
+          ([, value]) => value.isDefault,
         )?.[0],
         font: Object.entries(compilationContext.theme.fonts ?? {}).find(
-          ([, value]) => value.isDefault
+          ([, value]) => value.isDefault,
         )?.[0],
       });
 
@@ -1281,10 +1281,10 @@ export function normalizeComponent(
 }
 
 export function getSchemaDefinition<
-  T extends SchemaProp | Component$$$SchemaProp
+  T extends SchemaProp | Component$$$SchemaProp,
 >(
   schemaProp: T,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ): ReturnType<SchemaPropDefinitionProvider> {
   const provider =
     compilationContext.types[schemaProp.type] && schemaProp.type !== "text"
@@ -1297,7 +1297,7 @@ export function getSchemaDefinition<
 
 export function resolveLocalisedValue<T>(
   localisedValue: Record<string, T>,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ): { value: T; locale: string } | undefined {
   const locale = compilationContext.contextParams.locale;
 
@@ -1310,7 +1310,7 @@ export function resolveLocalisedValue<T>(
 
   const fallbackLocale = getFallbackLocaleForLocale(
     locale,
-    compilationContext.locales
+    compilationContext.locales,
   );
   if (!fallbackLocale) {
     return;

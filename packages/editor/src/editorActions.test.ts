@@ -1,6 +1,6 @@
 // @ts-ignore
-import { CompilationContextType } from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+import { CompilationContextType } from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import {
   duplicateItems,
   logItems,
@@ -148,7 +148,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["parent1.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.1"]);
@@ -179,7 +179,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["parent1.0", "parent1.1"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.2", "parent1.3"]);
@@ -220,7 +220,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["parent1.0", "parent1.2"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.3", "parent1.4"]);
@@ -261,7 +261,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["parent1.0", "parent2.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.1", "parent2.1"]);
@@ -317,7 +317,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["fixedChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toBeUndefined();
@@ -349,7 +349,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["componentRequiredChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toBeUndefined();
@@ -381,7 +381,7 @@ describe("duplicateItems", () => {
     const fieldsToFocus = duplicateItems(
       form,
       ["componentChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["componentChild.1"]);
@@ -709,7 +709,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.0"]);
@@ -730,7 +730,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.1"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.1"]);
@@ -751,7 +751,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.3"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual(["parent1.2"]);
@@ -780,7 +780,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -798,7 +798,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.0", "parent1.1"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -819,7 +819,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.1", "parent1.2"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -840,7 +840,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.2", "parent1.3"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -861,7 +861,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["parent1.0", "parent1.3"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -893,7 +893,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["fixedChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toBeUndefined();
@@ -925,7 +925,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["componentRequiredChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toBeUndefined();
@@ -959,7 +959,7 @@ describe("removeItems", () => {
     const fieldsToFocus = removeItems(
       form,
       ["componentChild.0"],
-      testCompilationContext
+      testCompilationContext,
     );
 
     expect(fieldsToFocus).toEqual([]);
@@ -992,7 +992,7 @@ describe("shiftPath", () => {
       ({ shifting, original, expectedResult }) => {
         const result = shiftPath(original, shifting);
         expect(result).toEqual(expectedResult);
-      }
+      },
     );
 
     it.each`
@@ -1007,7 +1007,7 @@ describe("shiftPath", () => {
       ({ shifting, original, expectedResult }) => {
         const result = shiftPath(original, shifting);
         expect(result).toEqual(expectedResult);
-      }
+      },
     );
   });
 
@@ -1179,7 +1179,7 @@ describe("pasteAction", () => {
 
         const insertedItem = dotNotationGet(form.values, result?.[0] ?? "");
         expect(insertedItem._id).not.toEqual(item._id);
-      }
+      },
     );
   });
 
@@ -1217,7 +1217,7 @@ describe("pasteAction", () => {
         });
 
         expect(result).toEqual(expectedInsertedPaths);
-      }
+      },
     );
   });
 
@@ -1268,16 +1268,16 @@ describe("pasteAction", () => {
 
         const insertedItem1 = dotNotationGet(
           form.values,
-          expectedInsertedPaths[0]
+          expectedInsertedPaths[0],
         );
         expect(insertedItem1._id).not.toEqual(item._id);
 
         const insertedItem2 = dotNotationGet(
           form.values,
-          expectedInsertedPaths[1]
+          expectedInsertedPaths[1],
         );
         expect(insertedItem2._id).not.toEqual(item._id);
-      }
+      },
     );
   });
 
@@ -1317,7 +1317,7 @@ describe("pasteAction", () => {
 
       const destinationComponent = dotNotationGet(form.values, "data.0");
       expect(destinationComponent).toEqual(voidComponent);
-    }
+    },
   );
 });
 

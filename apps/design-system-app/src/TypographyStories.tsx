@@ -1,4 +1,4 @@
-import { Typography } from "@easyblocks/design-system";
+import { Typography } from "@suburb-stack/design-system";
 
 export function TypographyStories() {
   return (

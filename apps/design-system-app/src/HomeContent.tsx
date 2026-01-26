@@ -1,4 +1,4 @@
-import { Colors } from "@easyblocks/design-system";
+import { Colors } from "@suburb-stack/design-system";
 import React from "react";
 import { TypographyStories } from "./TypographyStories";
 import { ColorStories } from "./ColorStories";

@@ -1,4 +1,4 @@
-import { RequestedExternalData, ExternalData } from "@easyblocks/core";
+import { RequestedExternalData, ExternalData } from "@suburb-stack/core";
 
 async function fetchAssets(externalData: RequestedExternalData) {
   const assetsExternals = Object.entries(externalData).filter(
@@ -6,7 +6,7 @@ async function fetchAssets(externalData: RequestedExternalData) {
       return (
         externalReference.widgetId === "asset" && externalReference.id !== null
       );
-    }
+    },
   );
 
   const assetsResponse = await fetch("http://localhost:3200/assets", {
@@ -19,7 +19,7 @@ async function fetchAssets(externalData: RequestedExternalData) {
   const resultAssets: ExternalData = Object.fromEntries(
     assetsExternals.map(([referenceKey, externalReference]) => {
       const asset = assets.find(
-        (asset: any) => asset.id === externalReference.id
+        (asset: any) => asset.id === externalReference.id,
       );
 
       if (!asset) {
@@ -105,7 +105,7 @@ async function fetchAssets(externalData: RequestedExternalData) {
           },
         },
       ];
-    })
+    }),
   );
 
   return resultAssets;

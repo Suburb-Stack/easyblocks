@@ -1,5 +1,5 @@
 import { pxValueNormalize } from "@/app/easyblocks/components/utils/pxValueNormalize";
-import { SchemaProp } from "@easyblocks/core";
+import { SchemaProp } from "@suburb-stack/core";
 
 export const cornerSchemaProps: SchemaProp[] = [
   {
@@ -17,7 +17,7 @@ export const cornerSchemaProps: SchemaProp[] = [
 
 export function cornerStyles(
   values: Record<string, any>,
-  disable: boolean = false
+  disable: boolean = false,
 ) {
   return {
     borderRadius: disable ? "initial" : `${values.cornerRadius}px`,

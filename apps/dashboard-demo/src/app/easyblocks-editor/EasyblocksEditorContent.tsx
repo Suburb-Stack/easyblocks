@@ -1,7 +1,7 @@
 "use client";
 
-import { RequestedExternalData, ExternalData } from "@easyblocks/core";
-import { EasyblocksEditor } from "@easyblocks/editor";
+import { RequestedExternalData, ExternalData } from "@suburb-stack/core";
+import { EasyblocksEditor } from "@suburb-stack/editor";
 import { useRef, useState } from "react";
 import { easyblocksComponents } from "../easyblocks/components";
 import { easyblocksConfig } from "../easyblocks/easyblocks.config";

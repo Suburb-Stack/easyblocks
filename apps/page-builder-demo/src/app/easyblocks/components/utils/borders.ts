@@ -1,11 +1,11 @@
-import { EditingInfo, SchemaProp } from "@easyblocks/core";
+import { EditingInfo, SchemaProp } from "@suburb-stack/core";
 import { pxValueNormalize } from "@/app/easyblocks/components/utils/pxValueNormalize";
 import { getFieldProvider } from "@/app/easyblocks/components/utils/getFieldProvider";
 
 function borderSchemaProp(
   prop: string,
   label: string,
-  group: string
+  group: string,
 ): SchemaProp {
   return {
     prop: prop,
@@ -43,7 +43,7 @@ export function bordersStyles(values: Record<string, any>) {
 
 export function bordersEditing(
   editingInfo: EditingInfo,
-  values: Record<string, any>
+  values: Record<string, any>,
 ) {
   const getField = getFieldProvider(editingInfo);
 

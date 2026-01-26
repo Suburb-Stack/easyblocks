@@ -3,11 +3,11 @@ import {
   Easyblocks,
   getDefaultLocale,
   type RenderableDocument,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import React, { useEffect, useState } from "react";
 import { parseQueryParams } from "./parseQueryParams";
 import { EasyblocksEditorProps } from "./EasyblocksEditorProps";
-import { serialize } from "@easyblocks/utils";
+import { serialize } from "@suburb-stack/utils";
 
 export const PreviewRenderer: React.FC<EasyblocksEditorProps> = (props) => {
   const config = props.config;
@@ -27,7 +27,7 @@ export const PreviewRenderer: React.FC<EasyblocksEditorProps> = (props) => {
 
     if (documentId && templateId) {
       console.warn(
-        `'template' parameter ignored because 'document' parameter is specified`
+        `'template' parameter ignored because 'document' parameter is specified`,
       );
       mode = "document";
     } else if (!documentId && templateId) {
@@ -36,7 +36,7 @@ export const PreviewRenderer: React.FC<EasyblocksEditorProps> = (props) => {
       mode = "document";
     } else {
       throw new Error(
-        "You must specify 'document' or 'template' parameter in preview mode"
+        "You must specify 'document' or 'template' parameter in preview mode",
       );
     }
 
@@ -44,7 +44,7 @@ export const PreviewRenderer: React.FC<EasyblocksEditorProps> = (props) => {
       locale ?? getDefaultLocale(config.locales ?? []).code;
 
     (async () => {
-      const { buildDocument, buildEntry } = await import("@easyblocks/core");
+      const { buildDocument, buildEntry } = await import("@suburb-stack/core");
 
       if (mode === "document") {
         const { renderableDocument, externalData } = await buildDocument({

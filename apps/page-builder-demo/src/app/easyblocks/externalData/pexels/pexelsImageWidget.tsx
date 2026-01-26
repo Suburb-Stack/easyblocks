@@ -3,8 +3,8 @@ import {
   PEXELS_IMAGE_WIDGET_ID,
   pexelsApiFetch,
 } from "@/app/easyblocks/externalData/pexels/pexelsShared";
-import type { Widget, WidgetComponentProps } from "@easyblocks/core";
-import { SimplePicker } from "@easyblocks/design-system";
+import type { Widget, WidgetComponentProps } from "@suburb-stack/core";
+import { SimplePicker } from "@suburb-stack/design-system";
 
 export const pexelsImageWidget: Widget = {
   id: PEXELS_IMAGE_WIDGET_ID,
@@ -24,7 +24,7 @@ export function PexelsImagePicker({
           query
             ? `/v1/search?query=${query}`
             : // Pexels API returns 400 if no query is provided, so let's use curated images instead in that case
-              "/v1/curated"
+              "/v1/curated",
         );
 
         const data = await response.json();

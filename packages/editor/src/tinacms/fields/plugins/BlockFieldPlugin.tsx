@@ -9,13 +9,13 @@ import {
   resolveExternalValue,
   resolveLocalisedValue,
   responsiveValueForceGet,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   Component$$$SchemaProp,
   InternalField,
   findComponentDefinition,
   isExternalSchemaProp,
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 import {
   ButtonGhost,
   Colors,
@@ -24,8 +24,8 @@ import {
   ThumbnailButton,
   ThumbnailType,
   Typography,
-} from "@easyblocks/design-system";
-import { dotNotationGet, toArray } from "@easyblocks/utils";
+} from "@suburb-stack/design-system";
+import { dotNotationGet, toArray } from "@suburb-stack/utils";
 import React from "react";
 import ReactDOM from "react-dom";
 import styled, { css, keyframes } from "styled-components";
@@ -47,8 +47,9 @@ interface BlocksFieldDefinition extends InternalField {
   schemaProp: ComponentSchemaProp | Component$$$SchemaProp;
 }
 
-interface BlockFieldProps
-  extends FieldRenderProps<NoCodeComponentEntry[] | FieldMixedValue> {
+interface BlockFieldProps extends FieldRenderProps<
+  NoCodeComponentEntry[] | FieldMixedValue
+> {
   field: BlocksFieldDefinition;
   form: FormApi;
   tinaForm: Form;
@@ -144,7 +145,7 @@ const BlockField = ({ field, input, isLabelHidden }: BlockFieldProps) => {
                     if (newConfig) {
                       if (
                         editorContext.focussedField.some(
-                          isConfigPathRichTextPart
+                          isConfigPathRichTextPart,
                         )
                       ) {
                         input.onChange([newConfig]);
@@ -154,7 +155,7 @@ const BlockField = ({ field, input, isLabelHidden }: BlockFieldProps) => {
 
                       setIsSubcomponentPanelExpanded(true);
                     }
-                  }
+                  },
                 );
               }}
             />
@@ -237,7 +238,7 @@ const SubComponentPanelButton = ({
         componentDefinition,
         dotNotationGet(entryAfterAuto, paths[0]),
         externalData,
-        editorContext
+        editorContext,
       )
     : undefined;
 
@@ -267,7 +268,7 @@ const SubComponentPanelButton = ({
             onCollapse={onCollapse}
             paths={paths}
           />,
-          sidebarPanelsRoot
+          sidebarPanelsRoot,
         )}
     </>
   );
@@ -277,13 +278,13 @@ function getSidebarPreview(
   componentDefinition: NoCodeComponentDefinition,
   entryAfterAuto: NoCodeComponentEntry,
   externalData: ExternalData,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ): SidebarPreviewVariant | undefined {
   const previewValues = Object.fromEntries(
     componentDefinition.schema.map((s) => {
       const value = responsiveValueForceGet(
         entryAfterAuto[s.prop],
-        editorContext.breakpointIndex
+        editorContext.breakpointIndex,
       );
 
       if (isExternalSchemaProp(s, editorContext.types)) {
@@ -291,7 +292,7 @@ function getSidebarPreview(
           value as ExternalReference,
           entryAfterAuto._id,
           s,
-          externalData
+          externalData,
         );
         return [s.prop, externalDataValue];
       }
@@ -301,13 +302,13 @@ function getSidebarPreview(
           s.prop,
           resolveLocalisedValue<string>(
             (value as LocalTextReference).value,
-            editorContext
+            editorContext,
           )?.value,
         ];
       }
 
       return [s.prop, value];
-    })
+    }),
   );
 
   return componentDefinition.preview?.({ values: previewValues, externalData });

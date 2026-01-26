@@ -1,4 +1,4 @@
-import { cleanString } from "@easyblocks/utils";
+import { cleanString } from "@suburb-stack/utils";
 import { Element } from "slate";
 import type {
   BlockElement,
@@ -17,26 +17,26 @@ import {
 } from "../builders";
 
 function convertEditorValueToRichTextElements(
-  editorValue: Array<BlockElement>
+  editorValue: Array<BlockElement>,
 ): Array<RichTextBlockElementComponentConfig> {
   return editorValue.map((blockElement) => {
     if (Element.isElementType<BulletedList>(blockElement, "bulleted-list")) {
       return convertEditorListElementToRichTextListBlockElement<BulletedList>(
         "bulleted-list",
-        blockElement
+        blockElement,
       );
     }
 
     if (Element.isElementType<NumberedList>(blockElement, "numbered-list")) {
       return convertEditorListElementToRichTextListBlockElement<NumberedList>(
         "numbered-list",
-        blockElement
+        blockElement,
       );
     }
 
     if (Element.isElementType<ParagraphElement>(blockElement, "paragraph")) {
       return convertEditorParagraphElementToRichTextParagraphBlockElement(
-        blockElement
+        blockElement,
       );
     }
 
@@ -45,7 +45,7 @@ function convertEditorValueToRichTextElements(
 }
 
 function convertEditorElementToRichTextLineElement(
-  editorElement: TextLineElement | ListItemElement
+  editorElement: TextLineElement | ListItemElement,
 ): RichTextLineElementComponentConfig {
   const lineElement = buildRichTextLineElementComponentConfig({
     elements: editorElement.children.map((child) => {
@@ -64,16 +64,16 @@ function convertEditorElementToRichTextLineElement(
 }
 
 function convertEditorListElementToRichTextListBlockElement<
-  ListElement extends BulletedList | NumberedList
+  ListElement extends BulletedList | NumberedList,
 >(
   type: "bulleted-list" | "numbered-list",
-  editorElement: ListElement
+  editorElement: ListElement,
 ): RichTextBlockElementComponentConfig {
   const listBlockElement = buildRichTextBlockElementComponentConfig(
     type,
     editorElement.children.map((child) => {
       return convertEditorElementToRichTextLineElement(child);
-    })
+    }),
   );
   listBlockElement._id = editorElement.id;
 
@@ -81,13 +81,13 @@ function convertEditorListElementToRichTextListBlockElement<
 }
 
 function convertEditorParagraphElementToRichTextParagraphBlockElement(
-  editorElement: ParagraphElement
+  editorElement: ParagraphElement,
 ): RichTextBlockElementComponentConfig {
   const paragraphBlockElement = buildRichTextBlockElementComponentConfig(
     "paragraph",
     editorElement.children.map((child) => {
       return convertEditorElementToRichTextLineElement(child);
-    })
+    }),
   );
   paragraphBlockElement._id = editorElement.id;
 

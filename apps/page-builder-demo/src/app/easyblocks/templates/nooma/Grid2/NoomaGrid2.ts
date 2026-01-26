@@ -1,4 +1,4 @@
-import { Template } from "@easyblocks/core";
+import { Template } from "@suburb-stack/core";
 import entry from "./NoomaGrid2Entry.json";
 
 export const NoomaGrid2: Template = {

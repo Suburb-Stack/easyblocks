@@ -2,7 +2,7 @@ import {
   ChildComponentEditingInfo,
   NoCodeComponentDefinition,
   box,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 const horizontalLayoutDefinition: NoCodeComponentDefinition = {
   id: "HorizontalLayout",
@@ -53,8 +53,8 @@ const horizontalLayoutDefinition: NoCodeComponentDefinition = {
               x.itemAlign === "flex-start"
                 ? "left"
                 : x.itemAlign === "center"
-                ? "center"
-                : "right",
+                  ? "center"
+                  : "right",
             $width: $itemWidth,
             $widthAuto: false,
           })),

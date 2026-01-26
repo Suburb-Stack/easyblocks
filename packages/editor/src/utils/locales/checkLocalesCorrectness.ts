@@ -1,4 +1,4 @@
-import { getDefaultLocale, Locale } from "@easyblocks/core";
+import { getDefaultLocale, Locale } from "@suburb-stack/core";
 
 export function checkLocalesCorrectness(locales: Locale[]): boolean {
   if (locales.length === 0) {
@@ -12,7 +12,7 @@ export function checkLocalesCorrectness(locales: Locale[]): boolean {
 
   if (defaultLocales.length > 1) {
     throw new Error(
-      "Only one locale must be set as default, you set more than one"
+      "Only one locale must be set as default, you set more than one",
     );
   }
 
@@ -29,7 +29,7 @@ export function checkLocalesCorrectness(locales: Locale[]): boolean {
 
       if (!fallback) {
         throw new Error(
-          `Locale ${locale} has a fallback ${locale.fallback} which doesn't exist in the locales list.`
+          `Locale ${locale} has a fallback ${locale.fallback} which doesn't exist in the locales list.`,
         );
       }
     }
@@ -58,7 +58,7 @@ export function checkLocalesCorrectness(locales: Locale[]): boolean {
           `There is circular reference in locales: ${[
             ...localeChain,
             fallbackId,
-          ].join(",")}`
+          ].join(",")}`,
         );
       }
 

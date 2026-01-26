@@ -1,4 +1,4 @@
-import { range } from "@easyblocks/utils";
+import { range } from "@suburb-stack/utils";
 import {
   Color,
   ExternalReference,

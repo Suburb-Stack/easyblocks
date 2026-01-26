@@ -3,7 +3,7 @@ import {
   Devices,
   TrulyResponsiveValue,
   responsiveValueSet,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { DecomposedValues, decomposeValues } from "./decomposeValues";
 
 export type ResponsiveAutoCallback = (
@@ -13,14 +13,14 @@ export type ResponsiveAutoCallback = (
     devices: Devices;
     device: DeviceRange;
     widths: TrulyResponsiveValue<number>;
-  }
+  },
 ) => Record<string, any>;
 
 export function responsiveAuto(
   inputValues: Record<string, any>,
   devices: Devices,
   widths: TrulyResponsiveValue<number>,
-  callback: ResponsiveAutoCallback
+  callback: ResponsiveAutoCallback,
 ) {
   const values = { ...inputValues };
 
@@ -29,7 +29,7 @@ export function responsiveAuto(
       inputValues,
       widths,
       devices,
-      device.id
+      device.id,
     );
 
     const result = callback(decomposedValues, {
@@ -50,7 +50,7 @@ export function responsiveAuto(
           values[prop],
           device.id,
           result[prop],
-          devices
+          devices,
         );
       }
     }

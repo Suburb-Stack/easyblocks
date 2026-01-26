@@ -1,4 +1,4 @@
-import { InternalField } from "@easyblocks/core/_internals";
+import { InternalField } from "@suburb-stack/core/_internals";
 import React from "react";
 
 export interface FieldPlugin {
@@ -9,7 +9,7 @@ export interface FieldPlugin {
     value: any,
     allValues: any,
     meta: any,
-    field: InternalField
+    field: InternalField,
   ): string | object | undefined;
   parse?: (value: any, name: string, field: InternalField) => any;
   format?: (value: any, name: string, field: InternalField) => any;

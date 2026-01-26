@@ -1,14 +1,14 @@
-import { BasicRow, Modal } from "@easyblocks/design-system";
+import { BasicRow, Modal } from "@suburb-stack/design-system";
 import React, { ChangeEvent, useState } from "react";
 import { useEditorContext } from "./EditorContext";
 import { Template } from "./types";
 import { TemplatePicker, TemplatesDictionary } from "./TemplatePicker";
-import { ComponentDefinitionShared } from "@easyblocks/core";
+import { ComponentDefinitionShared } from "@suburb-stack/core";
 
 function checkQueryForTemplate(
   query: string,
   template: Template,
-  component: ComponentDefinitionShared
+  component: ComponentDefinitionShared,
 ) {
   return `${template.label ?? ""}${component.label ?? component.id}`
     .toLocaleLowerCase()
@@ -36,7 +36,7 @@ export const SearchableSmallPickerModal: TemplatePicker = ({
         trimmedQuery === ""
           ? templates
           : templates.filter((template) =>
-              checkQueryForTemplate(trimmedQuery, template, component)
+              checkQueryForTemplate(trimmedQuery, template, component),
             );
 
       if (filteredTemplates.length > 0) {
@@ -114,7 +114,7 @@ export const SearchableSmallPickerModal: TemplatePicker = ({
                 />
               );
             });
-          }
+          },
         )}
     </Modal>
   );

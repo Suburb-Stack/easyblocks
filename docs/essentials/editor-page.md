@@ -5,7 +5,7 @@ In order to use Easyblocks your project must have a dedicated page that contains
 Creating the editor page is simple:
 
 ```tsx
-import { EasyblocksEditor } from "@easyblocks/editor";
+import { EasyblocksEditor } from "@suburb-stack/editor";
 import { easyblocksConfig } from "../easyblocks.config.ts";
 
 function EditorPage() {
@@ -53,11 +53,11 @@ const [iframeNode, setIframeNode] = useState<HTMLIFrameElement | null>(null);
 
 useEffect(() => {
   function handleMessage(event: MessageEvent) {
-    if (event.data.type === "@easyblocks/closed") {
+    if (event.data.type === "@suburb-stack/closed") {
       // handle closed event
     }
 
-    if (event.data.type === "@easyblocks/content-saved") {
+    if (event.data.type === "@suburb-stack/content-saved") {
       // handle content saved event
     }
   }
@@ -79,23 +79,23 @@ return (
 
 Below is the list of events that editor can publish:
 
-#### `@easyblocks/closed`
+#### `@suburb-stack/closed`
 
 Published when editor should be closed because user has clicked the close button in the top bar. The format:
 
 ```typescript
 {
-  type: "@easyblocks/closed";
+  type: "@suburb-stack/closed";
 }
 ```
 
-#### `@easyblocks/content-saved`&#x20;
+#### `@suburb-stack/content-saved`&#x20;
 
 Published each time the editor is performing the save of current content. It can be done by autosave mechanism or when closing the editor and the data the current data hasn't been saved yet. The format:
 
 ```typescript
 {
-    type: "@easyblocks/content-saved"
+    type: "@suburb-stack/content-saved"
     document: {
         id: string,
         version: number,

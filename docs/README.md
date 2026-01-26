@@ -49,7 +49,7 @@ Below we're showing a code of a very simple No-Code Component: `SimpleBanner`:
 ```tsx
 // No-Code Component Definition
 
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 
 export const simpleBannerDefinition: NoCodeComponentDefinition = {
   id: "SimpleBanner",
@@ -86,7 +86,7 @@ export const simpleBannerDefinition: NoCodeComponentDefinition = {
       prop: "Title",
       type: "component",
       required: true,
-      accepts: ["@easyblocks/text"],
+      accepts: ["@suburb-stack/text"],
     },
     {
       prop: "Buttons",

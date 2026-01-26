@@ -1,6 +1,6 @@
 import type { useSortable } from "@dnd-kit/sortable";
-import { selectionFramePositionChanged } from "@easyblocks/core/_internals";
-import { Colors } from "@easyblocks/design-system";
+import { selectionFramePositionChanged } from "@suburb-stack/core/_internals";
+import { Colors } from "@suburb-stack/design-system";
 import React, { MouseEvent, ReactNode, useEffect, useState } from "react";
 
 type SelectionFrameControllerProps = {
@@ -167,8 +167,8 @@ function useUpdateFramePosition({
       dispatch(
         selectionFramePositionChanged(
           nodeRect,
-          window.document.documentElement.getBoundingClientRect()
-        )
+          window.document.documentElement.getBoundingClientRect(),
+        ),
       );
     });
 
@@ -196,7 +196,7 @@ function useUpdateFramePosition({
       });
 
     const closestScrollableElement = node.closest(
-      "[data-easyblocks-scrollable-root]"
+      "[data-easyblocks-scrollable-root]",
     );
 
     closestScrollableElement?.addEventListener(
@@ -204,14 +204,14 @@ function useUpdateFramePosition({
       updateSelectionFramePositionInScrollableContainer,
       {
         passive: true,
-      }
+      },
     );
 
     dispatch(
       selectionFramePositionChanged(
         node.getBoundingClientRect(),
-        closestScrollableElement?.getBoundingClientRect()
-      )
+        closestScrollableElement?.getBoundingClientRect(),
+      ),
     );
 
     return () => {
@@ -219,7 +219,7 @@ function useUpdateFramePosition({
       window.removeEventListener("resize", handleResize);
       closestScrollableElement?.removeEventListener(
         "scroll",
-        updateSelectionFramePositionInScrollableContainer
+        updateSelectionFramePositionInScrollableContainer,
       );
     };
   });

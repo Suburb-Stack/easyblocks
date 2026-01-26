@@ -1,15 +1,15 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
 import {
   findComponentDefinition,
   stripRichTextPartSelection,
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 import {
   ButtonPrimary,
   ButtonSecondary,
   Colors,
   Fonts,
-} from "@easyblocks/design-system";
-import { dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/design-system";
+import { dotNotationGet } from "@suburb-stack/utils";
 import * as React from "react";
 import styled from "styled-components";
 import { useEditorContext } from "./EditorContext";
@@ -40,7 +40,7 @@ export function SidebarFooter(props: { paths: string[] }) {
   const compiledPath = pathToCompiledPath(path, editorContext);
   const compiledValue = dotNotationGet(
     editorContext.compiledComponentConfig,
-    compiledPath
+    compiledPath,
   );
 
   const widthInfo = compiledValue.__editing?.widthInfo;
@@ -87,7 +87,7 @@ export function SidebarFooter(props: { paths: string[] }) {
                     },
                     () => {
                       alert("Copy error");
-                    }
+                    },
                   );
                 }}
               >

@@ -1,4 +1,4 @@
-import type { RequestedExternalData, ExternalData } from "@easyblocks/core";
+import type { RequestedExternalData, ExternalData } from "@suburb-stack/core";
 import type { ImageSrc, VideoSrc } from "../types";
 import {
   PEXELS_IMAGE_WIDGET_ID,
@@ -7,14 +7,14 @@ import {
 } from "./pexelsShared";
 
 export async function fetchPexelsResources(
-  externalData: RequestedExternalData
+  externalData: RequestedExternalData,
 ): Promise<ExternalData> {
   const pexelsPhotoResources = Object.entries(externalData).filter(
     ([, resource]) => {
       return (
         resource.widgetId === PEXELS_IMAGE_WIDGET_ID && resource.id !== null
       );
-    }
+    },
   );
 
   const pexelsVideoResources = Object.entries(externalData).filter(
@@ -22,23 +22,23 @@ export async function fetchPexelsResources(
       return (
         resource.widgetId === PEXELS_VIDEO_WIDGET_ID && resource.id !== null
       );
-    }
+    },
   );
 
   const photos = await Promise.all(
     pexelsPhotoResources.map(([, resource]) => {
       return pexelsApiFetch(`/v1/photos/${resource.id}`).then((res) =>
-        res.json()
+        res.json(),
       );
-    })
+    }),
   );
 
   const videos = await Promise.all(
     pexelsVideoResources.map(([, resource]) => {
       return pexelsApiFetch(`/v1/photos/${resource.id}`).then((res) =>
-        res.json()
+        res.json(),
       );
-    })
+    }),
   );
 
   const photosResults = Object.fromEntries(
@@ -76,14 +76,14 @@ export async function fetchPexelsResources(
           value: photoValue,
         },
       ];
-    })
+    }),
   );
 
   const videosResults = Object.fromEntries(
     pexelsVideoResources.map(([id, inputResource]) => {
       const video = videos.find(
         // Pexels API returns id as a number
-        (p) => p.id.toString() === inputResource.id
+        (p) => p.id.toString() === inputResource.id,
       );
 
       if (!video) {
@@ -108,7 +108,7 @@ export async function fetchPexelsResources(
           value: videoValue,
         },
       ];
-    })
+    }),
   );
 
   return { ...photosResults, ...videosResults };

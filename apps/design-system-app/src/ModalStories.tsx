@@ -4,7 +4,7 @@ import {
   ButtonSecondary,
   Modal,
   Typography,
-} from "@easyblocks/design-system";
+} from "@suburb-stack/design-system";
 
 function Modal1() {
   const [open, setOpen] = useState(false);

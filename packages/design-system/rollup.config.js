@@ -8,7 +8,7 @@ import {
   getFullySpecifiedEnvs,
   isDevelopment,
   isProduction,
-} from "@easyblocks/build-tools";
+} from "@suburb-stack/build-tools";
 import { visualizer } from "rollup-plugin-visualizer";
 import preserveDirectives from "rollup-plugin-preserve-directives";
 import packageJson from "./package.json" with { type: "json" };

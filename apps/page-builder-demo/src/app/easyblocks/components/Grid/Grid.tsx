@@ -1,4 +1,4 @@
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 import React, { ReactElement } from "react";
 import {
   SectionProps,
@@ -22,7 +22,7 @@ export function Grid(
     itemContainers: Array<ReactElement>;
     itemInnerContainers: Array<ReactElement>;
   } & SectionProps &
-    NoCodeComponentProps
+    NoCodeComponentProps,
 ) {
   const {
     // Section styled components
@@ -65,7 +65,7 @@ export function Grid(
     scrollableContainer: HTMLElement,
     spacer: HTMLElement,
     items: Array<HTMLElement>,
-    direction = 1
+    direction = 1,
   ) {
     if (items.length === 0) {
       return 0;
@@ -108,14 +108,14 @@ export function Grid(
 
   const clickHandler = (directionRight: boolean) => {
     const itemNodes = Array.from(
-      innerContainerRef.current!.querySelectorAll<HTMLElement>("[data-item]")
+      innerContainerRef.current!.querySelectorAll<HTMLElement>("[data-item]"),
     );
 
     const newPos = getNextPos(
       containerRef.current!,
       spacerRef.current!,
       itemNodes,
-      directionRight ? -1 : 1
+      directionRight ? -1 : 1,
     );
 
     containerRef.current!.scrollTo({ left: newPos, behavior: "smooth" });
@@ -158,7 +158,7 @@ export function Grid(
       if (containerRef.current) {
         containerRef.current.removeEventListener(
           "scroll",
-          updateArrowsVisibility
+          updateArrowsVisibility,
         );
       }
     };
