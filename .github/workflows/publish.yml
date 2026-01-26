@@ -67,7 +67,7 @@ jobs:
 
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: pnpm exec lerna publish from-package --yes --no-private --no-git-checks
+        run: pnpm exec lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
