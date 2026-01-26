@@ -10,7 +10,7 @@ on:
       dry_run:
         description: "Dry run (skip actual publish)"
         required: false
-        default: "false"
+        default: false
         type: boolean
 
 jobs:
@@ -65,11 +65,23 @@ jobs:
         run: |
           npx lerna version ${{ steps.version.outputs.version }} --yes --no-git-tag-version --no-push --force-publish
 
+      - name: Commit version bump (required for lerna publish)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lerna.json **/package.json
+          git commit -m "chore(release): ${{ steps.version.outputs.version }}" || echo "No changes to commit"
+
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: npx lerna publish from-package --yes --no-private --no-git-checks
+        run: npx lerna publish from-package --yes --no-private --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push version bump commit
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: git push origin HEAD:${GITHUB_REF#refs/heads/}
 
       - name: Dry run - show what would be published
         if: ${{ github.event.inputs.dry_run == 'true' }}
