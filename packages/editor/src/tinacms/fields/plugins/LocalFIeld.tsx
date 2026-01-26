@@ -1,7 +1,7 @@
-import { LocalValue } from "@easyblocks/core";
-import { InternalField } from "@easyblocks/core/_internals";
+import { LocalValue } from "@suburb-stack/core";
+import { InternalField } from "@suburb-stack/core/_internals";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { EditorContextType, useEditorContext } from "../../../EditorContext";
 import { MissingWidget } from "./MissingWidget";
 import { wrapFieldsWithMeta } from "./wrapFieldWithMeta";
@@ -19,11 +19,11 @@ function useInlineTypes(): InlineTypesResult {
       [string, InlineTypesResult[string]]
     >(
       (
-        typeDefinitionEntry
+        typeDefinitionEntry,
       ): typeDefinitionEntry is [string, InlineTypesResult[string]] => {
         return typeDefinitionEntry[1].type === "inline";
-      }
-    )
+      },
+    ),
   );
 
   return tokenTypes;

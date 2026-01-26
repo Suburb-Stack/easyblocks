@@ -1,4 +1,4 @@
-import { RequestedExternalData } from "@easyblocks/core";
+import { RequestedExternalData } from "@suburb-stack/core";
 import { fetchAssets } from "./types/asset/fetch";
 
 async function fetchExternalData(externalData: RequestedExternalData) {

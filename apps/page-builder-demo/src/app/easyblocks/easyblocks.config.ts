@@ -6,7 +6,7 @@ import { linkDefinition } from "@/app/easyblocks/components/Link/Link.definition
 import { productCardDefinition } from "@/app/easyblocks/components/ProductCard/ProductCard.definition";
 import { vimeoPlayerEditableComponent } from "@/app/easyblocks/components/VimeoPlayer/VimeoPlayer.definition";
 import { mockVideoWidget } from "@/app/easyblocks/externalData/mockMedia/mockVideoWidget";
-import { Config, EasyblocksBackend } from "@easyblocks/core";
+import { Config, EasyblocksBackend } from "@suburb-stack/core";
 import { buttonComponentDefinition } from "./components/Button/Button.definition";
 import { buttonGroupDefinition } from "./components/ButtonGroup/ButtonGroup.definition";
 import { codeDefinition } from "./components/Code/Code.definition";
@@ -27,13 +27,11 @@ import { pexelsImageWidget } from "./externalData/pexels/pexelsImageWidget";
 import { productWidget } from "./externalData/product/productWidget";
 import { templates } from "./templates/templates";
 
-if (!process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN) {
-  throw new Error("Missing NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN");
-}
+const accessToken = process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN || "";
 
 export const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
-    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN,
+    accessToken,
     rootUrl: process.env.NEXT_PUBLIC_EASYBLOCKS_BACKEND_ROOT_URL, // this line of code is here only for debugging purposes, you almost surely don't need to set NEXT_PUBLIC_EASYBLOCKS_BACKEND_ROOT_URL env variable and should keep rootUrl as undefined
   }),
   locales: [

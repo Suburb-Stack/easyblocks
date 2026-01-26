@@ -1,4 +1,4 @@
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 import React, { ReactElement } from "react";
 import {
   SectionProps,
@@ -22,7 +22,7 @@ export function Grid(
     itemContainers: Array<ReactElement>;
     itemInnerContainers: Array<ReactElement>;
   } & SectionProps &
-    NoCodeComponentProps
+    NoCodeComponentProps,
 ) {
   const {
     // Section styled components
@@ -65,7 +65,7 @@ export function Grid(
     scrollableContainer: HTMLElement,
     spacer: HTMLElement,
     items: Array<HTMLElement>,
-    direction = 1
+    direction = 1,
   ) {
     if (items.length === 0) {
       return 0;
@@ -108,14 +108,14 @@ export function Grid(
 
   const clickHandler = (directionRight: boolean) => {
     const itemNodes = Array.from(
-      innerContainerRef.current!.querySelectorAll<HTMLElement>("[data-item]")
+      innerContainerRef.current!.querySelectorAll<HTMLElement>("[data-item]"),
     );
 
     const newPos = getNextPos(
       containerRef.current!,
       spacerRef.current!,
       itemNodes,
-      directionRight ? -1 : 1
+      directionRight ? -1 : 1,
     );
 
     containerRef.current!.scrollTo({ left: newPos, behavior: "smooth" });
@@ -158,7 +158,7 @@ export function Grid(
       if (containerRef.current) {
         containerRef.current.removeEventListener(
           "scroll",
-          updateArrowsVisibility
+          updateArrowsVisibility,
         );
       }
     };
@@ -178,44 +178,54 @@ export function Grid(
       SubheaderStackContainer__={SubheaderStackContainer__}
       headerMode={headerMode}
     >
-      <Root.type {...Root.props}>
+      <Root.type {...(Root.props as Record<string, unknown>)}>
         <Container.type
-          {...Container.props}
+          {...(Container.props as Record<string, unknown>)}
           ref={containerRef}
           data-easyblocks-scrollable-root
         >
           <InnerContainer.type
-            {...InnerContainer.props}
+            {...(InnerContainer.props as Record<string, unknown>)}
             ref={innerContainerRef}
           >
-            <SpacerLeft.type {...SpacerLeft.props} ref={spacerRef} />
+            <SpacerLeft.type
+              {...(SpacerLeft.props as Record<string, unknown>)}
+              ref={spacerRef}
+            />
             {Cards.map((Card, index) => {
               const ItemContainer = itemContainers[index];
               const ItemInnerContainer = itemInnerContainers[index];
 
               return (
                 <ItemContainer.type
-                  {...ItemContainer.props}
+                  {...(ItemContainer.props as Record<string, unknown>)}
                   data-item
                   key={index}
                 >
-                  <ItemInnerContainer.type {...ItemInnerContainer.props}>
-                    <Card.type {...Card.props} />
+                  <ItemInnerContainer.type
+                    {...(ItemInnerContainer.props as Record<string, unknown>)}
+                  >
+                    <Card.type {...(Card.props as Record<string, unknown>)} />
                   </ItemInnerContainer.type>
                 </ItemContainer.type>
               );
             })}
-            <SpacerRight.type {...SpacerRight.props} ref={spacerRef} />
+            <SpacerRight.type
+              {...(SpacerRight.props as Record<string, unknown>)}
+              ref={spacerRef}
+            />
           </InnerContainer.type>
         </Container.type>
 
         <LeftArrowWrapper.type
-          {...LeftArrowWrapper.props}
+          {...(LeftArrowWrapper.props as Record<string, unknown>)}
           ref={leftArrowWrapperRef}
         >
-          <LeftArrowInnerWrapper.type {...LeftArrowInnerWrapper.props}>
+          <LeftArrowInnerWrapper.type
+            {...(LeftArrowInnerWrapper.props as Record<string, unknown>)}
+          >
             <LeftArrow.type
-              {...LeftArrow.props}
+              {...(LeftArrow.props as Record<string, unknown>)}
               onClick={() => {
                 clickHandler(false);
               }}
@@ -224,12 +234,14 @@ export function Grid(
         </LeftArrowWrapper.type>
 
         <RightArrowWrapper.type
-          {...RightArrowWrapper.props}
+          {...(RightArrowWrapper.props as Record<string, unknown>)}
           ref={rightArrowWrapperRef}
         >
-          <RightArrowInnerWrapper.type {...RightArrowInnerWrapper.props}>
+          <RightArrowInnerWrapper.type
+            {...(RightArrowInnerWrapper.props as Record<string, unknown>)}
+          >
             <RightArrow.type
-              {...RightArrow.props}
+              {...(RightArrow.props as Record<string, unknown>)}
               onClick={() => {
                 clickHandler(true);
               }}

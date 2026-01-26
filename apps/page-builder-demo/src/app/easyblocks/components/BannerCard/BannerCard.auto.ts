@@ -1,4 +1,4 @@
-import { NoCodeComponentAutoFunction } from "@easyblocks/core";
+import { NoCodeComponentAutoFunction } from "@suburb-stack/core";
 import { responsiveAuto } from "@/app/easyblocks/components/utils/responsiveAuto";
 
 export const bannerCardAuto: NoCodeComponentAutoFunction = ({
@@ -46,7 +46,7 @@ export const bannerCardAuto: NoCodeComponentAutoFunction = ({
       return {
         coverPosition,
       };
-    }
+    },
   );
 
   return valuesAfterAuto;

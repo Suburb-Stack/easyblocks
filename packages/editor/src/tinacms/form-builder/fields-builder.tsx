@@ -1,6 +1,6 @@
-import { InternalField } from "@easyblocks/core/_internals";
-import { Colors, Fonts, Typography } from "@easyblocks/design-system";
-import { toArray } from "@easyblocks/utils";
+import { InternalField } from "@suburb-stack/core/_internals";
+import { Colors, Fonts, Typography } from "@suburb-stack/design-system";
+import { toArray } from "@suburb-stack/utils";
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { useEditorContext } from "../../EditorContext";
@@ -77,7 +77,7 @@ export function FieldBuilder({
   }
 
   const fieldComponent = FIELD_COMPONENTS.find(
-    (component) => component.name === (field.component as string)
+    (component) => component.name === (field.component as string),
   );
 
   const { onChange, getValue } = createFieldController({
@@ -239,7 +239,7 @@ export function FieldsBuilder({ form, fields }: FieldsBuilderProps) {
 
 function generateFieldKey(
   field: InternalField,
-  breakpointIndex: string | undefined
+  breakpointIndex: string | undefined,
 ) {
   const key = `${toArray(field.name).join("_")}_${field.schemaProp.type}${
     breakpointIndex ? `_${breakpointIndex}` : ""

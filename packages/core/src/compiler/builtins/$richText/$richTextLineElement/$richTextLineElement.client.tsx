@@ -10,17 +10,20 @@ type RichTextLineElementProps = {
 
 export function RichTextLineElementClient(props: RichTextLineElementProps) {
   const { blockType, elements: Elements, ListItem, TextLine } = props;
-  const elements = Elements.map((Element, index) => (
-    <Element.type {...Element.props} key={index} />
-  ));
+  const elements = Elements.map((Element, index) => {
+    const elementProps = Element.props as Record<string, unknown>;
+    return <Element.type {...elementProps} key={index} />;
+  });
 
   if (blockType === "paragraph") {
-    return <TextLine.type {...TextLine.props}>{elements}</TextLine.type>;
+    const textLineProps = TextLine.props as Record<string, unknown>;
+    return <TextLine.type {...textLineProps}>{elements}</TextLine.type>;
   }
 
   if (blockType === "bulleted-list" || blockType === "numbered-list") {
+    const listItemProps = ListItem.props as Record<string, unknown>;
     return (
-      <ListItem.type {...ListItem.props}>
+      <ListItem.type {...listItemProps}>
         <div>{elements}</div>
       </ListItem.type>
     );

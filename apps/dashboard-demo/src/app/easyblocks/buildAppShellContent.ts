@@ -1,11 +1,11 @@
-import { buildDocument } from "@easyblocks/core";
+import { buildDocument } from "@suburb-stack/core";
 import { cookies } from "next/headers";
 import "server-only";
 import { easyblocksConfig } from "./easyblocks.config";
 import { fetchExternalData } from "./fetchExternalData";
 
 async function buildAppShellContent() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const appShellDocumentId = cookieStore.get("appShellDocumentId");
 
   if (!appShellDocumentId) {

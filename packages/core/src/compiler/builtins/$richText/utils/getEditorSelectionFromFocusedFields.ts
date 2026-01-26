@@ -1,10 +1,10 @@
-import { dotNotationGet, last } from "@easyblocks/utils";
+import { dotNotationGet, last } from "@suburb-stack/utils";
 import type { Selection } from "slate";
 import { parseFocusedRichTextPartConfigPath } from "./parseRichTextPartConfigPath";
 
 function getEditorSelectionFromFocusedFields(
   focusedFields: Array<string>,
-  form: any
+  form: any,
 ): Selection {
   try {
     const anchorFocusedField = focusedFields[0];

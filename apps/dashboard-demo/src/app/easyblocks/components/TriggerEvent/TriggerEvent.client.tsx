@@ -6,7 +6,7 @@ function TriggerEvent({
 }: NoCodeActionComponentProps) {
   return (
     <TriggerElement.type
-      {...TriggerElement.props}
+      {...(TriggerElement.props as Record<string, unknown>)}
       as="button"
       onClick={() => {
         window.postMessage({

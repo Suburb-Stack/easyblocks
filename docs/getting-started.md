@@ -5,14 +5,14 @@
 Install the packages:
 
 ```bash
-npm install @easyblocks/editor @easyblocks/core
+npm install @suburb-stack/editor @suburb-stack/core
 ```
 
 Create the Editor page:
 
 ```typescript
-import { EasyblocksEditor } from "@easyblocks/editor";
-import { Config, EasyblocksBackend } from "@easyblocks/core";
+import { EasyblocksEditor } from "@suburb-stack/editor";
+import { Config, EasyblocksBackend } from "@suburb-stack/core";
 import { ReactElement } from "react";
 
 const easyblocksConfig: Config = {
@@ -48,7 +48,7 @@ const easyblocksConfig: Config = {
           prop: "Title",
           type: "component",
           required: true,
-          accepts: ["@easyblocks/rich-text"],
+          accepts: ["@suburb-stack/rich-text"],
         },
       ],
       styles: ({ values }) => {

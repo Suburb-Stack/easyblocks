@@ -5,9 +5,9 @@ import {
   isEmptyExternalReference,
   isIdReferenceToDocumentExternalValue,
   isResolvedCompoundExternalDataValue,
-} from "@easyblocks/core";
-import { Select, SelectItem } from "@easyblocks/design-system";
-import { dotNotationGet, toArray } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import { Select, SelectItem } from "@suburb-stack/design-system";
+import { dotNotationGet, toArray } from "@suburb-stack/utils";
 import React, { ComponentType, useLayoutEffect } from "react";
 import {
   EditorContextType,
@@ -50,7 +50,7 @@ const ExternalFieldComponent = (props: ExternalFieldProps) => {
         : getWidgetComponentByType(
             input.value,
             field.schemaProp.type,
-            editorContext
+            editorContext,
           )
       : undefined;
 
@@ -59,7 +59,7 @@ const ExternalFieldComponent = (props: ExternalFieldProps) => {
   const externalReferenceLocationKey = getExternalReferenceLocationKey(
     configId,
     field.schemaProp.prop,
-    field.schemaProp.responsive ? editorContext.breakpointIndex : undefined
+    field.schemaProp.responsive ? editorContext.breakpointIndex : undefined,
   );
   const externalValue = externalReferenceLocationKey
     ? externalData[externalReferenceLocationKey]
@@ -169,7 +169,7 @@ export const ExternalFieldPlugin = {
 function getWidgetComponentByType(
   externalReference: ExternalReference,
   type: string,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   return (
     editorContext.types[type] as EditorExternalTypeDefinition
@@ -178,7 +178,7 @@ function getWidgetComponentByType(
 
 function getWidgetComponentForRootParam(
   externalReference: ExternalReference,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   return Object.values(editorContext.types)
     .filter((t): t is EditorExternalTypeDefinition => t.type === "external")
@@ -188,7 +188,7 @@ function getWidgetComponentForRootParam(
 
 export function getBasicResourcesOfType(
   compoundResourceValues: FetchCompoundResourceResultValues,
-  type: string
+  type: string,
 ) {
   return Object.entries(compoundResourceValues)
     .filter(([, r]) => r.type === type)

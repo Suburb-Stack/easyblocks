@@ -16,9 +16,9 @@ function AppShellHeader({ Items, Root }: NoCodeComponentProps) {
     <header className="h-[60px] w-full p-4 border-b border-gray-200 flex flex-row gap-6 items-center">
       <LogoType />
 
-      <Root.type {...Root.props}>
+      <Root.type {...(Root.props as Record<string, unknown>)}>
         {Items.map((Item: React.ReactElement, index: number) => (
-          <Item.type {...Item.props} key={index} />
+          <Item.type {...(Item.props as Record<string, unknown>)} key={index} />
         ))}
       </Root.type>
     </header>

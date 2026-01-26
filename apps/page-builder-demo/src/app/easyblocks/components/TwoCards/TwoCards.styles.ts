@@ -1,8 +1,8 @@
 import type {
   InferNoCodeComponentStylesFunctionInput,
   NoCodeComponentStylesFunctionResult,
-} from "@easyblocks/core";
-import { spacingToPx } from "@easyblocks/core";
+} from "@suburb-stack/core";
+import { spacingToPx } from "@suburb-stack/core";
 import {
   sectionWrapperCalculateMarginAndMaxWidth,
   sectionWrapperStyles,
@@ -28,7 +28,7 @@ function twoCardsStyles({
   const { margin, containerWidth } = sectionWrapperCalculateMarginAndMaxWidth(
     values.containerMargin,
     values.containerMaxWidth,
-    device
+    device,
   );
   const marginLeft = margin.css;
   const marginRight = margin.css;

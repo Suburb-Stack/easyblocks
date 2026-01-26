@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 import { createButtonDefinition } from "@/app/easyblocks/components/createButtonDefinition";
 
 const sidebarItemDefinition: NoCodeComponentDefinition = createButtonDefinition(
@@ -26,7 +26,7 @@ const sidebarItemDefinition: NoCodeComponentDefinition = createButtonDefinition(
         },
       },
     ],
-  }
+  },
 );
 
 export { sidebarItemDefinition };

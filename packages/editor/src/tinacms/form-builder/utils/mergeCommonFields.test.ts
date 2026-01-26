@@ -1,5 +1,5 @@
-import { AnyField } from "@easyblocks/core";
-import { last } from "@easyblocks/utils";
+import { AnyField } from "@suburb-stack/core";
+import { last } from "@suburb-stack/utils";
 import type { MergeCommonFieldsParameters } from "./mergeCommonFields";
 import { mergeCommonFields } from "./mergeCommonFields";
 
@@ -31,7 +31,7 @@ test("merges fields repeated at least 2 times", () => {
   expect(
     mergeCommonFields({
       fields,
-    })
+    }),
   ).toEqual(expected);
 });
 
@@ -39,7 +39,7 @@ test("merges fields when one of fields is multi field", () => {
   const fields: MergeCommonFieldsParameters["fields"] = [
     [
       createTestField(
-        "data.0.Component.0.Stack.0.Items.0.elements.en.0.elements.0.elements.0.font"
+        "data.0.Component.0.Stack.0.Items.0.elements.en.0.elements.0.elements.0.font",
       ),
     ],
     [
@@ -63,7 +63,7 @@ test("merges fields when one of fields is multi field", () => {
   expect(
     mergeCommonFields({
       fields,
-    })
+    }),
   ).toEqual(expected);
 });
 
@@ -101,7 +101,7 @@ test("filters fields for which `showWhen` method is defined and returns `false`"
   expect(
     mergeCommonFields({
       fields,
-    })
+    }),
   ).toEqual(expected);
 });
 
@@ -147,7 +147,7 @@ test("filter fields which shares same property name but have different schema id
   expect(
     mergeCommonFields({
       fields,
-    })
+    }),
   ).toEqual(expected);
 });
 
@@ -176,13 +176,13 @@ test("uses string as the name if there is only single repeated visible field", (
   expect(
     mergeCommonFields({
       fields,
-    })
+    }),
   ).toEqual(expected);
 });
 
 function createTestField(
   name: Array<string> | string,
-  restProperties: Partial<Omit<AnyField, "name" | "component">> = {}
+  restProperties: Partial<Omit<AnyField, "name" | "component">> = {},
 ) {
   const propertyName = last((Array.isArray(name) ? name[0] : name).split("."));
 

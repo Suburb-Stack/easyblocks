@@ -1,4 +1,4 @@
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 
 function TextLink({
   Link,
@@ -9,7 +9,7 @@ function TextLink({
 }: NoCodeComponentProps & Record<string, any>) {
   return (
     <Link.type
-      {...Link.props}
+      {...(Link.props as Record<string, unknown>)}
       href={url}
       target={shouldOpenInNewWindow ? "_blank" : undefined}
       style={{

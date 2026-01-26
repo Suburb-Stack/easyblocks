@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition } from "@easyblocks/core";
+import { NoCodeComponentDefinition } from "@suburb-stack/core";
 import { linkDefinition } from "../Link/Link.definition";
 
 const TRANSITION_TIMING_FUNCTION = "cubic-bezier(0.4, 0, 0.2, 1)";
@@ -160,8 +160,8 @@ const textLinkDefinition: NoCodeComponentDefinition = {
       const interactiveColor = isHoverColorEnabled
         ? hoverColor
         : isColorOverwriteEnabled
-        ? color
-        : "currentColor";
+          ? color
+          : "currentColor";
 
       const interactiveStyles: Record<string, any> = {
         color: interactiveColor,

@@ -1,5 +1,5 @@
-import type { TokenTypeWidgetComponentProps } from "@easyblocks/core";
-import { Input } from "@easyblocks/design-system";
+import type { TokenTypeWidgetComponentProps } from "@suburb-stack/core";
+import { Input } from "@suburb-stack/design-system";
 import React, { useState } from "react";
 
 function SpaceTokenWidget(props: TokenTypeWidgetComponentProps<string>) {

@@ -1,8 +1,16 @@
 {
-  "name": "@easyblocks/core",
+  "name": "@suburb-stack/core",
   "type": "module",
-  "version": "1.0.10",
+  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a",
   "description": "No-code ecommerce builder for headless CMS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Suburb-Stack/easyblocks.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "NODE_ENV=development concurrently -n bundle,emit-declarations 'rollup -c rollup.config.js --watch' 'tsc --watch --preserveWatchOutput'",
     "build": "npm run bundle && npm run emit-declarations",
@@ -27,22 +35,22 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@easyblocks/build-tools": "workspace:*",
-    "@easyblocks/reduce-css-calc": "workspace:*",
-    "@easyblocks/test-utils": "workspace:*",
-    "@easyblocks/utils": "workspace:*",
-    "@jest/types": "^26.6.2",
-    "@types/jest": "^26.0.20",
-    "@types/lodash": "^4.14.191",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
-    "jest": "^26.6.3"
+    "@babel/core": "^7.28.6",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@jest/types": "^30.2.0",
+    "@suburb-stack/build-tools": "workspace:*",
+    "@suburb-stack/reduce-css-calc": "workspace:*",
+    "@suburb-stack/test-utils": "workspace:*",
+    "@suburb-stack/utils": "workspace:*",
+    "@types/jest": "^30.0.0",
+    "@types/lodash": "^4.17.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jest": "^30.2.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0"
+    "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0"
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/es/index.js",

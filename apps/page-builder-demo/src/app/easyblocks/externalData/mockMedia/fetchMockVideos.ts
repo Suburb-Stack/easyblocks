@@ -1,11 +1,11 @@
-import { RequestedExternalData, ExternalData } from "@easyblocks/core";
+import { RequestedExternalData, ExternalData } from "@suburb-stack/core";
 import { MOCK_ASSETS } from "./mockAssets";
 
 export async function fetchMockVideos(
-  externalData: RequestedExternalData
+  externalData: RequestedExternalData,
 ): Promise<ExternalData> {
   const allResources = Object.entries(externalData).filter(
-    ([, resource]) => resource.widgetId === "mockVideo"
+    ([, resource]) => resource.widgetId === "mockVideo",
   );
 
   if (allResources.length === 0) {

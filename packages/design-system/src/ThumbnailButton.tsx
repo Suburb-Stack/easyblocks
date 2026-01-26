@@ -84,7 +84,7 @@ export function ThumbnailButton({
   thumbnail,
   disabled,
 }: ThumbnailButtonProps) {
-  let preview: JSX.Element;
+  let preview: React.JSX.Element;
 
   if (thumbnail?.type === "image") {
     preview = <PreviewImage src={thumbnail.src} aria-hidden="true" />;

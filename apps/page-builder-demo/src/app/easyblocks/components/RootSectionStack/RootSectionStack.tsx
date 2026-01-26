@@ -12,8 +12,11 @@ export function RootSectionStack(props: {
         const ItemWrapper = itemWrappers[index];
 
         return (
-          <ItemWrapper.type {...ItemWrapper.props} key={index}>
-            <Item.type {...Item.props} />
+          <ItemWrapper.type
+            {...(ItemWrapper.props as Record<string, unknown>)}
+            key={index}
+          >
+            <Item.type {...(Item.props as Record<string, unknown>)} />
           </ItemWrapper.type>
         );
       })}

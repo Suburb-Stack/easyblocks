@@ -23,11 +23,14 @@ function Button(
   } = props;
 
   const triggerElement = (
-    <ButtonRoot.type {...ButtonRoot.props} onClick={onClick}>
+    <ButtonRoot.type
+      {...(ButtonRoot.props as Record<string, unknown>)}
+      onClick={onClick}
+    >
       {variant !== "icon" && <div>{label}</div>}
       {variant !== "label" && (
         <IconWrapper.type
-          {...IconWrapper.props}
+          {...(IconWrapper.props as Record<string, unknown>)}
           dangerouslySetInnerHTML={{
             __html: icon,
           }}
@@ -37,7 +40,12 @@ function Button(
   );
 
   if (Action) {
-    return <Action.type {...Action.props} trigger={triggerElement} />;
+    return (
+      <Action.type
+        {...(Action.props as Record<string, unknown>)}
+        trigger={triggerElement}
+      />
+    );
   }
 
   return triggerElement;

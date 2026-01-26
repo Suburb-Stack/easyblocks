@@ -1,4 +1,4 @@
-import { AnyTinaField } from "@easyblocks/core";
+import { AnyTinaField } from "@suburb-stack/core";
 import {
   CompilationCache,
   CompilationCacheItemValue,
@@ -8,8 +8,8 @@ import {
   buildRichTextPartComponentConfig,
   compileInternal,
   normalize,
-} from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import { EditorContextType } from "../../../EditorContext";
 import { isFieldPortal } from "../../../buildTinaFields";
 import { Form } from "../../../form";
@@ -148,14 +148,14 @@ describe("single field", () => {
             b4: "3",
           },
         },
-        editorContext
-      )
+        editorContext,
+      ),
     );
 
     const compiled = compileInternal(editorContext.form.values, editorContext);
 
     const fields = compiled.compiled.__editing!.fields!.filter(
-      (field): field is AnyTinaField => !isFieldPortal(field)
+      (field): field is AnyTinaField => !isFieldPortal(field),
     );
 
     const field1Controller = createFieldController({
@@ -279,19 +279,19 @@ describe("multiple fields", () => {
     });
 
     expect(
-      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[0])
+      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[0]),
     ).toBe("old value 1");
     expect(
-      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[1])
+      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[1]),
     ).toBe("old value 2");
 
     onChange("new value 1", "new value 2");
 
     expect(
-      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[0])
+      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[0]),
     ).toBe("new value 1");
     expect(
-      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[1])
+      dotNotationGet(editorContext.form.values, fieldCustomValueField.name[1]),
     ).toBe("new value 2");
   });
 });
@@ -301,7 +301,7 @@ describe("rich text editor", () => {
     const editorContext = createTestEditorContext();
 
     editorContext.focussedField.push(
-      "richText.elements.en.0.elements.0.elements.0"
+      "richText.elements.en.0.elements.0.elements.0",
     );
 
     const { onChange } = createFieldController({
@@ -325,7 +325,7 @@ describe("rich text editor", () => {
           values: ["black"],
         },
       },
-      "*"
+      "*",
     );
   });
 
@@ -333,7 +333,7 @@ describe("rich text editor", () => {
     const editorContext = createTestEditorContext();
 
     editorContext.focussedField.push(
-      "richText.elements.en.0.elements.0.elements.0"
+      "richText.elements.en.0.elements.0.elements.0",
     );
 
     const { onChange } = createFieldController({
@@ -357,7 +357,7 @@ describe("rich text editor", () => {
           values: ["black"],
         },
       },
-      "*"
+      "*",
     );
   });
 
@@ -395,7 +395,7 @@ describe("rich text editor", () => {
       ...[
         "richText.elements.en.0.elements.0.elements.0",
         "richText.elements.en.0.elements.0.elements.0",
-      ]
+      ],
     );
 
     const { onChange } = createFieldController({
@@ -422,7 +422,7 @@ describe("rich text editor", () => {
           values: ["black", "red"],
         },
       },
-      "*"
+      "*",
     );
   });
 });
@@ -435,25 +435,25 @@ describe("cache invalidation", () => {
     // the actual cache item content. We need only the keys.
     editorContext.compilationCache.set(
       editorContext.form.values.richText._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richText.elements.en[0]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richText.elements.en[0].elements[0]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richText.elements.en[0].elements[0].elements[0]
         ._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richText.elements.en[0].elements[0].elements[1]
         ._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
 
     jest.spyOn(editorContext.compilationCache, "remove");
@@ -471,21 +471,21 @@ describe("cache invalidation", () => {
 
     expect(editorContext.compilationCache.remove).toHaveBeenCalledTimes(5);
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richText._id
+      editorContext.form.values.richText._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richText.elements.en[0]._id
+      editorContext.form.values.richText.elements.en[0]._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richText.elements.en[0].elements[0]._id
+      editorContext.form.values.richText.elements.en[0].elements[0]._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
       editorContext.form.values.richText.elements.en[0].elements[0].elements[0]
-        ._id
+        ._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
       editorContext.form.values.richText.elements.en[0].elements[0].elements[1]
-        ._id
+        ._id,
     );
   });
 
@@ -496,26 +496,26 @@ describe("cache invalidation", () => {
     // the actual cache item content. We need only the keys.
     editorContext.compilationCache.set(
       editorContext.form.values.richTextWithTextModifier._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]
         .elements[0]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]
         .elements[0].elements[0]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
     editorContext.compilationCache.set(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]
         .elements[0].elements[1]._id,
-      {} as CompilationCacheItemValue
+      {} as CompilationCacheItemValue,
     );
 
     jest.spyOn(editorContext.compilationCache, "remove");
@@ -533,22 +533,22 @@ describe("cache invalidation", () => {
 
     expect(editorContext.compilationCache.remove).toHaveBeenCalledTimes(5);
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richTextWithTextModifier._id
+      editorContext.form.values.richTextWithTextModifier._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richTextWithTextModifier.elements.en[0]._id
-    );
-    expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
-      editorContext.form.values.richTextWithTextModifier.elements.en[0]
-        .elements[0]._id
+      editorContext.form.values.richTextWithTextModifier.elements.en[0]._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]
-        .elements[0].elements[0]._id
+        .elements[0]._id,
     );
     expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
       editorContext.form.values.richTextWithTextModifier.elements.en[0]
-        .elements[0].elements[1]._id
+        .elements[0].elements[0]._id,
+    );
+    expect(editorContext.compilationCache.remove).toHaveBeenCalledWith(
+      editorContext.form.values.richTextWithTextModifier.elements.en[0]
+        .elements[0].elements[1]._id,
     );
   });
 });
@@ -607,10 +607,10 @@ function createTestEditorContext(): EditorContextType {
             if (prop === "prop1" || prop === "prop2") {
               // propCalculated is a sum of prop1 and prop2
               const prop1 = parseInt(
-                prop === "prop1" ? newValue : values.prop1
+                prop === "prop1" ? newValue : values.prop1,
               );
               const prop2 = parseInt(
-                prop === "prop2" ? newValue : values.prop2
+                prop === "prop2" ? newValue : values.prop2,
               );
 
               return {

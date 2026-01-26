@@ -1,4 +1,4 @@
-import { cleanString } from "@easyblocks/utils";
+import { cleanString } from "@suburb-stack/utils";
 import debounce from "lodash/debounce";
 import React from "react";
 import { Locale, getFallbackForLocale } from "../../locales";
@@ -9,7 +9,7 @@ export function useTextValue(
   locale: string,
   locales: Array<Locale>,
   defaultPlaceholder?: string,
-  normalize?: (x: string) => string | null
+  normalize?: (x: string) => string | null,
 ) {
   const isExternal = typeof value === "object" && value !== null;
   const fallbackValue = isExternal
@@ -58,7 +58,7 @@ export function useTextValue(
 
       saveNewValue(newValue);
     }, 500),
-    [isExternal]
+    [isExternal],
   );
 
   function handleBlur() {
@@ -93,7 +93,7 @@ export function useTextValue(
   }
 
   function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     setLocalInputValue(event.target.value);
     onChangeDebounced(event.target.value);

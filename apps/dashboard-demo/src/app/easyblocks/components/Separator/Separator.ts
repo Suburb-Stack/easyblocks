@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition, box } from "@easyblocks/core";
+import { NoCodeComponentDefinition, box } from "@suburb-stack/core";
 
 const separatorDefinition: NoCodeComponentDefinition = {
   id: "Separator",

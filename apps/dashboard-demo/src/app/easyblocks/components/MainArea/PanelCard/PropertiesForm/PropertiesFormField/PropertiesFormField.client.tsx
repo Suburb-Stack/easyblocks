@@ -8,13 +8,11 @@ function PropertiesFormTextField({ property }: NoCodeComponentProps) {
   return (
     <div className={`flex flex-col gap-2`}>
       <label htmlFor={inputId}>{property.label}</label>
-      <TextField.Root>
-        <TextField.Input
-          name={property.id}
-          id={inputId}
-          defaultValue={property.value}
-        />
-      </TextField.Root>
+      <TextField.Root
+        name={property.id}
+        id={inputId}
+        defaultValue={property.value}
+      />
     </div>
   );
 }
@@ -25,7 +23,7 @@ function PropertiesFormBooleanField({ property }: NoCodeComponentProps) {
   return (
     <div className={`flex flex-col gap-2`}>
       <label htmlFor={inputId}>{property.label}</label>
-      <Switch name={property.id} id={inputId} defaultValue={property.value} />
+      <Switch name={property.id} id={inputId} defaultChecked={property.value} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import {
   getDevicesWidths,
   NoCodeComponentAutoFunctionInput,
   responsiveValueGetDefinedValue,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { DecomposedValues } from "../utils/decomposeValues";
 import {
   ResponsiveAutoCallback,
@@ -13,7 +13,7 @@ import { TWO_CARDS_COL_NUM } from "./twoCardsConstants";
 function calculateWidthsFromNonRoundedGap(
   autoGapNotRounded: number,
   higherCard1Width: number,
-  higherCard2Width: number
+  higherCard2Width: number,
 ) {
   if (autoGapNotRounded < 1 && higherCard1Width > 0 && higherCard2Width > 0) {
     autoGapNotRounded = 1;
@@ -47,7 +47,7 @@ function calculateWidthsFromNonRoundedGap(
     higherCard1Width > higherCard2Width ? Math.floor : Math.ceil;
   const autoCard1Width = roundingFunction(
     (TWO_CARDS_COL_NUM - autoGap) *
-      (higherCard1Width / (higherCard1Width + higherCard2Width))
+      (higherCard1Width / (higherCard1Width + higherCard2Width)),
   );
   const autoCard2Width = TWO_CARDS_COL_NUM - autoCard1Width - autoGap;
 
@@ -59,7 +59,7 @@ function calculateAutoWidths(
   higherCard2Width: number,
   higherWidth: number,
   currentWidth: number,
-  magicNumber?: number
+  magicNumber?: number,
 ) {
   const MAGIC_NUMBER = magicNumber ?? -0.45;
 
@@ -82,13 +82,13 @@ function calculateAutoWidths(
     Math.max(
       0,
       higherGap / TWO_CARDS_COL_NUM +
-        (1 - currentWidth / higherWidth) * MAGIC_NUMBER
+        (1 - currentWidth / higherWidth) * MAGIC_NUMBER,
     );
 
   return calculateWidthsFromNonRoundedGap(
     autoGapNotRounded,
     higherCard1Width,
-    higherCard2Width
+    higherCard2Width,
   );
 }
 
@@ -99,7 +99,7 @@ function calculateAutoWidthsForBetweenMode(
   card2WidthLower: number,
   higherWidth: number,
   lowerWidth: number,
-  currentWidth: number
+  currentWidth: number,
 ) {
   let autoCard1Width: number;
   let autoCard2Width: number;
@@ -109,11 +109,11 @@ function calculateAutoWidthsForBetweenMode(
 
   autoCard1Width = Math.round(
     card1WidthLower +
-      (card1WidthHigher - card1WidthLower) * resolutionProportion
+      (card1WidthHigher - card1WidthLower) * resolutionProportion,
   );
   autoCard2Width = Math.round(
     card2WidthLower +
-      (card2WidthHigher - card2WidthLower) * resolutionProportion
+      (card2WidthHigher - card2WidthLower) * resolutionProportion,
   );
 
   if (autoCard1Width + autoCard2Width === 25) {
@@ -181,7 +181,7 @@ function autoWidths({
     (card1Width !== undefined && card2Width === undefined)
   ) {
     throw new Error(
-      "this is error situation. card1Width and card2Width are both either defined or not defined"
+      "this is error situation. card1Width and card2Width are both either defined or not defined",
     );
   } else {
     const card1WidthHigher = higherDefinedValues.card1Width
@@ -227,7 +227,7 @@ function autoWidths({
             0,
             higherDefinedWidth,
             lowerDefinedWidth,
-            width
+            width,
           );
           [, autoCard2Width] = calculateAutoWidthsForBetweenMode(
             0,
@@ -236,7 +236,7 @@ function autoWidths({
             card2WidthLower!,
             higherDefinedWidth,
             lowerDefinedWidth,
-            width
+            width,
           );
         } else {
           // If it's not irregular layout always make full size on mobile
@@ -249,14 +249,14 @@ function autoWidths({
               0,
               higherDefinedWidth,
               width,
-              -0.8
+              -0.8,
             );
             [, autoCard2Width] = calculateAutoWidths(
               0,
               card2WidthHigher,
               higherDefinedWidth,
               width,
-              -0.8
+              -0.8,
             );
           }
         }
@@ -271,14 +271,14 @@ function autoWidths({
             card2WidthLower!,
             higherDefinedWidth,
             lowerDefinedWidth,
-            width
+            width,
           );
         } else {
           [autoCard1Width, autoCard2Width] = calculateAutoWidths(
             card1WidthHigher,
             card2WidthHigher,
             higherDefinedWidth,
-            width
+            width,
           );
         }
       }
@@ -315,13 +315,13 @@ const autoVerticalOffset: ResponsiveAutoCallback = ({
     //   parseInt(config.card2Width[deviceId]);
 
     const closestDefinedVerticalOffsetValue = parseInt(
-      closestDefinedValues.verticalOffset.value
+      closestDefinedValues.verticalOffset.value,
     );
 
     verticalOffset = Math.ceil(
       (width / closestDefinedValues.verticalOffset.width) *
         closestDefinedVerticalOffsetValue *
-        1.5 // this very simple heuristic actually works quite well
+        1.5, // this very simple heuristic actually works quite well
     );
   }
 
@@ -332,7 +332,7 @@ const autoVerticalOffset: ResponsiveAutoCallback = ({
 
 const autoVerticalGap: ResponsiveAutoCallback = (
   { values, higherDefinedValues, lowerDefinedValues, closestDefinedValues },
-  { config, devices, widths }
+  { config, devices, widths },
 ) => {
   let verticalGap = values.verticalGap;
 
@@ -366,7 +366,7 @@ const autoVerticalGap: ResponsiveAutoCallback = (
           config.gap,
           closestDefinedVerticalGapDevice.id,
           devices,
-          widths
+          widths,
         );
       }
     }
@@ -388,7 +388,7 @@ export function twoCardsAuto({
     { ...inputValues, ...params },
     devices,
     widths,
-    autoCollapse
+    autoCollapse,
   );
   values = responsiveAuto(values, devices, widths, autoWidths);
   values = responsiveAuto(values, devices, widths, autoVerticalOffset);

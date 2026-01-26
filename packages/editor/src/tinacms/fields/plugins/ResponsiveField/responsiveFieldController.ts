@@ -1,9 +1,9 @@
 import {
   isTrulyResponsiveValue,
   responsiveValueForceGet,
-} from "@easyblocks/core";
-import { InternalField } from "@easyblocks/core/_internals";
-import { dotNotationGet, toArray } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import { InternalField } from "@suburb-stack/core/_internals";
+import { dotNotationGet, toArray } from "@suburb-stack/utils";
 import { EditorContextType } from "../../../../EditorContext";
 import { Form } from "../../../../form";
 
@@ -24,7 +24,7 @@ type ResponsiveFieldController = {
 function getSavedValue(
   value: any,
   previousValue: any,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   const breakpointIndex = editorContext.breakpointIndex;
 
@@ -72,17 +72,17 @@ export function responsiveFieldController(config: {
   const normalizedFieldName = toArray(field.name);
 
   const fieldValues = normalizedFieldName.map((fieldName) =>
-    dotNotationGet(formValues, fieldName)
+    dotNotationGet(formValues, fieldName),
   );
 
   const isResponsive = fieldValues.every((fieldValue) =>
-    isTrulyResponsiveValue(fieldValue)
+    isTrulyResponsiveValue(fieldValue),
   );
 
   const isSet =
     isResponsive &&
     fieldValues.every(
-      (fieldValue) => fieldValue[editorContext.breakpointIndex] !== undefined
+      (fieldValue) => fieldValue[editorContext.breakpointIndex] !== undefined,
     );
 
   const format = (value: any, name: string) => {
@@ -97,7 +97,7 @@ export function responsiveFieldController(config: {
   const parse = (value: any, name: string) => {
     if (value === null) {
       throw new Error(
-        "parse in ResponsiveController has null value which should be impossible (null values should disappear once other value is picked!"
+        "parse in ResponsiveController has null value which should be impossible (null values should disappear once other value is picked!",
       );
     }
 
@@ -115,7 +115,7 @@ export function responsiveFieldController(config: {
     const nextValues = normalizedFieldName.map((fieldName) => {
       const previousValue = originalFormat(
         dotNotationGet(formValues, fieldName),
-        fieldName
+        fieldName,
       );
 
       const newValue = {
@@ -136,7 +136,7 @@ export function responsiveFieldController(config: {
 
   const toggleOffAuto = () => {
     const currentBreakpointValues = fieldValues.map(
-      (fieldValue) => fieldValue[editorContext.breakpointIndex]
+      (fieldValue) => fieldValue[editorContext.breakpointIndex],
     );
 
     let areAllFieldValuesAuto = true;
@@ -159,17 +159,17 @@ export function responsiveFieldController(config: {
       const nextFieldValue = areAllFieldValuesAuto
         ? dotNotationGet(valuesAfterAuto, normalizedFieldName[0])
         : isAnyFieldValueAuto
-        ? fieldValues.find(
-            (value) => value[editorContext.breakpointIndex] !== undefined
-          )
-        : fieldValue;
+          ? fieldValues.find(
+              (value) => value[editorContext.breakpointIndex] !== undefined,
+            )
+          : fieldValue;
 
       const newFieldValue = {
         ...fieldValue,
         [editorContext.breakpointIndex]: responsiveValueForceGet(
           // next field comes from auto, so value is defined
           nextFieldValue,
-          editorContext.breakpointIndex
+          editorContext.breakpointIndex,
         ),
       };
 

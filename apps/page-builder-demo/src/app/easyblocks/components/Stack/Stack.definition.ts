@@ -1,7 +1,7 @@
 import {
   ChildComponentEditingInfo,
   NoCodeComponentDefinition,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { stackStyles } from "./Stack.styles";
 import { StackCompiledValues, StackParams } from "./Stack.types";
 
@@ -34,13 +34,13 @@ const stackComponentDefinition: NoCodeComponentDefinition<
         Items: items.map((item, index) => {
           const prefix = `Items.${index}`;
           const maxWidth = item.fields.find(
-            (field) => field.path === `${prefix}.width`
+            (field) => field.path === `${prefix}.width`,
           )!;
           const marginBottom = item.fields.find(
-            (field) => field.path === `${prefix}.marginBottom`
+            (field) => field.path === `${prefix}.marginBottom`,
           )!;
           const align = item.fields.find(
-            (field) => field.path === `${prefix}.align`
+            (field) => field.path === `${prefix}.align`,
           )!;
 
           let fields;
@@ -50,7 +50,7 @@ const stackComponentDefinition: NoCodeComponentDefinition<
           } else {
             const topMargin = {
               ...items[index - 1].fields.find(
-                (field) => field.path === `Items.${index - 1}.marginBottom`
+                (field) => field.path === `Items.${index - 1}.marginBottom`,
               )!,
               label: "Top",
             };

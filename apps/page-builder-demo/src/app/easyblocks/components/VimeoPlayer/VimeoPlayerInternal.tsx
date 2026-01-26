@@ -32,7 +32,7 @@ export function VimeoPlayerInternal({
   async function initVimeoPlayer() {
     await loadVimeoPlayer();
 
-    const url = `${VIMEO_URL}${videoId}`;
+    const url = `${VIMEO_URL}${videoId}` as `https://vimeo.com/${string}`;
 
     playerInstanceRef.current = new Vimeo.Player(
       embeddedPlayerContainerRef.current!,
@@ -187,24 +187,32 @@ export function VimeoPlayerInternal({
   }, [isLoop]);
 
   return (
-    <Wrapper.type {...Wrapper.props}>
-      <AspectRatioMaker.type {...AspectRatioMaker.props} />
+    <Wrapper.type {...(Wrapper.props as Record<string, unknown>)}>
+      <AspectRatioMaker.type
+        {...(AspectRatioMaker.props as Record<string, unknown>)}
+      />
 
-      <ContentWrapper.type {...ContentWrapper.props}>
+      <ContentWrapper.type
+        {...(ContentWrapper.props as Record<string, unknown>)}
+      >
         {videoId ? (
           <Fragment>
             <PlayerContainer.type
-              {...PlayerContainer.props}
+              {...(PlayerContainer.props as Record<string, unknown>)}
               ref={embeddedPlayerContainerRef}
             />
             {errorMessage && (
-              <ErrorContainer.type {...ErrorContainer.props}>
+              <ErrorContainer.type
+                {...(ErrorContainer.props as Record<string, unknown>)}
+              >
                 {errorMessage}
               </ErrorContainer.type>
             )}
           </Fragment>
         ) : (
-          <Placeholder.type {...Placeholder.props} />
+          <Placeholder.type
+            {...(Placeholder.props as Record<string, unknown>)}
+          />
         )}
       </ContentWrapper.type>
     </Wrapper.type>

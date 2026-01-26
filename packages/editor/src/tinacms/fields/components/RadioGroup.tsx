@@ -1,6 +1,6 @@
-import { Option } from "@easyblocks/core";
-import { InternalField } from "@easyblocks/core/_internals";
-import { Icons, SelectInline, ToggleButton } from "@easyblocks/design-system";
+import { Option } from "@suburb-stack/core";
+import { InternalField } from "@suburb-stack/core/_internals";
+import { Icons, SelectInline, ToggleButton } from "@suburb-stack/design-system";
 import React from "react";
 import { FieldMixedValue } from "../../../types";
 import { FieldRenderProps } from "../../form-builder";
@@ -12,8 +12,9 @@ interface RadioGroupFieldProps extends InternalField {
   variant?: "radio" | "button";
 }
 
-export interface RadioGroupProps
-  extends FieldRenderProps<string | FieldMixedValue> {
+export interface RadioGroupProps extends FieldRenderProps<
+  string | FieldMixedValue
+> {
   name: string;
   field: RadioGroupFieldProps;
   disabled?: boolean;

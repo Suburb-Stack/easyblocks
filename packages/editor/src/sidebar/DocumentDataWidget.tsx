@@ -2,10 +2,10 @@ import {
   getExternalReferenceLocationKey,
   isResolvedCompoundExternalDataValue,
   type ExternalDataCompoundResourceResolvedResult,
-} from "@easyblocks/core";
-import { findComponentDefinitionById } from "@easyblocks/core/_internals";
-import { Typography } from "@easyblocks/design-system";
-import { assertDefined, dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import { findComponentDefinitionById } from "@suburb-stack/core/_internals";
+import { Typography } from "@suburb-stack/design-system";
+import { assertDefined, dotNotationGet } from "@suburb-stack/utils";
 import React from "react";
 import {
   CompoundResourceValueSelect,
@@ -37,7 +37,7 @@ function DocumentDataWidgetComponent({
   const schema = editorContext.rootComponent.rootParams;
 
   const documentExternalLocationKeys = assertDefined(schema).map((s) =>
-    getExternalReferenceLocationKey("$", s.prop)
+    getExternalReferenceLocationKey("$", s.prop),
   );
 
   const documentCompoundResources = Object.entries(externalData).filter<
@@ -52,14 +52,14 @@ function DocumentDataWidgetComponent({
 
   const entry = dotNotationGet(
     editorContext.form.values,
-    path.slice(0, path.lastIndexOf("."))
+    path.slice(0, path.lastIndexOf(".")),
   );
   const definition = findComponentDefinitionById(
     entry._component,
-    editorContext
+    editorContext,
   );
   const schemaProp = definition!.schema.find(
-    (s) => s.prop === path.split(".").pop()
+    (s) => s.prop === path.split(".").pop(),
   )!;
 
   const options = documentCompoundResources.flatMap(
@@ -67,7 +67,7 @@ function DocumentDataWidgetComponent({
       getBasicResourcesOfType(externalDataValue.value, schemaProp.type).map(
         (r) => {
           const resourceSchemaProp = assertDefined(
-            schema?.find((s) => s.prop === externalId.split(".")[1])
+            schema?.find((s) => s.prop === externalId.split(".")[1]),
           );
 
           return {
@@ -77,8 +77,8 @@ function DocumentDataWidgetComponent({
               r.label ?? r.key
             }`,
           };
-        }
-      )
+        },
+      ),
   );
 
   if (options.length === 1 && !id && path) {

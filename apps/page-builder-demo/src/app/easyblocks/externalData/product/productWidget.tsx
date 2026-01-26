@@ -1,8 +1,8 @@
 "use client";
-import type { Widget, WidgetComponentProps } from "@easyblocks/core";
+import type { Widget, WidgetComponentProps } from "@suburb-stack/core";
 
 import { fetchProductById, fetchProducts } from "@/data/shopify";
-import { SimplePicker } from "@easyblocks/design-system";
+import { SimplePicker } from "@suburb-stack/design-system";
 
 import { PRODUCT_WIDGET_ID } from "./productShared";
 

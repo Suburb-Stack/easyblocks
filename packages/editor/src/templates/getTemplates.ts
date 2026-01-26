@@ -5,19 +5,19 @@ import {
   Template,
   UserDefinedTemplate,
   getDefaultLocale,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   InternalComponentDefinition,
   findComponentDefinitionById,
   normalize,
-} from "@easyblocks/core/_internals";
-import { uniqueId } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { uniqueId } from "@suburb-stack/utils";
 import { EditorContextType } from "../EditorContext";
 import { configMap } from "../utils/config/configMap";
 
 function getDefaultTemplateForDefinition(
   def: InternalComponentDefinition,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ): InternalTemplate {
   // Text has different way of building a default config
   const config: NoCodeComponentEntry =
@@ -45,7 +45,7 @@ function getDefaultTokenId(tokens: EditorContextType["theme"][string]) {
 
 export async function getTemplates(
   editorContext: EditorContextType,
-  configTemplates: InternalTemplate[] = []
+  configTemplates: InternalTemplate[] = [],
 ): Promise<Template[]> {
   const remoteUserDefinedTemplates: UserDefinedTemplate[] =
     !editorContext.disableCustomTemplates
@@ -55,20 +55,20 @@ export async function getTemplates(
   return getTemplatesInternal(
     editorContext,
     configTemplates,
-    remoteUserDefinedTemplates
+    remoteUserDefinedTemplates,
   );
 }
 
 function getNecessaryDefaultTemplates(
   components: InternalComponentDefinition[],
   templates: Template[],
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   const result: InternalTemplate[] = [];
 
   components.forEach((component) => {
     const componentTemplates = templates.filter(
-      (template) => template.entry._component === component.id
+      (template) => template.entry._component === component.id,
     );
     if (componentTemplates.length === 0) {
       result.push(getDefaultTemplateForDefinition(component, editorContext));
@@ -80,12 +80,12 @@ function getNecessaryDefaultTemplates(
 
 function normalizeTextLocales(
   config: NoCodeComponentEntry,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   return configMap(config, editorContext, ({ value, schemaProp }) => {
     if (schemaProp.type === "text") {
       const firstDefinedValue = Object.values(value.value).filter(
-        (x) => x !== null && x !== undefined
+        (x) => x !== null && x !== undefined,
       )[0];
 
       return {
@@ -96,7 +96,7 @@ function normalizeTextLocales(
       };
     } else if (schemaProp.type === "component-collection-localised") {
       const firstDefinedValue = Object.values(value).filter(
-        (x) => x !== null && x !== undefined
+        (x) => x !== null && x !== undefined,
       )[0];
 
       return {
@@ -111,7 +111,7 @@ function normalizeTextLocales(
 function getTemplatesInternal(
   editorContext: EditorContextType,
   configTemplates: InternalTemplate[],
-  remoteUserDefinedTemplates: UserDefinedTemplate[]
+  remoteUserDefinedTemplates: UserDefinedTemplate[],
 ): Template[] {
   // If a component doesn't have a template, here's one added
   const allBuiltinTemplates = [
@@ -119,7 +119,7 @@ function getTemplatesInternal(
     ...getNecessaryDefaultTemplates(
       editorContext.definitions.components,
       configTemplates,
-      editorContext
+      editorContext,
     ),
   ];
 
@@ -132,7 +132,7 @@ function getTemplatesInternal(
     .filter((template) => {
       const definition = findComponentDefinitionById(
         template.entry._component,
-        editorContext
+        editorContext,
       );
 
       if (!definition || definition.hideTemplates) {
@@ -159,7 +159,7 @@ function getTemplatesInternal(
         ...template,
         entry: normalizeTextLocales(
           normalize({ ...template.entry, _itemProps: {} }, editorContext),
-          editorContext
+          editorContext,
         ),
       };
 

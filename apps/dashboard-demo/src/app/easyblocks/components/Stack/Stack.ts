@@ -2,7 +2,7 @@ import {
   ChildComponentEditingInfo,
   NoCodeComponentDefinition,
   spacingToPx,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 const maxWidthScale = ["max"];
 
@@ -105,7 +105,7 @@ const stackDefinition: NoCodeComponentDefinition = {
                 item.width === "max" ? Number.MAX_VALUE : parseInt(item.width),
                 params.$width -
                   spacingToPx(params.paddingLeft ?? "0px", device.w) -
-                  spacingToPx(params.paddingRight ?? "0px", device.w)
+                  spacingToPx(params.paddingRight ?? "0px", device.w),
               ),
               $widthAuto: false,
             };
@@ -126,13 +126,13 @@ const stackDefinition: NoCodeComponentDefinition = {
         Items: items.map((item, index) => {
           const prefix = `Items.${index}`;
           const maxWidth = item.fields.find(
-            (field) => field.path === `${prefix}.width`
+            (field) => field.path === `${prefix}.width`,
           )!;
           const marginBottom = item.fields.find(
-            (field) => field.path === `${prefix}.marginBottom`
+            (field) => field.path === `${prefix}.marginBottom`,
           )!;
           const align = item.fields.find(
-            (field) => field.path === `${prefix}.align`
+            (field) => field.path === `${prefix}.align`,
           )!;
 
           let fields;
@@ -142,7 +142,7 @@ const stackDefinition: NoCodeComponentDefinition = {
           } else {
             const topMargin = {
               ...items[index - 1].fields.find(
-                (field) => field.path === `Items.${index - 1}.marginBottom`
+                (field) => field.path === `Items.${index - 1}.marginBottom`,
               )!,
               label: "Top",
             };

@@ -1,4 +1,4 @@
-import { cleanString } from "@easyblocks/utils";
+import { cleanString } from "@suburb-stack/utils";
 import React, { ReactElement } from "react";
 
 type TextProps = {
@@ -21,7 +21,8 @@ function TextClient(props: TextProps) {
     }
   });
 
-  return <Text.type {...Text.props}>{elements}</Text.type>;
+  const textProps = Text.props as Record<string, unknown>;
+  return <Text.type {...textProps}>{elements}</Text.type>;
 }
 
 export { TextClient };

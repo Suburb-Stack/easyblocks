@@ -5,7 +5,7 @@ import {
   ButtonSecondary,
   Icons,
   Typography,
-} from "@easyblocks/design-system";
+} from "@suburb-stack/design-system";
 
 export function ButtonStories() {
   return (

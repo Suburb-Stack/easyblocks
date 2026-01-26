@@ -1,4 +1,4 @@
-import { InternalField } from "@easyblocks/core/_internals";
+import { InternalField } from "@suburb-stack/core/_internals";
 import React from "react";
 import { Form, FormOptions } from "../../form";
 
@@ -13,7 +13,7 @@ interface WatchableFormValue {
  */
 export function useForm<FormShape = any>(
   { loadInitialValues, ...options }: FormOptions<any>,
-  watch: Partial<WatchableFormValue> = {}
+  watch: Partial<WatchableFormValue> = {},
 ): [FormShape, Form, boolean] {
   /**
    * `initialValues` will be usually be undefined if `loadInitialValues` is used.
@@ -41,14 +41,14 @@ export function useForm<FormShape = any>(
       setForm(
         createForm(options, (form: any) => {
           setValues(form.values);
-        })
+        }),
       );
     },
-    [options.id]
+    [options.id],
   );
 
   const [formIsLoading, setFormIsLoading] = React.useState(() =>
-    loadInitialValues ? true : false
+    loadInitialValues ? true : false,
   );
   const loadFormData = React.useCallback(async () => {
     if (loadInitialValues) {

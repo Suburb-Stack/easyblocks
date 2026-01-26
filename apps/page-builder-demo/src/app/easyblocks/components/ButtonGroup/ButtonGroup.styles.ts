@@ -1,7 +1,7 @@
 import type {
   NoCodeComponentStylesFunctionInput,
   NoCodeComponentStylesFunctionResult,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 
 export function buttonGroupStyles({
   values,

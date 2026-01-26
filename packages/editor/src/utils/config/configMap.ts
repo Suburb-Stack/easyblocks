@@ -3,11 +3,11 @@ import {
   SchemaProp,
   TrulyResponsiveValue,
   isTrulyResponsiveValue,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   CompilationContextType,
   findComponentDefinition,
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 
 /**
  * Traverses recursively the config tree (similar to traverseConfig) but behaves like "Array.map". It returns new tree with elements mapped to new ones.
@@ -24,7 +24,7 @@ function configMapArray(
   configArray: NoCodeComponentEntry[] | undefined,
   context: CompilationContextType,
   callback: ConfigMapCallback,
-  prefix: string
+  prefix: string,
 ) {
   /**
    * Why this?
@@ -40,14 +40,14 @@ function configMapArray(
   }
 
   return configArray.map((x, index) =>
-    configMapInternal(x, context, callback, `${prefix}.${index}`)
+    configMapInternal(x, context, callback, `${prefix}.${index}`),
   );
 }
 
 function configMap(
   config: NoCodeComponentEntry,
   context: CompilationContextType,
-  callback: ConfigMapCallback
+  callback: ConfigMapCallback,
 ): NoCodeComponentEntry {
   return configMapInternal(config, context, callback, "");
 }
@@ -56,7 +56,7 @@ function configMapInternal(
   config: NoCodeComponentEntry,
   context: CompilationContextType,
   callback: ConfigMapCallback,
-  prefix?: string
+  prefix?: string,
 ): NoCodeComponentEntry {
   const componentDefinition = findComponentDefinition(config, context);
 
@@ -85,7 +85,7 @@ function configMapInternal(
           config[schemaProp.prop][locale],
           context,
           callback,
-          `${prefix}${schemaProp.prop}.${locale}`
+          `${prefix}${schemaProp.prop}.${locale}`,
         );
       }
 
@@ -102,7 +102,7 @@ function configMapInternal(
         config[schemaProp.prop],
         context,
         callback,
-        `${prefix}${schemaProp.prop}`
+        `${prefix}${schemaProp.prop}`,
       );
 
       result[schemaProp.prop] = callback({

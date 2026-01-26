@@ -1,6 +1,14 @@
 {
-  "name": "@easyblocks/design-system",
-  "version": "1.0.10",
+  "name": "@suburb-stack/design-system",
+  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Suburb-Stack/easyblocks.git",
+    "directory": "packages/design-system"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "types": "dist/index.d.ts",
@@ -27,14 +35,14 @@
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
-    "@easyblocks/build-tools": "^1.0.10",
+    "@suburb-stack/build-tools": "workspace:*",
     "@types/lodash": "^4.14.191",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@types/react-modal": "^3.13.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0"
+    "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0"
   },
   "scripts": {
     "dev": "concurrently -n bundle,emit-declarations 'npm run bundle:watch' 'npm run emit-declarations:watch'",

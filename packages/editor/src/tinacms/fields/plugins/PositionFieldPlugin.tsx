@@ -1,6 +1,6 @@
-import { InternalField } from "@easyblocks/core/_internals";
+import { InternalField } from "@suburb-stack/core/_internals";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import {
   Position,
   PositionPickerInput,
@@ -8,7 +8,9 @@ import {
 import { wrapFieldsWithMeta } from "./wrapFieldWithMeta";
 
 function PositionField(
-  props: FieldRenderProps<Position, HTMLInputElement> & { field: InternalField }
+  props: FieldRenderProps<Position, HTMLInputElement> & {
+    field: InternalField;
+  },
 ) {
   return (
     <PositionPickerInput

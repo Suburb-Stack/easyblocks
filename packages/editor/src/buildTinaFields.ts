@@ -1,22 +1,22 @@
-import { CompiledCustomComponentConfig, FieldPortal } from "@easyblocks/core";
+import { CompiledCustomComponentConfig, FieldPortal } from "@suburb-stack/core";
 import {
   InternalAnyTinaField,
   InternalField,
   stripRichTextPartSelection,
-} from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import type { EditorContextType } from "./EditorContext";
 import { pathToCompiledPath } from "./pathToCompiledPath";
 
 export function isFieldPortal(
-  x: InternalAnyTinaField | FieldPortal
+  x: InternalAnyTinaField | FieldPortal,
 ): x is FieldPortal {
   return "portal" in x;
 }
 
 export function buildTinaFields(
   path: string,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   return internalBuildTinaFields(path, editorContext);
 }
@@ -24,23 +24,23 @@ export function buildTinaFields(
 function internalBuildTinaFields(
   path: string,
   editorContext: EditorContextType,
-  fieldsFilter?: (field: InternalAnyTinaField | FieldPortal) => boolean
+  fieldsFilter?: (field: InternalAnyTinaField | FieldPortal) => boolean,
 ) {
   const compiledPath = pathToCompiledPath(
     stripRichTextPartSelection(path),
-    editorContext
+    editorContext,
   );
 
   const compiledComponent: CompiledCustomComponentConfig = dotNotationGet(
     editorContext.compiledComponentConfig!,
-    compiledPath
+    compiledPath,
   );
 
   let allFields: InternalAnyTinaField[] = [];
 
   (compiledComponent.__editing?.fields ?? [])
     .filter((field) =>
-      fieldsFilter ? fieldsFilter(field as InternalAnyTinaField) : true
+      fieldsFilter ? fieldsFilter(field as InternalAnyTinaField) : true,
     )
     .forEach((item) => {
       if (isFieldPortal(item)) {
@@ -49,7 +49,7 @@ function internalBuildTinaFields(
         if (item.portal === "component") {
           const portalComponentFields = internalBuildTinaFields(
             item.source,
-            editorContext
+            editorContext,
           );
           fields.push(...portalComponentFields);
 
@@ -62,7 +62,7 @@ function internalBuildTinaFields(
             fields = fields.filter(
               (x) =>
                 x.prop === "$myself" ||
-                groups.includes(x.group || "___doesn't matter___")
+                groups.includes(x.group || "___doesn't matter___"),
             );
           }
         } else if (item.portal === "field") {
@@ -73,12 +73,12 @@ function internalBuildTinaFields(
           const portalFieldFields = internalBuildTinaFields(
             item.source,
             editorContext,
-            (field) => !isFieldPortal(field) && field.prop === item.fieldName
+            (field) => !isFieldPortal(field) && field.prop === item.fieldName,
           );
 
           if (portalFieldFields.length === 0) {
             console.warn(
-              `Missing field "${item.fieldName}" at path "${item.source}" in portal for component ${compiledComponent._component}`
+              `Missing field "${item.fieldName}" at path "${item.source}" in portal for component ${compiledComponent._component}`,
             );
             return;
           }
@@ -96,7 +96,7 @@ function internalBuildTinaFields(
             }
 
             throw new Error(
-              `Missing sources for multi field portal of component "${compiledComponent._component}" at path "${path}". Set "hidden" to "true" for this portal if sources are empty`
+              `Missing sources for multi field portal of component "${compiledComponent._component}" at path "${path}". Set "hidden" to "true" for this portal if sources are empty`,
             );
           }
 
@@ -104,8 +104,8 @@ function internalBuildTinaFields(
             internalBuildTinaFields(
               source,
               editorContext,
-              (field) => !isFieldPortal(field) && field.prop === item.fieldName
-            )
+              (field) => !isFieldPortal(field) && field.prop === item.fieldName,
+            ),
           );
 
           const firstField = portalFieldFields[0];

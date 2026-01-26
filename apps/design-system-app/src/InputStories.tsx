@@ -1,4 +1,4 @@
-import { Input, Typography } from "@easyblocks/design-system";
+import { Input, Typography } from "@suburb-stack/design-system";
 
 export function InputStories() {
   return (

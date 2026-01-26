@@ -1,18 +1,22 @@
 "use client";
 
-import { EasyblocksEditor } from "@easyblocks/editor";
-import { Config, EasyblocksBackend } from "@easyblocks/core";
+import nextDynamic from "next/dynamic";
+import { Config, EasyblocksBackend } from "@suburb-stack/core";
 import React, { ReactElement } from "react";
 import { Liquid } from "liquidjs";
 import { Parser, ProcessNodeDefinitions } from "html-to-react";
 
-if (!process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN) {
-  throw new Error("Missing NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN");
-}
+// Dynamically import EasyblocksEditor with SSR disabled to avoid styled-components SSR issues
+const EasyblocksEditor = nextDynamic(
+  () => import("@suburb-stack/editor").then((mod) => mod.EasyblocksEditor),
+  { ssr: false },
+);
+
+const accessToken = process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN || "";
 
 const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
-    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN,
+    accessToken,
   }),
   locales: [
     {
@@ -213,7 +217,8 @@ const DummyBanner = createLiquidComponent(`
   </component.Root>
 </div>
 `);
-
+// Disable static generation for this page due to styled-components SSR incompatibility
+export const dynamic = "force-dynamic";
 export default function EeasyblocksEditorPage() {
   return (
     <EasyblocksEditor config={easyblocksConfig} components={{ DummyBanner }} />
@@ -227,7 +232,7 @@ function createLiquidComponent(liquidTemplate: string) {
     const parser = React.useRef(new Parser()).current;
     const processNodeDefinitions = React.useRef(
       // @ts-ignore
-      new ProcessNodeDefinitions()
+      new ProcessNodeDefinitions(),
     ).current;
 
     const isValidNode = function () {
@@ -245,7 +250,7 @@ function createLiquidComponent(liquidTemplate: string) {
           const liquidElement = processNodeDefinitions.processDefaultNode(
             node,
             children,
-            index
+            index,
           );
 
           const componentId = liquidElement.type.split(".")[1];
@@ -283,7 +288,7 @@ function createLiquidComponent(liquidTemplate: string) {
     return parser.parseWithInstructions(
       html,
       isValidNode,
-      processingInstructions
+      processingInstructions,
     );
   };
 }

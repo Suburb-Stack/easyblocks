@@ -1,16 +1,18 @@
 "use client";
 
-import { EasyblocksEditor } from "@easyblocks/editor";
-import { Config, EasyblocksBackend } from "@easyblocks/core";
+import nextDynamic from "next/dynamic";
+import { Config, EasyblocksBackend } from "@suburb-stack/core";
 import { ReactElement } from "react";
 
-if (!process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN) {
-  throw new Error("Missing NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN");
-}
+// Dynamically import EasyblocksEditor with SSR disabled to avoid styled-components SSR issues
+const EasyblocksEditor = nextDynamic(
+  () => import("@suburb-stack/editor").then((mod) => mod.EasyblocksEditor),
+  { ssr: false },
+);
 
 const easyblocksConfig: Config = {
   backend: new EasyblocksBackend({
-    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN,
+    accessToken: process.env.NEXT_PUBLIC_EASYBLOCKS_ACCESS_TOKEN ?? "",
   }),
   locales: [
     {
@@ -183,11 +185,14 @@ function DummyBanner(props: { Root: ReactElement; Title: ReactElement }) {
   const { Root, Title } = props;
 
   return (
-    <Root.type {...Root.props}>
-      <Title.type {...Title.props} />
+    <Root.type {...(Root.props as Record<string, unknown>)}>
+      <Title.type {...(Title.props as Record<string, unknown>)} />
     </Root.type>
   );
 }
+
+// Disable static generation for this page due to styled-components SSR incompatibility
+export const dynamic = "force-dynamic";
 
 export default function EeasyblocksEditorPage() {
   return (

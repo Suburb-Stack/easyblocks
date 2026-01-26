@@ -17,7 +17,10 @@ function OpenDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <TriggerElement.type {...TriggerElement.props} as={"button"} />
+        <TriggerElement.type
+          {...(TriggerElement.props as Record<string, unknown>)}
+          as={"button"}
+        />
       </DialogTrigger>
       <DialogPortal>
         <Theme>
@@ -27,7 +30,7 @@ function OpenDialog({
             style={{ pointerEvents: "none" }}
           >
             <div className="grid pointer-events-auto">
-              <Content.type {...Content.props} />
+              <Content.type {...(Content.props as Record<string, unknown>)} />
             </div>
           </DialogContent>
         </Theme>

@@ -1,8 +1,8 @@
-import { Devices } from "@easyblocks/core";
+import { Devices } from "@suburb-stack/core";
 import {
   CompilationCache,
   createTestCompilationContext,
-} from "@easyblocks/core/_internals";
+} from "@suburb-stack/core/_internals";
 import { EditorContextType } from "../../EditorContext";
 import { Form } from "../../form";
 

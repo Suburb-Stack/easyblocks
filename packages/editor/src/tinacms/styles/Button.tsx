@@ -10,6 +10,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Button = styled.button<ButtonProps>`
   text-align: center;
   border: 0;
@@ -89,7 +90,7 @@ const Button = styled.button<ButtonProps>`
 export const ICON_BUTTON_SIZE = 23;
 const ICON_SIZE = 23;
 
-export const IconButton = styled(Button)`
+export const IconButton: typeof Button = styled(Button)`
   padding: 0;
   width: ${ICON_BUTTON_SIZE}px;
   height: ${ICON_BUTTON_SIZE}px;

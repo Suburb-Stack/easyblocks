@@ -4,11 +4,11 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
-import { getFullySpecifiedEnvs } from "@easyblocks/build-tools";
+import { getFullySpecifiedEnvs } from "@suburb-stack/build-tools";
 import path from "node:path";
-import visualizer from "rollup-plugin-visualizer";
+import { visualizer } from "rollup-plugin-visualizer";
 import preserveDirectives from "rollup-plugin-preserve-directives";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
@@ -44,11 +44,7 @@ const getPlugins = (stat, isFullBundle = false) => {
       gzipSize: true,
     }),
 
-    {
-      ...preserveDirectivesPlugin,
-      // @ts-expect-error preserveDirectivesPlugin is incompatible by default with our version or rollup
-      renderChunk: preserveDirectivesPlugin.renderChunk.handler,
-    },
+    preserveDirectivesPlugin,
   ];
 
   // if (process.env.NODE_ENV === "production") {
@@ -80,7 +76,7 @@ function createRollupConfigs({
   const onwarn = (warning, warn) => {
     if (
       warning.message.includes(
-        "Module level directives cause errors when bundled, 'use client' was ignored."
+        "Module level directives cause errors when bundled, 'use client' was ignored.",
       )
     ) {
       return;
@@ -89,7 +85,7 @@ function createRollupConfigs({
     // parser file is automatically generated and we don't have control over it
     if (
       warning.message.includes(
-        `Entry module "../reduce-css-calc/src/parser.js" is implicitly using "default" export mode`
+        `Entry module "../reduce-css-calc/src/parser.js" is implicitly using "default" export mode`,
       )
     ) {
       return;
@@ -110,7 +106,7 @@ function createRollupConfigs({
     },
     plugins: getPlugins(
       path.join(baseStatOutputDir, "es/index.html"),
-      isFullBundle
+      isFullBundle,
     ),
     external,
     onwarn,
@@ -126,10 +122,11 @@ function createRollupConfigs({
       preserveModules: true,
       preserveModulesRoot: "src",
       entryFileNames: "[name].cjs",
+      interop: "auto",
     },
     plugins: getPlugins(
       path.join(baseStatOutputDir, "cjs/index.html"),
-      isFullBundle
+      isFullBundle,
     ),
     external,
     onwarn,

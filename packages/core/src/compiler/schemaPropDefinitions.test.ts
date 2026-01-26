@@ -1,4 +1,4 @@
-import { mockConsoleMethod } from "@easyblocks/test-utils";
+import { mockConsoleMethod } from "@suburb-stack/test-utils";
 import { isTrulyResponsiveValue, responsiveValueFill } from "../responsiveness";
 import {
   CompiledComponentConfig,
@@ -16,7 +16,7 @@ import {
   EditorContextType,
   InternalRenderableComponentDefinition,
 } from "./types";
-import { dotNotationSet } from "@easyblocks/utils";
+import { dotNotationSet } from "@suburb-stack/utils";
 import { createCompilationContext } from "./createCompilationContext";
 import { EasyblocksBackend } from "../EasyblocksBackend";
 
@@ -147,7 +147,7 @@ beforeEach(() => {
 function build<T extends SchemaProp>(
   schemaProp: T,
   editorContext: EditorContextType,
-  value?: any
+  value?: any,
 ) {
   return {
     def: getSchemaDefinition<T>(schemaProp, editorContext) as any, // temporarily as any
@@ -509,7 +509,7 @@ const testCompilationContext = createCompilationContext(
     ],
   },
   { locale: "en" },
-  "$TestSection"
+  "$TestSection",
 );
 
 const editorContext: EditorContextType = {
@@ -719,7 +719,7 @@ function defresFilled(x: any) {
 function expectToMatchObjectOrEqual(
   input: any,
   output: any,
-  useMatchObject?: boolean
+  useMatchObject?: boolean,
 ) {
   if (typeof input === "object" && useMatchObject) {
     expect(input).toMatchObject(output);
@@ -733,7 +733,7 @@ function superTestWithoutCompileIntcompileInternal(
   rawValue: any,
   expectedNormalizedValue: any,
   expectedTinaFieldValue: any,
-  useMatchObject?: boolean
+  useMatchObject?: boolean,
 ) {
   // normalize works
   const normalizedValue = def.normalize(rawValue);
@@ -741,7 +741,7 @@ function superTestWithoutCompileIntcompileInternal(
   expectToMatchObjectOrEqual(
     normalizedValue,
     expectedNormalizedValue,
-    useMatchObject
+    useMatchObject,
   );
   // format works and tina field value is correct
 
@@ -752,7 +752,7 @@ function superTestWithoutCompileIntcompileInternal(
   expectToMatchObjectOrEqual(
     tinaFieldValue,
     expectedTinaFieldValue,
-    useMatchObject
+    useMatchObject,
   );
 
   // format + parse should always return properly normalized value
@@ -764,7 +764,7 @@ function superTestWithoutCompileIntcompileInternal(
   expectToMatchObjectOrEqual(
     parsedTinaFieldValue,
     expectedNormalizedValue,
-    useMatchObject
+    useMatchObject,
   );
 
   // expect(parsed).toEqual(normalizedValue);
@@ -776,14 +776,14 @@ function superTest(
   expectedNormalizedValue: any,
   expectedTinaFieldValue: any,
   expectedCompiledValue: any,
-  useMatchObject?: boolean
+  useMatchObject?: boolean,
 ) {
   superTestWithoutCompileIntcompileInternal(
     { field, def },
     rawValue,
     expectedNormalizedValue,
     expectedTinaFieldValue,
-    useMatchObject
+    useMatchObject,
   );
 
   // compile works -> compile is always run on normalized content!!!
@@ -792,11 +792,11 @@ function superTest(
       responsiveValueFill(
         def.normalize(rawValue),
         editorContext.devices,
-        getDevicesWidths(editorContext.devices)
-      )
+        getDevicesWidths(editorContext.devices),
+      ),
     ),
     expectedCompiledValue,
-    useMatchObject
+    useMatchObject,
   );
 }
 
@@ -805,7 +805,7 @@ function simpleTest(
   { field, def }: ReturnType<typeof build>,
   rawValue: any,
   outputValue: any,
-  useMatchObject?: boolean
+  useMatchObject?: boolean,
 ) {
   return superTest(
     { field, def },
@@ -815,9 +815,9 @@ function simpleTest(
     responsiveValueFill(
       outputValue,
       editorContext.devices,
-      getDevicesWidths(editorContext.devices)
+      getDevicesWidths(editorContext.devices),
     ),
-    useMatchObject
+    useMatchObject,
   );
 }
 
@@ -838,7 +838,7 @@ describe.skip("text", () => {
         defaultValue: "Hello world",
       },
       editorContext,
-      localTextValue("local.123", { en: "test" })
+      localTextValue("local.123", { en: "test" }),
     );
 
     expect(x.field.label).toBe("blabla");
@@ -879,7 +879,7 @@ describe.skip("text", () => {
           pl: "test",
         },
         widgetId: "@easyblocks/local-text",
-      }
+      },
     );
 
     expect(
@@ -888,7 +888,7 @@ describe.skip("text", () => {
         value: {
           pl: "test",
         },
-      })
+      }),
     ).toEqual({
       id: "local.123",
       value: "",
@@ -907,7 +907,7 @@ describe.skip("text", () => {
         type: "text",
         prop: "test",
       },
-      testContext
+      testContext,
     );
 
     expect(() =>
@@ -917,9 +917,9 @@ describe.skip("text", () => {
           de: "test",
           pl: "test",
         },
-      })
-    ).toThrowError(
-      `The content passed to the buildDocument is not available in a locale: "en" (available locales: "de","pl"). Please make sure to provide a valid locale code.`
+      }),
+    ).toThrow(
+      `The content passed to the buildDocument is not available in a locale: "en" (available locales: "de","pl"). Please make sure to provide a valid locale code.`,
     );
   });
 });
@@ -931,7 +931,7 @@ test("[number] behaves correctly with correct default value", () => {
       type: "number",
       defaultValue: 10,
     },
-    editorContext
+    editorContext,
   );
 
   expect(x.field.label).toBe("blabla");
@@ -951,7 +951,7 @@ test("[boolean] behaves correctly with correct default value", () => {
       type: "boolean",
       defaultValue: true,
     },
-    editorContext
+    editorContext,
   );
 
   expect(x.field.label).toBe("blabla");
@@ -978,7 +978,7 @@ describe.skip("boolean responsive field", () => {
         responsive: true,
         defaultValue: true,
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1000,12 +1000,12 @@ describe.skip("boolean responsive field", () => {
       simpleTest(
         x,
         { b4: true, b3: "yyy", $res: true },
-        { $res: true, b4: true }
+        { $res: true, b4: true },
       );
       simpleTest(
         x,
         { b4: false, b3: "yyy", $res: true },
-        { $res: true, b4: false }
+        { $res: true, b4: false },
       );
     });
 
@@ -1018,7 +1018,7 @@ describe.skip("boolean responsive field", () => {
       simpleTest(
         x,
         { b3: true, $res: true },
-        { b3: true, b4: true, $res: true }
+        { b3: true, b4: true, $res: true },
       );
     });
 
@@ -1026,7 +1026,7 @@ describe.skip("boolean responsive field", () => {
       simpleTest(
         x,
         { b3: true, b4: false, $res: true },
-        { b3: true, b4: false, $res: true }
+        { b3: true, b4: false, $res: true },
       );
     });
   });
@@ -1067,7 +1067,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
             options: [],
           },
         },
-        editorContext
+        editorContext,
       );
     };
 
@@ -1084,7 +1084,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
           options: STRING_OPTIONS,
         },
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1108,7 +1108,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
           options: OBJECT_OPTIONS,
         },
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1133,7 +1133,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
         },
         defaultValue: "two",
       },
-      editorContext
+      editorContext,
     );
 
     simpleTest(x, null, defaultValue("two"));
@@ -1150,7 +1150,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
         },
         defaultValue: "two",
       },
-      editorContext
+      editorContext,
     );
 
     simpleTest(x, null, defaultValue("two"));
@@ -1167,7 +1167,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
         },
         defaultValue: "xxx",
       },
-      editorContext
+      editorContext,
     );
 
     simpleTest(x, null, defaultValue("one"));
@@ -1184,7 +1184,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
         },
         defaultValue: "xxx",
       },
-      editorContext
+      editorContext,
     );
 
     simpleTest(x, null, defaultValue("one"));
@@ -1201,7 +1201,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
             options: STRING_OPTIONS,
           },
         },
-        editorContext
+        editorContext,
       );
 
       // incorrect scalars
@@ -1222,7 +1222,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
       simpleTest(
         x,
         { b1: "two", b3: "three", $res: true },
-        { b1: "two", b3: "three", b4: "one", $res: true }
+        { b1: "two", b3: "three", b4: "one", $res: true },
       );
 
       // correct
@@ -1234,7 +1234,7 @@ function testSelect(type: "radio-group" | "select", isResponsive: boolean) {
           b3: "one",
           b4: "three",
           $res: true,
-        }
+        },
       );
     });
   }
@@ -1294,7 +1294,7 @@ function testThemeValue(
     mapped: any;
     unmappedMaster: any;
   },
-  useMatchObject?: true
+  useMatchObject?: true,
 ) {
   // null -> default
 
@@ -1305,7 +1305,7 @@ function testThemeValue(
       defres(defaultValue),
       defres(defaultValue),
       defresFilled(defaultValue.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1317,7 +1317,7 @@ function testThemeValue(
       defres(defaultValue),
       defres(defaultValue),
       defresFilled(defaultValue.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1328,7 +1328,7 @@ function testThemeValue(
       defres(defaultValue),
       defres(defaultValue),
       defresFilled(defaultValue.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1339,7 +1339,7 @@ function testThemeValue(
       defres(refVal1),
       defres(refVal1),
       defresFilled(refVal1.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1354,7 +1354,7 @@ function testThemeValue(
         value: correctScalarValue,
       }),
       defresFilled(correctScalarValue),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1374,7 +1374,7 @@ function testThemeValue(
         ref: "nonExistentRef",
       }),
       defresFilled(globalDefaultValue.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1394,7 +1394,7 @@ function testThemeValue(
         ref: "nonExistentRef",
       }),
       defresFilled(correctScalarValue),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1405,7 +1405,7 @@ function testThemeValue(
       defres(defaultValue),
       defres(defaultValue),
       defresFilled(defaultValue.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1416,7 +1416,7 @@ function testThemeValue(
       defres({ value: correctScalarValue }),
       defres({ value: correctScalarValue }),
       defresFilled(correctScalarValue),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1442,7 +1442,7 @@ function testThemeValue(
         b5: defaultValue.value,
         $res: true,
       },
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1453,7 +1453,7 @@ function testThemeValue(
       defres(refVal2),
       defres(refVal2),
       defresFilled(refVal2.value),
-      useMatchObject
+      useMatchObject,
     );
     superTest(
       x,
@@ -1461,7 +1461,7 @@ function testThemeValue(
       defres(refVal3),
       defres(refVal3),
       defresFilled(refVal3.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1472,7 +1472,7 @@ function testThemeValue(
       defres(refVal2),
       defres(refVal2),
       defresFilled(refVal2.value),
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1490,7 +1490,7 @@ function testThemeValue(
         b5: defaultValue.value,
         $res: true,
       },
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1512,7 +1512,7 @@ function testThemeValue(
         b5: refVal3.value,
         $res: true,
       },
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1552,7 +1552,7 @@ function testThemeValue(
         b4: defaultValue.value,
         b5: defaultValue.value,
       },
-      useMatchObject
+      useMatchObject,
     );
   });
 
@@ -1583,7 +1583,7 @@ function testThemeValue(
           b4: mapping.mapped.value,
           b5: mapping.mapped.value,
         },
-        useMatchObject
+        useMatchObject,
       );
     });
 
@@ -1610,7 +1610,7 @@ function testThemeValue(
           b4: mapping.unmappedMaster.value,
           b5: mapping.unmappedMaster.value,
         },
-        useMatchObject
+        useMatchObject,
       );
     });
   }
@@ -1658,7 +1658,7 @@ describe.skip("color field", () => {
         prop: "blabla",
         type: "color",
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1680,7 +1680,7 @@ describe.skip("color field", () => {
         prop: "blabla",
         type: "color",
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1693,7 +1693,7 @@ describe.skip("color field", () => {
       colorRefResponsiveVal1,
       colorIncorrectScalarVal,
       colorScalarVal1,
-      colorMappingFixture
+      colorMappingFixture,
     );
   });
 
@@ -1709,7 +1709,7 @@ describe.skip("color field", () => {
         type: "color",
         defaultValue,
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1722,7 +1722,7 @@ describe.skip("color field", () => {
       colorRefResponsiveVal1,
       colorIncorrectScalarVal,
       colorScalarVal1,
-      colorMappingFixture
+      colorMappingFixture,
     );
   });
 
@@ -1738,7 +1738,7 @@ describe.skip("color field", () => {
         type: "color",
         defaultValue,
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1751,7 +1751,7 @@ describe.skip("color field", () => {
       colorRefResponsiveVal1,
       colorIncorrectScalarVal,
       colorScalarVal1,
-      colorMappingFixture
+      colorMappingFixture,
     );
   });
 });
@@ -1782,7 +1782,7 @@ describe.skip("space field", () => {
         prop: "blabla",
         type: "space",
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1798,7 +1798,7 @@ describe.skip("space field", () => {
         prop: "blabla",
         type: "space",
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1812,7 +1812,7 @@ describe.skip("space field", () => {
       spaceIncorrectScalarVal,
       spaceScalarVal1,
       undefined,
-      true
+      true,
     );
   });
 
@@ -1828,7 +1828,7 @@ describe.skip("space field", () => {
         type: "space",
         defaultValue,
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1842,7 +1842,7 @@ describe.skip("space field", () => {
       spaceIncorrectScalarVal,
       spaceScalarVal1,
       undefined,
-      true
+      true,
     );
   });
 
@@ -1857,7 +1857,7 @@ describe.skip("space field", () => {
         type: "space",
         defaultValue,
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -1871,7 +1871,7 @@ describe.skip("space field", () => {
       spaceIncorrectScalarVal,
       spaceScalarVal1,
       undefined,
-      true
+      true,
     );
   });
 
@@ -1883,7 +1883,7 @@ describe.skip("space field", () => {
         // Value here is only for TS to stop crying
         defaultValue: { ref: "containerMargin.default", value: "0px" },
       },
-      editorContext
+      editorContext,
     );
 
     const normalized = x.def.normalize({
@@ -1907,7 +1907,7 @@ describe.skip("space field", () => {
         prop: "blabla",
         type: "space",
       },
-      editorContext
+      editorContext,
     );
 
     const normalized = x.def.normalize({
@@ -1966,7 +1966,7 @@ describe.skip("font field", () => {
         prop: "blabla",
         type: "font",
       },
-      editorContext
+      editorContext,
     );
 
     expect(x.field.label).toBe("blabla");
@@ -1987,7 +1987,7 @@ describe.skip("font field", () => {
         prop: "blabla",
         type: "font",
       },
-      editorContext
+      editorContext,
     );
 
     testThemeValue(
@@ -2000,7 +2000,7 @@ describe.skip("font field", () => {
       fontRefResponsiveVal1,
       fontIncorrectScalarVal,
       fontScalarVal1,
-      fontMappingFixture
+      fontMappingFixture,
     );
   });
 });
@@ -2027,7 +2027,7 @@ function testIconWithDefaultIconAsResult(x: ReturnType<typeof build>) {
       undefined,
       DEFAULT_ICON_VALUE,
       DEFAULT_ICON_VALUE,
-      DEFAULT_ICON
+      DEFAULT_ICON,
     );
     superTest(x, 123, DEFAULT_ICON_VALUE, DEFAULT_ICON_VALUE, DEFAULT_ICON);
     superTest(
@@ -2035,7 +2035,7 @@ function testIconWithDefaultIconAsResult(x: ReturnType<typeof build>) {
       { value: 123 },
       DEFAULT_ICON_VALUE,
       DEFAULT_ICON_VALUE,
-      DEFAULT_ICON
+      DEFAULT_ICON,
     );
   });
 
@@ -2047,7 +2047,7 @@ function testIconWithDefaultIconAsResult(x: ReturnType<typeof build>) {
       nonExistentRef,
       { ...nonExistentRef, widgetId: "@easyblocks/icon" },
       { ...nonExistentRef, widgetId: "@easyblocks/icon" },
-      "<svg>cat</svg>"
+      "<svg>cat</svg>",
     );
   });
 
@@ -2072,7 +2072,7 @@ describe.skip("Icon field", () => {
         prop: "blabla",
         type: "icon",
       },
-      editorContext
+      editorContext,
     );
 
     testIconWithDefaultIconAsResult(definition);
@@ -2086,7 +2086,7 @@ describe.skip("Icon field", () => {
         type: "icon",
         defaultValue: 111,
       },
-      editorContext
+      editorContext,
     );
 
     testIconWithDefaultIconAsResult(definition);
@@ -2105,7 +2105,7 @@ describe.skip("Icon field", () => {
         type: "icon",
         defaultValue,
       },
-      editorContext
+      editorContext,
     );
 
     test("incorrect values falls back to default", () => {
@@ -2127,7 +2127,7 @@ describe.skip("Icon field", () => {
         nonExistentRef,
         nonExistentRef,
         nonExistentRef,
-        "<svg>cat</svg>"
+        "<svg>cat</svg>",
       );
     });
 
@@ -2150,7 +2150,7 @@ describe.skip("Icon field", () => {
 
 function testExternalFieldAgainstDefault(
   x: any,
-  defaultVal: UnresolvedResource
+  defaultVal: UnresolvedResource,
 ) {
   simpleTest(x, undefined, defaultVal);
   simpleTest(x, 100, defaultVal);
@@ -2167,7 +2167,7 @@ function testExternalFieldAgainstDefault(
     {
       id: "someId",
       widgetId: "product",
-    }
+    },
   );
 }
 
@@ -2178,7 +2178,7 @@ test("[external] behaves correctly with empty default", () => {
       type: "product",
     },
     editorContext,
-    { id: null, widgetId: "product" }
+    { id: null, widgetId: "product" },
   );
 
   expect(x.field.label).toBe("blabla");
@@ -2198,7 +2198,7 @@ test.skip("[image] behaves correctly with empty default", () => {
       prop: "blabla",
       type: "image",
     },
-    editorContext
+    editorContext,
   );
 
   expect(x.field.label).toBe("blabla");
@@ -2233,21 +2233,21 @@ test.skip("[image] behaves correctly with empty default", () => {
   simpleTest(
     x,
     { b1: "www", b4: { id: "xxx" }, $res: true },
-    { b4: { id: "xxx" }, $res: true }
+    { b4: { id: "xxx" }, $res: true },
   );
 
   // responsive value incorrect main breakpoint
   simpleTest(
     x,
     { b1: { id: "xxx" }, b4: 111, $res: true },
-    { b1: { id: "xxx" }, b4: { id: null }, $res: true }
+    { b1: { id: "xxx" }, b4: { id: null }, $res: true },
   );
 
   // responsive value all breakpoints correct, empty main
   simpleTest(
     x,
     { b1: { id: "test" }, b3: { id: "xxx" }, $res: true },
-    { b1: { id: "test" }, b3: { id: "xxx" }, b4: { id: null }, $res: true }
+    { b1: { id: "test" }, b3: { id: "xxx" }, b4: { id: null }, $res: true },
   );
 });
 
@@ -2261,7 +2261,7 @@ test.skip("[video] behaves correctly with empty default", () => {
       prop: "blabla",
       type: "video",
     },
-    editorContext
+    editorContext,
   );
 
   expect(x.field.label).toBe("blabla");
@@ -2323,7 +2323,7 @@ describe.skip("component normalize with context props", () => {
       {
         _component: "$TestCard",
       },
-      editorContext
+      editorContext,
     );
 
     expect(normalized._component).toBe("$TestCard");
@@ -2342,20 +2342,21 @@ describe.skip("component normalize with context props", () => {
           },
         },
       },
-      editorContext
+      editorContext,
     );
 
     expect(normalized._component).toBe("$TestCard");
     expect(normalized.cardSpace).toBeDefined();
     expect(normalized.cardBool).toBeDefined();
     expect(
-      normalized._itemProps.$TestSection.CardsWithItemFields.itemProp1
+      normalized._itemProps.$TestSection.CardsWithItemFields.itemProp1,
     ).toBe("a");
     expect(
-      normalized._itemProps.$TestSection.CardsWithItemFields.itemProp2
+      normalized._itemProps.$TestSection.CardsWithItemFields.itemProp2,
     ).toBe("a");
     expect(
-      normalized._itemProps.$TestSection.CardsWithItemFields.itemProp3Responsive
+      normalized._itemProps.$TestSection.CardsWithItemFields
+        .itemProp3Responsive,
     ).toEqual({ $res: true, b4: "a" });
   });
 
@@ -2385,7 +2386,7 @@ describe.skip("component normalize with context props", () => {
           en: [{ _component: "$TestCard" }],
         },
       },
-      editorContext
+      editorContext,
     );
 
     testEditorContext.form.change("", normalized);
@@ -2407,7 +2408,7 @@ describe.skip("[component field] no parent context", () => {
       type: "component",
       accepts: ["$EmptyComponent", "$TestCard"],
     },
-    editorContext
+    editorContext,
   );
 
   test("field created correctly", () => {
@@ -2449,7 +2450,7 @@ describe.skip("[component field] no parent context", () => {
           cardBool: false,
           cardSpace: defres(globalSpaceDefault),
         },
-      ]
+      ],
     );
     // TODO: compilations are tested below
   });
@@ -2463,7 +2464,7 @@ describe.skip("[component field required] no parent context", () => {
       accepts: ["$TestCard"],
       required: true,
     },
-    editorContext
+    editorContext,
   );
 
   const DEFAULT_VALUE = [
@@ -2492,16 +2493,16 @@ describe.skip("[component field required] no parent context", () => {
 
   test("tina field value is produced properly", () => {
     expect(x.def.normalize([{ _component: "$TestCard" }])).toMatchObject(
-      DEFAULT_VALUE
+      DEFAULT_VALUE,
     );
     expect(
-      x.def.normalize([{ _component: "$TestCard" }])[0]._id
+      x.def.normalize([{ _component: "$TestCard" }])[0]._id,
     ).toBeTemplateId();
   });
 
   test("_id is preserved", () => {
     expect(
-      x.def.normalize([{ _component: "$TestCard", _id: "abc" }])[0]._id
+      x.def.normalize([{ _component: "$TestCard", _id: "abc" }])[0]._id,
     ).toBe("abc");
   });
 });
@@ -2514,7 +2515,7 @@ describe.skip("component field", () => {
         type: "component",
         accepts: ["$EmptyComponent", "$TestCard", "MyButton"],
       },
-      editorContext
+      editorContext,
     );
   });
 
@@ -2529,7 +2530,7 @@ describe.skip("component field", () => {
           },
         },
       },
-      editorContext
+      editorContext,
     );
 
     editorContext.form.change("", normalized);
@@ -2584,9 +2585,9 @@ test("[component] works with empty subcomponents", () => {
           ],
         },
       },
-      editorContext
+      editorContext,
     ),
-    editorContext
+    editorContext,
   );
 
   const item = ret.compiled;
@@ -2634,13 +2635,13 @@ test("[component] works with empty subcomponents", () => {
   // Action items are compiled
 
   expect(
-    (item.components.testAction[0] as CompiledComponentConfig)._component
+    (item.components.testAction[0] as CompiledComponentConfig)._component,
   ).toBe("$CustomAction");
   expect(
-    (item.components.testAction[0] as CompiledComponentConfig)._id
+    (item.components.testAction[0] as CompiledComponentConfig)._id,
   ).toBeTemplateId();
   expect(item.components.testAction[0].props.someText.value).toBe(
-    "Lorem ipsum"
+    "Lorem ipsum",
   );
   expect(item.components.testAction[0].props.someSelect).toBe("two");
 });
@@ -2709,9 +2710,9 @@ test("[component] works with nesting", () => {
           en: [{ _component: "$TestCard" }],
         },
       },
-      editorContext
+      editorContext,
     ),
-    editorContext
+    editorContext,
   );
 
   const item = ret.compiled;
@@ -2719,40 +2720,40 @@ test("[component] works with nesting", () => {
 
   expect(item.__editing!.components.Card1).toEqual({});
   expect(
-    (item.components.Card1[0] as CompiledComponentConfig).__editing!.direction
+    (item.components.Card1[0] as CompiledComponentConfig).__editing!.direction,
   ).toBeUndefined();
   expect(
-    (item.components.Card1[0] as CompiledComponentConfig).__editing!.noInline
+    (item.components.Card1[0] as CompiledComponentConfig).__editing!.noInline,
   ).toBeUndefined();
 
   expect(item.__editing!.components.Card2).toMatchObject({
     noInline: true,
   });
   expect(
-    (item.components.Card2[0] as CompiledComponentConfig).__editing!.direction
+    (item.components.Card2[0] as CompiledComponentConfig).__editing!.direction,
   ).toBe("vertical");
   expect(
-    (item.components.Card2[0] as CompiledComponentConfig).__editing!.noInline
+    (item.components.Card2[0] as CompiledComponentConfig).__editing!.noInline,
   ).toBe(true);
 
   expect(item.__editing!.components.Cards).toEqual({});
   expect(
-    (item.components.Cards[0] as CompiledComponentConfig).__editing!.direction
+    (item.components.Cards[0] as CompiledComponentConfig).__editing!.direction,
   ).toBe("vertical");
   expect(
-    (item.components.Cards[0] as CompiledComponentConfig).__editing!.noInline
+    (item.components.Cards[0] as CompiledComponentConfig).__editing!.noInline,
   ).toBeUndefined();
   expect(
-    (item.components.Cards[1] as CompiledComponentConfig).__editing!.direction
+    (item.components.Cards[1] as CompiledComponentConfig).__editing!.direction,
   ).toBe("vertical");
   expect(
-    (item.components.Cards[1] as CompiledComponentConfig).__editing!.noInline
+    (item.components.Cards[1] as CompiledComponentConfig).__editing!.noInline,
   ).toBeUndefined();
   expect(
-    (item.components.Cards[2] as CompiledComponentConfig).__editing!.direction
+    (item.components.Cards[2] as CompiledComponentConfig).__editing!.direction,
   ).toBe("vertical");
   expect(
-    (item.components.Cards[2] as CompiledComponentConfig).__editing!.noInline
+    (item.components.Cards[2] as CompiledComponentConfig).__editing!.noInline,
   ).toBeUndefined();
 
   expect(item.props.isHorizontal).toBe(false);
@@ -2848,7 +2849,7 @@ describe.skip("[component] with local refs", () => {
         ],
       },
     },
-    editorContext
+    editorContext,
   );
 
   test("visual properties in ref instances are NOT normalized", () => {
@@ -2882,11 +2883,11 @@ describe.skip("[component] with local refs", () => {
         expect(item.__editing!.components.Card1).toEqual({});
         expect(
           (item.components.Card1[0] as CompiledComponentConfig).__editing!
-            .direction
+            .direction,
         ).toBeUndefined();
         expect(
           (item.components.Card1[0] as CompiledComponentConfig).__editing!
-            .noInline
+            .noInline,
         ).toBeUndefined();
 
         expect(item.__editing!.components.Card2).toMatchObject({
@@ -2894,37 +2895,37 @@ describe.skip("[component] with local refs", () => {
         });
         expect(
           (item.components.Card2[0] as CompiledComponentConfig).__editing!
-            .direction
+            .direction,
         ).toBe("vertical");
         expect(
           (item.components.Card2[0] as CompiledComponentConfig).__editing!
-            .noInline
+            .noInline,
         ).toBe(true);
 
         expect(item.__editing!.components.Cards).toEqual({});
         expect(
           (item.components.Cards[0] as CompiledComponentConfig).__editing!
-            .direction
+            .direction,
         ).toBe("vertical");
         expect(
           (item.components.Cards[0] as CompiledComponentConfig).__editing!
-            .noInline
+            .noInline,
         ).toBeUndefined();
         expect(
           (item.components.Cards[1] as CompiledComponentConfig).__editing!
-            .direction
+            .direction,
         ).toBe("vertical");
         expect(
           (item.components.Cards[1] as CompiledComponentConfig).__editing!
-            .noInline
+            .noInline,
         ).toBeUndefined();
         expect(
           (item.components.Cards[2] as CompiledComponentConfig).__editing!
-            .direction
+            .direction,
         ).toBe("vertical");
         expect(
           (item.components.Cards[2] as CompiledComponentConfig).__editing!
-            .noInline
+            .noInline,
         ).toBeUndefined();
 
         expect((compiled as any).configAfterAuto).toBeDefined();
@@ -3022,13 +3023,13 @@ describe.skip("[component-collection-localised]", () => {
             ],
           },
         },
-        editorContext
+        editorContext,
       ),
-      { ...editorContext, contextParams: { locale: "pl" } }
+      { ...editorContext, contextParams: { locale: "pl" } },
     );
 
     expect(
-      compiledTestCollection.compiled.components.CardsLocalised
+      compiledTestCollection.compiled.components.CardsLocalised,
     ).toHaveLength(1);
   });
 
@@ -3041,12 +3042,12 @@ describe.skip("[component-collection-localised]", () => {
             _id: "123",
             CardsLocalised: {},
           },
-          editorContext
+          editorContext,
         ),
-        editorContext
-      )
-    ).toThrowError(
-      'Can\'t resolve localised value for prop "CardsLocalised" of component $TestSection'
+        editorContext,
+      ),
+    ).toThrow(
+      'Can\'t resolve localised value for prop "CardsLocalised" of component $TestSection',
     );
   });
 });
@@ -3086,7 +3087,7 @@ describe.skip("Missings", () => {
           _component: missingTemplate,
           _id: "123",
         },
-        editorContext
+        editorContext,
       );
 
       expect(compiled).toMatchObject({
@@ -3096,7 +3097,7 @@ describe.skip("Missings", () => {
         props: {},
         styled: {},
       });
-    }
+    },
   );
 
   test("item props are normalized for components with missing definition", () => {
@@ -3120,35 +3121,35 @@ describe.skip("Missings", () => {
         _component: "$TestSection",
         CardsWithItemFields: [card, card],
       },
-      editorContext
+      editorContext,
     );
 
     unmock();
 
     expect(
       normalized.CardsWithItemFields[0]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp1
+        .CardsWithItemFields.itemProp1,
     ).toBe("a");
     expect(
       normalized.CardsWithItemFields[0]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp2
+        .CardsWithItemFields.itemProp2,
     ).toBe("a");
     expect(
       normalized.CardsWithItemFields[0]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp3Responsive
+        .CardsWithItemFields.itemProp3Responsive,
     ).toEqual({ $res: true, b4: "a" });
 
     expect(
       normalized.CardsWithItemFields[1]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp1
+        .CardsWithItemFields.itemProp1,
     ).toBe("a");
     expect(
       normalized.CardsWithItemFields[1]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp2
+        .CardsWithItemFields.itemProp2,
     ).toBe("a");
     expect(
       normalized.CardsWithItemFields[1]._itemProps.$TestSection
-        .CardsWithItemFields.itemProp3Responsive
+        .CardsWithItemFields.itemProp3Responsive,
     ).toEqual({ $res: true, b4: "a" });
   });
 });
@@ -3165,7 +3166,7 @@ describe.skip("when responsive token is used, it should take precedence over aut
           },
         },
       },
-      editorContext
+      editorContext,
     );
 
     const normalizedColor = card.color.b4;
@@ -3195,7 +3196,7 @@ describe.skip("when responsive token is used, it should take precedence over aut
           },
         },
       },
-      editorContext
+      editorContext,
     );
 
     const normalizedScalarColor = card.color.b2;

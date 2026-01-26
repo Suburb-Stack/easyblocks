@@ -1,7 +1,8 @@
-import { Fonts } from "@easyblocks/design-system";
+import { Fonts } from "@suburb-stack/design-system";
 import React, { CSSProperties, forwardRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
+import type { ComponentType, HTMLAttributes } from "react";
 
 interface TooltipProps {
   children: ReactNode;
@@ -14,14 +15,12 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       <div style={{ ...style, zIndex: 100100 }} ref={ref} {...rest}>
         {children}
       </div>,
-      document.body
+      document.body,
     );
-  }
+  },
 );
 
-export { Tooltip, TooltipBody, TooltipArrow };
-
-const TooltipBody = styled.div`
+const TooltipBody: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`
   position: relative;
   top: 6px;
 
@@ -39,7 +38,7 @@ const TooltipBody = styled.div`
   color: #fff;
 `;
 
-const TooltipArrow = styled.div`
+const TooltipArrow: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`
   width: 12px;
   height: 6px;
   margin: 0 auto;
@@ -47,3 +46,5 @@ const TooltipArrow = styled.div`
   background: #333333;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 `;
+
+export { Tooltip, TooltipBody, TooltipArrow };

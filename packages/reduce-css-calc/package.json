@@ -1,6 +1,6 @@
 {
-  "name": "@easyblocks/reduce-css-calc",
-  "version": "1.0.10",
+  "name": "@suburb-stack/reduce-css-calc",
+  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a",
   "private": true,
   "description": "Reduce CSS calc() function to the maximum",
   "keywords": [
@@ -25,9 +25,9 @@
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.19.1",
-    "ava": "^0.18.2",
-    "cross-env": "^3.1.4",
-    "del-cli": "^0.2.1",
+    "ava": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "del-cli": "^6.0.0",
     "jison-gho": "^0.6.1-216"
   },
   "dependencies": {

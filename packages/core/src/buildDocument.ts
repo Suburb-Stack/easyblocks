@@ -1,4 +1,4 @@
-import { serialize } from "@easyblocks/utils";
+import { serialize } from "@suburb-stack/utils";
 import { buildEntry } from "./buildEntry";
 import type {
   RequestedExternalData,
@@ -30,7 +30,7 @@ async function buildDocument({
       entry,
       config,
       locale,
-    }
+    },
   );
 
   return {

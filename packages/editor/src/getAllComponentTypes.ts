@@ -1,16 +1,16 @@
 import { EditorContextType } from "./EditorContext";
-import { ComponentDefinitionShared } from "@easyblocks/core";
+import { ComponentDefinitionShared } from "@suburb-stack/core";
 import { normalizeToStringArray } from "./normalizeToStringArray";
 
 export function getAllComponentTypes(editorContext: EditorContextType) {
   const componentTypes = getComponentTypesFromDefinitions(
-    editorContext.definitions.components
+    editorContext.definitions.components,
   );
   return Array.from(new Set([...componentTypes]));
 }
 
 function getComponentTypesFromDefinitions(
-  definitions: ComponentDefinitionShared[]
+  definitions: ComponentDefinitionShared[],
 ) {
   const types = new Set<string>();
 

@@ -1,14 +1,18 @@
-import { RequestedExternalData, ExternalData, Widget } from "@easyblocks/core";
+import {
+  RequestedExternalData,
+  ExternalData,
+  Widget,
+} from "@suburb-stack/core";
 
 import { fetchProductsByIds } from "@/data/shopify";
 
 import { PRODUCT_WIDGET_ID } from "./productShared";
 
 async function fetchProductResources(
-  externalData: RequestedExternalData
+  externalData: RequestedExternalData,
 ): Promise<ExternalData> {
   const allResources = Object.entries(externalData).filter(
-    ([, resource]) => resource.widgetId === PRODUCT_WIDGET_ID
+    ([, resource]) => resource.widgetId === PRODUCT_WIDGET_ID,
   );
 
   if (allResources.length === 0) {
@@ -16,14 +20,14 @@ async function fetchProductResources(
   }
 
   const deletedResources = allResources.filter(
-    ([, resource]) => resource.id === null
+    ([, resource]) => resource.id === null,
   );
   const productResources = allResources.filter(
-    ([, resource]) => resource.id !== null
+    ([, resource]) => resource.id !== null,
   );
 
   const productIds = productResources.map(
-    ([, resource]) => resource.id
+    ([, resource]) => resource.id,
   ) as string[];
 
   const result: any = {};
@@ -39,7 +43,8 @@ async function fetchProductResources(
 
     productResources.forEach(([fieldId, { id }]) => {
       const product = products.find(
-        (product) => decodeObjectId(product.id) === decodeObjectId(id as string)
+        (product) =>
+          decodeObjectId(product.id) === decodeObjectId(id as string),
       );
 
       if (!product) {

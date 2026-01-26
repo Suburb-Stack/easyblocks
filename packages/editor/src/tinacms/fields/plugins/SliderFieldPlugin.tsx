@@ -1,4 +1,4 @@
-import { RangeSlider } from "@easyblocks/design-system";
+import { RangeSlider } from "@suburb-stack/design-system";
 import React from "react";
 import { wrapFieldsWithMeta } from "./wrapFieldWithMeta";
 

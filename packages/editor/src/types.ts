@@ -5,7 +5,7 @@ import {
   ExternalData,
   ExternalReference,
   WidgetComponentProps,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { EditorContextType } from "./EditorContext";
 
 export type OpenComponentPickerConfig = {
@@ -54,12 +54,12 @@ export type OpenTemplateModalAction =
 
 export type ActionsType = {
   openComponentPicker: (
-    config: OpenComponentPickerConfig
+    config: OpenComponentPickerConfig,
   ) => Promise<NoCodeComponentEntry | undefined>;
   openTemplateModal: (arg: OpenTemplateModalAction) => void;
   moveItems: (
     fieldNames: Array<string>,
-    direction: "top" | "right" | "bottom" | "left"
+    direction: "top" | "right" | "bottom" | "left",
   ) => void;
   replaceItems: (paths: Array<string>, newConfig: NoCodeComponentEntry) => void;
   removeItems: (fieldNames: Array<string>) => void;
@@ -67,7 +67,7 @@ export type ActionsType = {
   duplicateItems: (fieldNames: Array<string>) => void;
   pasteItems: (items: Array<NoCodeComponentEntry>) => void;
   runChange: <Callback extends () => Array<string> | void>(
-    configChangeCallback: Callback
+    configChangeCallback: Callback,
   ) => void;
   logSelectedItems: () => void;
   notify: (message: string) => void;

@@ -161,6 +161,8 @@ const tina_reset_styles = css`
   }
 `;
 
-export const StyleReset = styled.div`
+export const StyleReset: React.ComponentType<
+  React.HTMLAttributes<HTMLDivElement>
+> = styled.div`
   ${tina_reset_styles}
 `;

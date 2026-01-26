@@ -1,4 +1,4 @@
-import { dotNotationGet } from "@easyblocks/utils";
+import { dotNotationGet } from "@suburb-stack/utils";
 import React, { ElementRef, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import TextareaAutosize from "react-textarea-autosize";
@@ -33,7 +33,7 @@ export function InlineTextarea({
     },
     locale,
     locales,
-    placeholder
+    placeholder,
   );
 
   const css = stitches.css({

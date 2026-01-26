@@ -10,7 +10,7 @@ export function createButtonComponent<OwnProps>(
     if (Action) {
       return (
         <Action.type
-          {...Action.props}
+          {...(Action.props as Record<string, unknown>)}
           trigger={<TriggerComponent {...props} />}
         />
       );

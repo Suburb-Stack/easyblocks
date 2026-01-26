@@ -1,8 +1,8 @@
-import { LocalTextReference, ResponsiveValue } from "@easyblocks/core";
-import { InternalField, useTextValue } from "@easyblocks/core/_internals";
-import { Input } from "@easyblocks/design-system";
+import { LocalTextReference, ResponsiveValue } from "@suburb-stack/core";
+import { InternalField, useTextValue } from "@suburb-stack/core/_internals";
+import { Input } from "@suburb-stack/design-system";
 import React from "react";
-import { FieldRenderProps } from "react-final-form";
+import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
 import { useEditorContext } from "../../../EditorContext";
 import { parse } from "./textFormat";
 import { FieldMetaWrapper } from "./wrapFieldWithMeta";
@@ -26,7 +26,7 @@ function TextField({ input, field, noWrap }: TextFieldProps) {
     editorContext.contextParams.locale,
     editorContext.locales,
     field.placeholder,
-    field.normalize
+    field.normalize,
   );
 
   const isTextSchemaProp = field.schemaProp.type === "text";

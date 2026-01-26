@@ -1,15 +1,28 @@
 import {
   NoCodeComponentEntry,
   NoCodeComponentDefinition,
-} from "@easyblocks/core";
-import * as internals from "@easyblocks/core/_internals";
-import { uniqueId } from "@easyblocks/utils";
+} from "@suburb-stack/core";
+import * as internals from "@suburb-stack/core/_internals";
+import { uniqueId } from "@suburb-stack/utils";
 import { Form } from "../form";
 import { insertCommand } from "./insert";
 import * as reconcile from "./reconcile";
 
+// Mock the @suburb-stack/core/_internals module to allow spying
+jest.mock("@suburb-stack/core/_internals", () => ({
+  ...jest.requireActual("@suburb-stack/core/_internals"),
+  findComponentDefinition: jest.fn(),
+  duplicateConfig: jest.fn(),
+}));
+
+// Mock the reconcile module
+jest.mock("./reconcile", () => ({
+  ...jest.requireActual("./reconcile"),
+  reconcile: jest.fn(),
+}));
+
 const createForm = (
-  initialValues: Record<string, any> = { data: [] }
+  initialValues: Record<string, any> = { data: [] },
 ): Form => {
   const form = new Form({
     id: "test",
@@ -26,7 +39,7 @@ const createForm = (
 };
 
 const createConfigComponent = (
-  init: Partial<NoCodeComponentEntry> = {}
+  init: Partial<NoCodeComponentEntry> = {},
 ): NoCodeComponentEntry => ({
   _id: uniqueId(),
   _component: "",
@@ -34,7 +47,7 @@ const createConfigComponent = (
 });
 
 const createComponentDefinition = (
-  init: Partial<NoCodeComponentDefinition> = {}
+  init: Partial<NoCodeComponentDefinition> = {},
 ): NoCodeComponentDefinition => ({
   id: "",
   schema: [],
@@ -42,6 +55,10 @@ const createComponentDefinition = (
 });
 
 describe("insert", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it.each`
     name                      | index   | schema                                                            | expectedResult
     ${"path.0.chldren"}       | ${0}    | ${{ accepts: ["$item"], type: "component-collection", prop: "" }} | ${"path.0.chldren.0"}
@@ -66,20 +83,16 @@ describe("insert", () => {
         _itemProps: { prop2: "" },
       });
 
-      jest.spyOn(internals, "findComponentDefinition").mockImplementation(
-        jest.fn().mockReturnValue({
-          tags: [],
-          id: "$item",
-        })
+      (internals.findComponentDefinition as jest.Mock).mockReturnValue({
+        tags: [],
+        id: "$item",
+      });
+
+      (internals.duplicateConfig as jest.Mock).mockReturnValue(duplicatedItem);
+
+      (reconcile.reconcile as jest.Mock).mockReturnValue(
+        jest.fn().mockReturnValue(reconciledItem),
       );
-
-      jest
-        .spyOn(internals, "duplicateConfig")
-        .mockImplementation(jest.fn().mockReturnValue(duplicatedItem));
-
-      jest
-        .spyOn(reconcile, "reconcile")
-        .mockReturnValue(jest.fn().mockReturnValue(reconciledItem));
 
       const insert = insertCommand({
         context: {} as any,
@@ -95,24 +108,22 @@ describe("insert", () => {
       expect(form.mutators.insert).toHaveBeenCalledWith(
         name,
         index,
-        duplicatedItem
+        duplicatedItem,
       );
-    }
+    },
   );
 
   it("Should return null when item definition cannot be found", () => {
     const form = createForm();
 
-    jest
-      .spyOn(internals, "findComponentDefinition")
-      .mockImplementation(jest.fn().mockReturnValue(undefined));
+    (internals.findComponentDefinition as jest.Mock).mockReturnValue(undefined);
 
-    jest
-      .spyOn(internals, "duplicateConfig")
-      .mockReturnValue({ _component: "xxx" });
+    (internals.duplicateConfig as jest.Mock).mockReturnValue({
+      _component: "xxx",
+    });
 
     const mockReconcile = jest.fn();
-    jest.spyOn(reconcile, "reconcile").mockReturnValue(mockReconcile);
+    (reconcile.reconcile as jest.Mock).mockReturnValue(mockReconcile);
 
     const insert = insertCommand({
       context: {} as any,
@@ -142,14 +153,12 @@ describe("insert", () => {
 
     const form = createForm();
 
-    jest
-      .spyOn(internals, "findComponentDefinition")
-      .mockImplementation(jest.fn().mockReturnValue(undefined));
+    (internals.findComponentDefinition as jest.Mock).mockReturnValue(undefined);
 
-    jest.spyOn(internals, "duplicateConfig").mockReturnValue(item);
+    (internals.duplicateConfig as jest.Mock).mockReturnValue(item);
 
     const mockReconcile = jest.fn();
-    jest.spyOn(reconcile, "reconcile").mockReturnValue(mockReconcile);
+    (reconcile.reconcile as jest.Mock).mockReturnValue(mockReconcile);
 
     const insert = insertCommand({
       context: {} as any,

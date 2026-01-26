@@ -1,4 +1,4 @@
-import { entries } from "@easyblocks/utils";
+import { entries } from "@suburb-stack/utils";
 import { getFallbackForLocale } from "../locales";
 import { DeviceRange } from "../types";
 import { CompilationCache } from "./CompilationCache";
@@ -19,12 +19,12 @@ function getMostCommonValueFromRichTextParts<
   RichTextPartProperty extends Extract<
     keyof RichTextPartComponentConfig,
     "color" | "font"
-  >
+  >,
 >(
   richTextComponentConfig: RichTextComponentConfig,
   prop: RichTextPartProperty,
   compilationContext: CompilationContextType,
-  cache: CompilationCache
+  cache: CompilationCache,
 ) {
   const richTextBlockElements:
     | Array<RichTextBlockElementComponentConfig>
@@ -33,7 +33,7 @@ function getMostCommonValueFromRichTextParts<
     getFallbackForLocale(
       richTextComponentConfig.elements,
       compilationContext.contextParams.locale,
-      compilationContext.locales
+      compilationContext.locales,
     );
 
   if (!richTextBlockElements) {
@@ -48,7 +48,7 @@ function getMostCommonValueFromRichTextParts<
 
   const richTextPartComponentDefinition = findComponentDefinitionById(
     richTextPartEditableComponent.id,
-    compilationContext
+    compilationContext,
   )!;
 
   const deviceIdToRichTextPartValuesGroupedByPropValue = Object.fromEntries(
@@ -61,9 +61,9 @@ function getMostCommonValueFromRichTextParts<
               richTextPartComponentDefinition,
               compilationContext,
               prop,
-              cache
+              cache,
             );
-          }
+          },
         );
 
         const richTextPartValuesLengthGroupedByPropValue =
@@ -71,9 +71,9 @@ function getMostCommonValueFromRichTextParts<
             (acc, current) =>
               groupTotalValueLengthByCompiledPropValue<RichTextPartProperty>(
                 prop,
-                device
+                device,
               )(acc, current),
-            {} as Record<string, number>
+            {} as Record<string, number>,
           );
 
         return [device.id, richTextPartValuesLengthGroupedByPropValue] as const;
@@ -84,7 +84,7 @@ function getMostCommonValueFromRichTextParts<
           entry[0],
           getCompiledValueFromEntryWithMaxTotalValueLength(entry),
         ];
-      })
+      }),
   );
 
   if (
@@ -99,10 +99,11 @@ function getMostCommonValueFromRichTextParts<
 export { getMostCommonValueFromRichTextParts };
 
 function getCompiledValueFromEntryWithMaxTotalValueLength(
-  entry: readonly [string, Record<string, number>]
+  entry: readonly [string, Record<string, number>],
 ): any {
-  const compiledPropValue = entries(entry[1]).reduce((maxEntry, currentEntry) =>
-    currentEntry[1] > maxEntry[1] ? currentEntry : maxEntry
+  const compiledPropValue = entries(entry[1]).reduce(
+    (maxEntry, currentEntry) =>
+      currentEntry[1] > maxEntry[1] ? currentEntry : maxEntry,
   )[0];
 
   try {
@@ -116,13 +117,13 @@ function groupTotalValueLengthByCompiledPropValue<
   RichTextPartProperty extends Extract<
     keyof RichTextPartComponentConfig,
     "color" | "font"
-  >
+  >,
 >(
   prop: RichTextPartProperty,
-  device: DeviceRange
+  device: DeviceRange,
 ): (
   previousValue: Record<string, number>,
-  currentValue: { [x: string]: any; value: string }
+  currentValue: { [x: string]: any; value: string },
 ) => Record<string, number> {
   return (acc, current) => {
     const key = JSON.stringify(current[prop][device.id]);
@@ -145,13 +146,13 @@ function mapRichTextPartToCompiledPropValue(
   richTextPartComponentDefinition: InternalComponentDefinition,
   compilationContext: CompilationContextType,
   prop: string,
-  cache: CompilationCache
+  cache: CompilationCache,
 ) {
   const compiledValues = compileComponentValues(
     richTextPart,
     richTextPartComponentDefinition,
     compilationContext,
-    cache
+    cache,
   );
 
   return {

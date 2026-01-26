@@ -246,7 +246,7 @@ function ItemPickerModal({
   onItemPick,
 }: ProductPickerModalProps) {
   const [query, setQuery] = useState<string>("");
-  const previousQuery = useRef<string | undefined>();
+  const previousQuery = useRef<string | undefined>(undefined);
 
   const [getProductsRequest, setGetProductsRequest] =
     useState<ProductApiRequestState>({

@@ -1,5 +1,5 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
-import { deepCompare } from "@easyblocks/utils";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
+import { deepCompare } from "@suburb-stack/utils";
 
 const HISTORY_SIZE = 50;
 
@@ -27,7 +27,7 @@ class EditorHistory {
     if (!isCurrentIndexLastEntry) {
       this.values.splice(
         this.currentIndex + 1,
-        this.values.length - 1 - this.currentIndex
+        this.values.length - 1 - this.currentIndex,
       );
     }
 
@@ -47,7 +47,7 @@ class EditorHistory {
 
   replaceAt(oldValue: HistoryEntry, newValue: HistoryEntry) {
     const entryIndex = this.values.findIndex(
-      (value) => value.config === oldValue.config
+      (value) => value.config === oldValue.config,
     );
 
     if (entryIndex !== -1) {

@@ -8,9 +8,9 @@ import {
   getFullySpecifiedEnvs,
   isDevelopment,
   isProduction,
-} from "@easyblocks/build-tools";
-import visualizer from "rollup-plugin-visualizer";
-import packageJson from "./package.json";
+} from "@suburb-stack/build-tools";
+import { visualizer } from "rollup-plugin-visualizer";
+import packageJson from "./package.json" with { type: "json" };
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
@@ -46,7 +46,7 @@ function getPlugins(format) {
       visualizer({
         filename: format === "es" ? "stats/index.html" : "stats/cjs/index.html",
         gzipSize: true,
-      })
+      }),
     );
   }
 
@@ -64,7 +64,7 @@ const baseConfig = {
     /@babel\/runtime/,
     /lodash/,
     /react-dom/,
-    /@easyblocks\/core/,
+    /@suburb-stack\/core/,
   ],
 };
 
@@ -93,6 +93,7 @@ const configCjs = {
     dir: "./dist/cjs",
     banner: `"use client";`,
     entryFileNames: "[name].cjs",
+    interop: "auto",
   },
   plugins: getPlugins("cjs"),
 };

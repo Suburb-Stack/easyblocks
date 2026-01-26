@@ -3,7 +3,7 @@ import {
   MultiSelect,
   Input,
   Typography,
-} from "@easyblocks/design-system";
+} from "@suburb-stack/design-system";
 
 export function MultiSelectStories() {
   return (

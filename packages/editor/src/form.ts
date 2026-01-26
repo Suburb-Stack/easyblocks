@@ -1,10 +1,12 @@
-import { InternalAnyField, InternalField } from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+import { InternalAnyField, InternalField } from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import { Config, FORM_ERROR, FormApi, FormState, createForm } from "final-form";
 import arrayMutators from "final-form-arrays";
 
-export interface FormOptions<S, F extends InternalField = InternalAnyField>
-  extends Config<S> {
+export interface FormOptions<
+  S,
+  F extends InternalField = InternalAnyField,
+> extends Config<S> {
   id: any;
   label: string;
   fields?: F[];
@@ -21,7 +23,7 @@ export interface FormOptions<S, F extends InternalField = InternalAnyField>
 
 export class Form<
   S extends Record<string, any> = any,
-  F extends InternalField = InternalAnyField
+  F extends InternalField = InternalAnyField,
 > {
   private _reset?(): void;
 
@@ -93,7 +95,7 @@ export class Form<
             onChange(formState);
           }
         },
-        { values: true }
+        { values: true },
       );
     }
   }
@@ -216,7 +218,7 @@ export class Form<
 
 function updateEverything<S extends Record<string, any>>(
   form: FormApi<any>,
-  values: S
+  values: S,
 ) {
   Object.entries(values).forEach(([path, value]) => {
     form.change(path, value);
@@ -226,7 +228,7 @@ function updateEverything<S extends Record<string, any>>(
 function updateSelectively<S extends Record<string, any>>(
   form: FormApi<any>,
   values: S,
-  prefix?: string
+  prefix?: string,
 ) {
   const activePath: any = form.getState().active!;
 

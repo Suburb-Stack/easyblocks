@@ -1,9 +1,9 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
 import { pasteManager } from "./manager";
 
 describe("pasteManager", () => {
   const createConfigComponent = (
-    init: Partial<NoCodeComponentEntry> = {}
+    init: Partial<NoCodeComponentEntry> = {},
   ): NoCodeComponentEntry => ({
     _component: "",
     ...init,

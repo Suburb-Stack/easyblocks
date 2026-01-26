@@ -1,10 +1,10 @@
-import { NoCodeComponentEntry } from "@easyblocks/core";
-import { CompilationContextType } from "@easyblocks/core/_internals";
+import { NoCodeComponentEntry } from "@suburb-stack/core";
+import { CompilationContextType } from "@suburb-stack/core/_internals";
 import { configMap } from "../config/configMap";
 
 export function removeLocalizedFlag(
   config: NoCodeComponentEntry,
-  context: CompilationContextType
+  context: CompilationContextType,
 ) {
   return configMap(config, context, ({ value, schemaProp }) => {
     if (

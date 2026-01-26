@@ -1,6 +1,6 @@
 {
-  "name": "@easyblocks/test-utils",
-  "version": "1.0.10",
+  "name": "@suburb-stack/test-utils",
+  "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a",
   "private": true,
   "main": "./src/index.ts",
   "types": "./src/index.ts"

@@ -1,4 +1,4 @@
-import type { EditingInfoBase } from "@easyblocks/core";
+import type { EditingInfoBase } from "@suburb-stack/core";
 import { ADD_BUTTON_SIZE } from "./AddButton";
 
 function calculateAddButtonsProperties(
@@ -8,7 +8,7 @@ function calculateAddButtonsProperties(
     width: number;
     height: number;
   },
-  containerElementRect?: DOMRect
+  containerElementRect?: DOMRect,
 ): {
   before: { top: number; left: number; display: "block" | "none" };
   after: { top: number; left: number; display: "block" | "none" };
@@ -17,13 +17,13 @@ function calculateAddButtonsProperties(
 
   if (direction === "vertical") {
     const beforeButtonTopOffset = Math.floor(
-      targetElementRect.top - halfButtonSize
+      targetElementRect.top - halfButtonSize,
     );
     const afterButtonTopOffset = Math.floor(
-      targetElementRect.top + targetElementRect.height - halfButtonSize
+      targetElementRect.top + targetElementRect.height - halfButtonSize,
     );
     const buttonsLeftOffset = Math.floor(
-      targetElementRect.left + targetElementRect.width / 2 - halfButtonSize
+      targetElementRect.left + targetElementRect.width / 2 - halfButtonSize,
     );
 
     const isBeforeButtonWithinViewport = isButtonWithinViewport(
@@ -31,7 +31,7 @@ function calculateAddButtonsProperties(
         top: beforeButtonTopOffset + halfButtonSize,
         left: buttonsLeftOffset + halfButtonSize,
       },
-      viewport
+      viewport,
     );
 
     const isAfterButtonWithinViewport = isButtonWithinViewport(
@@ -39,7 +39,7 @@ function calculateAddButtonsProperties(
         top: afterButtonTopOffset + halfButtonSize,
         left: buttonsLeftOffset + halfButtonSize,
       },
-      viewport
+      viewport,
     );
 
     if (containerElementRect) {
@@ -48,7 +48,7 @@ function calculateAddButtonsProperties(
           top: beforeButtonTopOffset + halfButtonSize,
           left: buttonsLeftOffset + halfButtonSize,
         },
-        containerElementRect
+        containerElementRect,
       );
 
       const isAfterButtonWithinContainer = isButtonWithinContainer(
@@ -56,7 +56,7 @@ function calculateAddButtonsProperties(
           top: afterButtonTopOffset + halfButtonSize,
           left: buttonsLeftOffset + halfButtonSize,
         },
-        containerElementRect
+        containerElementRect,
       );
 
       return {
@@ -93,13 +93,13 @@ function calculateAddButtonsProperties(
     }
   } else {
     const buttonsTopOffset = Math.floor(
-      targetElementRect.top + targetElementRect.height / 2 - halfButtonSize
+      targetElementRect.top + targetElementRect.height / 2 - halfButtonSize,
     );
     const beforeButtonLeftOffset = Math.floor(
-      targetElementRect.left - halfButtonSize
+      targetElementRect.left - halfButtonSize,
     );
     const afterButtonLeftOffset = Math.floor(
-      targetElementRect.left + targetElementRect.width - halfButtonSize
+      targetElementRect.left + targetElementRect.width - halfButtonSize,
     );
 
     const isBeforeButtonWithinViewport = isButtonWithinViewport(
@@ -107,14 +107,14 @@ function calculateAddButtonsProperties(
         top: buttonsTopOffset + halfButtonSize,
         left: beforeButtonLeftOffset + halfButtonSize,
       },
-      viewport
+      viewport,
     );
     const isAfterButtonWithinViewport = isButtonWithinViewport(
       {
         top: buttonsTopOffset + halfButtonSize,
         left: afterButtonLeftOffset + halfButtonSize,
       },
-      viewport
+      viewport,
     );
 
     if (containerElementRect) {
@@ -123,7 +123,7 @@ function calculateAddButtonsProperties(
           top: buttonsTopOffset + halfButtonSize,
           left: beforeButtonLeftOffset + halfButtonSize,
         },
-        containerElementRect
+        containerElementRect,
       );
 
       const isAfterButtonWithinContainer = isButtonWithinContainer(
@@ -131,7 +131,7 @@ function calculateAddButtonsProperties(
           top: buttonsTopOffset + halfButtonSize,
           left: afterButtonLeftOffset + halfButtonSize,
         },
-        containerElementRect
+        containerElementRect,
       );
 
       return {
@@ -173,7 +173,7 @@ export { calculateAddButtonsProperties };
 
 function isButtonWithinViewport(
   target: { top: number; left: number },
-  viewport: { width: number; height: number }
+  viewport: { width: number; height: number },
 ) {
   return (
     target.top >= 0 &&
@@ -185,7 +185,7 @@ function isButtonWithinViewport(
 
 function isButtonWithinContainer(
   target: { top: number; left: number },
-  container: DOMRect
+  container: DOMRect,
 ) {
   return (
     target.top >= container.top &&

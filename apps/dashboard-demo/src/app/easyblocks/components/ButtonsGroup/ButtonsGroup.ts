@@ -1,4 +1,4 @@
-import { NoCodeComponentDefinition, box } from "@easyblocks/core";
+import { NoCodeComponentDefinition, box } from "@suburb-stack/core";
 
 const buttonsGroupDefinition: NoCodeComponentDefinition = {
   id: "ButtonsGroup",

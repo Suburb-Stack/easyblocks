@@ -1,11 +1,11 @@
-import { deepClone, uniqueId } from "@easyblocks/utils";
+import { deepClone, uniqueId } from "@suburb-stack/utils";
 import { NoCodeComponentEntry } from "../types";
 import { configTraverse } from "./configTraverse";
 import { traverseComponents } from "./traverseComponents";
 import { CompilationContextType } from "./types";
 
 export function duplicateConfig<
-  ConfigType extends NoCodeComponentEntry = NoCodeComponentEntry
+  ConfigType extends NoCodeComponentEntry = NoCodeComponentEntry,
 >(inputConfig: ConfigType, compilationContext: CompilationContextType) {
   // deep copy first
   const config = deepClone(inputConfig);

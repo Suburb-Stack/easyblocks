@@ -44,7 +44,7 @@ type IconProps = {
 
 export type Icon = React.ComponentType<IconProps>;
 
-function createIcon(svg: JSX.Element, isStroke = false): Icon {
+function createIcon(svg: React.JSX.Element, isStroke = false): Icon {
   return (props: IconProps) => {
     return (
       <IconContainer {...props} isStroke={isStroke}>

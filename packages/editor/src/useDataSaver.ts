@@ -1,5 +1,5 @@
-import { NoCodeComponentEntry, Document } from "@easyblocks/core";
-import { deepClone, deepCompare, sleep } from "@easyblocks/utils";
+import { NoCodeComponentEntry, Document } from "@suburb-stack/core";
+import { deepClone, deepCompare, sleep } from "@suburb-stack/utils";
 import { useEffect, useRef, useState } from "react";
 import { EditorContextType } from "./EditorContext";
 import { getConfigSnapshot } from "./utils/config/getConfigSnapshot";
@@ -14,7 +14,7 @@ import { removeLocalizedFlag } from "./utils/locales/removeLocalizedFlag";
  */
 export function useDataSaver(
   initialDocument: Document | null,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   const remoteDocument = useRef<Document | null>(initialDocument);
 
@@ -23,7 +23,7 @@ export function useDataSaver(
    * It's not going to change at any time during the lifecycle of this hook.
    */
   const [initialConfigInCaseOfMissingDocument] = useState<NoCodeComponentEntry>(
-    deepClone(editorContext.form.values)
+    deepClone(editorContext.form.values),
   );
   const onTickRef = useRef<() => Promise<void>>(() => Promise.resolve());
 
@@ -43,12 +43,12 @@ export function useDataSaver(
 
     const isConfigTheSame = deepCompare(
       localConfigSnapshot,
-      previousConfigSnapshot
+      previousConfigSnapshot,
     );
 
     const configToSaveWithLocalisedFlag = addLocalizedFlag(
       localConfigSnapshot,
-      editorContext
+      editorContext,
     );
 
     async function runSaveCallback() {
@@ -104,7 +104,7 @@ export function useDataSaver(
 
         const latestConfig = removeLocalizedFlag(
           latestDocument.entry,
-          editorContext
+          editorContext,
         );
 
         editorContext.actions.runChange(() => {
@@ -119,7 +119,7 @@ export function useDataSaver(
           console.debug("there were local changes -> notify");
 
           editorContext.actions.notify(
-            "Remote changes detected, local changes have been overwritten."
+            "Remote changes detected, local changes have been overwritten.",
           );
         }
 

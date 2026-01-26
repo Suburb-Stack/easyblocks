@@ -9,7 +9,12 @@ function PropertiesGroup({ Properties, variant }: NoCodeComponentProps) {
       }`}
     >
       {(Properties as Array<ReactElement>).map((PropertyItem, index) => {
-        return <PropertyItem.type {...PropertyItem.props} key={index} />;
+        return (
+          <PropertyItem.type
+            {...(PropertyItem.props as Record<string, unknown>)}
+            key={index}
+          />
+        );
       })}
     </div>
   );

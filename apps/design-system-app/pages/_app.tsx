@@ -1,6 +1,13 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { GlobalModalStyles } from "@easyblocks/design-system";
+import dynamic from "next/dynamic";
+
+// Dynamically import GlobalModalStyles to avoid styled-components SSR issues
+const GlobalModalStyles = dynamic(
+  () =>
+    import("@suburb-stack/design-system").then((mod) => mod.GlobalModalStyles),
+  { ssr: false },
+);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -10,7 +17,6 @@ export default function App({ Component, pageProps }: AppProps) {
         id={"modalContainer"}
         style={{ position: "fixed", top: 0, left: 0, zIndex: 1000 }}
       ></div>
-      {/* @ts-ignore */}
       <GlobalModalStyles />
     </div>
   );

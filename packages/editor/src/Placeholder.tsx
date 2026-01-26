@@ -1,9 +1,12 @@
 import { useDndContext } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
-import { PlaceholderAppearance } from "@easyblocks/core";
-import { parsePath, useEasyblocksMetadata } from "@easyblocks/core/_internals";
-import { Colors, Fonts } from "@easyblocks/design-system";
-import { toArray } from "@easyblocks/utils";
+import { PlaceholderAppearance } from "@suburb-stack/core";
+import {
+  parsePath,
+  useEasyblocksMetadata,
+} from "@suburb-stack/core/_internals";
+import { Colors, Fonts } from "@suburb-stack/design-system";
+import { toArray } from "@suburb-stack/utils";
 import React from "react";
 import { EditorContextType } from "./EditorContext";
 
@@ -115,7 +118,7 @@ type TypePlaceholderComponentBuilderProps = {
 };
 
 export default function TypePlaceholder(
-  props: TypePlaceholderComponentBuilderProps
+  props: TypePlaceholderComponentBuilderProps,
 ) {
   const { form } = window.parent.editorWindowAPI
     .editorContext as EditorContextType;
@@ -128,7 +131,7 @@ export default function TypePlaceholder(
 
   const draggedComponentDefinition = draggedEntryPathParseResult
     ? meta.vars.definitions.components.find(
-        (c) => c.id === draggedEntryPathParseResult.templateId
+        (c) => c.id === draggedEntryPathParseResult.templateId,
       )
     : null;
 

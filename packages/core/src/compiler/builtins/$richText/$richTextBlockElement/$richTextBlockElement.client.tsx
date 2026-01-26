@@ -21,23 +21,27 @@ export function RichTextBlockElementClient(props: RichTextBlockElementProps) {
     Paragraph,
   } = props;
 
-  const elements = Elements.map((Element, index) => (
-    <Element.type {...Element.props} key={index} />
-  ));
+  const elements = Elements.map((Element, index) => {
+    const elementProps = Element.props as Record<string, unknown>;
+    return <Element.type {...elementProps} key={index} />;
+  });
 
   if (type === "paragraph") {
-    return <Paragraph.type {...Paragraph.props}>{elements}</Paragraph.type>;
+    const paragraphProps = Paragraph.props as Record<string, unknown>;
+    return <Paragraph.type {...paragraphProps}>{elements}</Paragraph.type>;
   }
 
   if (type === "bulleted-list") {
+    const bulletedListProps = BulletedList.props as Record<string, unknown>;
     return (
-      <BulletedList.type {...BulletedList.props}>{elements}</BulletedList.type>
+      <BulletedList.type {...bulletedListProps}>{elements}</BulletedList.type>
     );
   }
 
   if (type === "numbered-list") {
+    const numberedListProps = NumberedList.props as Record<string, unknown>;
     return (
-      <NumberedList.type {...NumberedList.props}>{elements}</NumberedList.type>
+      <NumberedList.type {...numberedListProps}>{elements}</NumberedList.type>
     );
   }
 

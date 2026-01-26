@@ -9,7 +9,7 @@ import {
   raiseError,
   toArray,
   uniqueId,
-} from "@easyblocks/utils";
+} from "@suburb-stack/utils";
 import { xxHash32 } from "js-xxhash";
 import { isComponentConfig } from "../checkers";
 import {
@@ -98,12 +98,12 @@ export function compileComponent(
   parentComponentEditingInfo?:
     | EditingInfoComponent
     | EditingInfoComponentCollection,
-  configPrefix = ""
+  configPrefix = "",
 ): ComponentCompilationArtifacts {
   if (!isComponentConfig(editableElement)) {
     console.error(
       "[compile] wrong input for compileComponent",
-      editableElement
+      editableElement,
     );
 
     throw new Error("[compile] wrong input for compileComponent");
@@ -111,7 +111,7 @@ export function compileComponent(
 
   if (contextProps.$width === undefined || contextProps.$width === -1) {
     throw new Error(
-      `assertion failed: incorrect $width in compileComponent: ${contextProps.$width}, component: ${editableElement._id}, ${editableElement._component}`
+      `assertion failed: incorrect $width in compileComponent: ${contextProps.$width}, component: ${editableElement._id}, ${editableElement._component}`,
     );
   }
 
@@ -119,15 +119,15 @@ export function compileComponent(
 
   let componentDefinition = findComponentDefinitionById(
     editableElement._component,
-    compilationContext
+    compilationContext,
   );
 
   if (!componentDefinition) {
     componentDefinition = assertDefined(
       findComponentDefinitionById(
         "@easyblocks/missing-component",
-        compilationContext
-      )
+        compilationContext,
+      ),
     );
 
     const error = `Easyblocks can’t find definition for component "${editableElement._component}" in your config. Please contact your developers to resolve this issue.`;
@@ -189,12 +189,12 @@ export function compileComponent(
     editableElement,
     meta,
     "components",
-    compilationContext
+    compilationContext,
   );
 
   const { $width, $widthAuto } = calculateWidths(
     compilationContext,
-    contextProps
+    contextProps,
   );
 
   if (hasComponentConfigChanged) {
@@ -213,7 +213,7 @@ export function compileComponent(
         ownPropsAfterAuto.values[schemaProp.prop] =
           applyAutoUsingResponsiveTokens(
             ownPropsAfterAuto.values[schemaProp.prop],
-            compilationContext
+            compilationContext,
           );
       }
 
@@ -223,7 +223,7 @@ export function compileComponent(
           compilationContext,
           $width,
           (schemaProp as SpaceSchemaProp).params?.autoConstant ??
-            DEFAULT_SPACE_AUTO_CONSTANT
+            DEFAULT_SPACE_AUTO_CONSTANT,
         );
       }
     });
@@ -240,7 +240,7 @@ export function compileComponent(
           compilationContext,
           $width,
           (arg.itemSchemaProp as SpaceSchemaProp).params?.autoConstant ??
-            DEFAULT_SPACE_AUTO_CONSTANT
+            DEFAULT_SPACE_AUTO_CONSTANT,
         );
       }
 
@@ -271,7 +271,7 @@ export function compileComponent(
       ownPropsAfterAuto.values[prop] = responsiveValueFill(
         ownPropsAfterAuto.values[prop],
         compilationContext.devices,
-        getDevicesWidths(compilationContext.devices)
+        getDevicesWidths(compilationContext.devices),
       );
     }
 
@@ -279,7 +279,7 @@ export function compileComponent(
       ownPropsAfterAuto.params[prop] = responsiveValueFill(
         ownPropsAfterAuto.params[prop],
         compilationContext.devices,
-        getDevicesWidths(compilationContext.devices)
+        getDevicesWidths(compilationContext.devices),
       );
     }
 
@@ -290,8 +290,8 @@ export function compileComponent(
         responsiveValueFill(
           arg.itemPropValue,
           compilationContext.devices,
-          getDevicesWidths(compilationContext.devices)
-        )
+          getDevicesWidths(compilationContext.devices),
+        ),
       );
     });
 
@@ -300,7 +300,7 @@ export function compileComponent(
       ownPropsAfterAuto.values,
       componentDefinition,
       compilationContext,
-      cache
+      cache,
     );
 
     compiledValues = {
@@ -319,13 +319,13 @@ export function compileComponent(
           compilationContext,
           cache,
           {},
-          meta
+          meta,
         );
 
         compiledValues[collectionSchemaProp.prop][itemIndex][
           itemSchemaProp.prop
         ] = compiledValue;
-      }
+      },
     );
 
     // We want to style block element based on the most common values from all text parts within all lines.
@@ -338,7 +338,7 @@ export function compileComponent(
         } = compileRichTextValuesFromRichTextParts(
           editableElement as RichTextComponentConfig,
           compilationContext,
-          cache
+          cache,
         );
 
         compiledValues.mainColor = mainColor;
@@ -346,7 +346,7 @@ export function compileComponent(
       }
 
       compiledValues.mainFontSize = mapResponsiveFontToResponsiveFontSize(
-        compiledValues.mainFont
+        compiledValues.mainFont,
       );
     }
 
@@ -371,7 +371,7 @@ export function compileComponent(
         configPrefix,
         editorContext,
         compiledValues,
-        editableElement._component
+        editableElement._component,
       );
 
       /**
@@ -382,11 +382,11 @@ export function compileComponent(
           compiledValues,
           editorContext.breakpointIndex,
           editorContext.devices,
-          renderableComponentDefinition.schema
+          renderableComponentDefinition.schema,
         );
 
         const identityEditingField = assertDefined(
-          editingInfo.fields.find((f) => f.prop === "$myself")
+          editingInfo.fields.find((f) => f.prop === "$myself"),
         );
 
         const editingInfoWithoutIdentityField: InternalEditingInfo = {
@@ -397,7 +397,7 @@ export function compileComponent(
 
         const editingInfoInput = convertInternalEditingInfoToEditingInfo(
           editingInfoWithoutIdentityField,
-          configPrefix
+          configPrefix,
         );
 
         const editingInfoResult = renderableComponentDefinition.editing({
@@ -405,7 +405,7 @@ export function compileComponent(
           params: ownPropsAfterAuto.params,
           editingInfo: editingInfoInput,
           device: editorContext.devices.find(
-            (device) => device.id === editorContext.breakpointIndex
+            (device) => device.id === editorContext.breakpointIndex,
           )!,
           ...(componentDefinition.id === "@easyblocks/rich-text" ||
           componentDefinition.id === "@easyblocks/rich-text-part"
@@ -424,7 +424,7 @@ export function compileComponent(
             editingInfo,
             componentDefinition,
             editorContext,
-            configPrefix
+            configPrefix,
           );
 
           internalEditingInfo.fields?.unshift(identityEditingField);
@@ -443,7 +443,7 @@ export function compileComponent(
         {
           width: $width,
           auto: $widthAuto,
-        }
+        },
       );
 
       editingContextProps = editingInfo.components;
@@ -458,9 +458,9 @@ export function compileComponent(
 
         const device = assertDefined(
           compilationContext.devices.find(
-            (device) => device.id === breakpointIndex
+            (device) => device.id === breakpointIndex,
           ),
-          `Missing device "${breakpointIndex}"`
+          `Missing device "${breakpointIndex}"`,
         );
 
         const stylesInput: NoCodeComponentStylesFunctionInput = {
@@ -469,7 +469,7 @@ export function compileComponent(
             ...params,
             $width: assertDefined(responsiveValueAt($width, breakpointIndex)),
             $widthAuto: assertDefined(
-              responsiveValueAt($widthAuto, breakpointIndex)
+              responsiveValueAt($widthAuto, breakpointIndex),
             ),
           },
           isEditing: !!compilationContext.isEditing,
@@ -482,7 +482,7 @@ export function compileComponent(
         return renderableComponentDefinition.styles(stylesInput);
       },
       compilationContext.devices,
-      renderableComponentDefinition
+      renderableComponentDefinition,
     );
 
     validateStylesProps(props, componentDefinition);
@@ -526,12 +526,12 @@ export function compileComponent(
         compiled.props[schemaProp.prop] = Object.fromEntries(
           Object.keys(editableElement[schemaProp.prop]).map((deviceId) => {
             return [deviceId, compiledValues[schemaProp.prop][deviceId]];
-          })
+          }),
         );
       } else {
         compiled.props[schemaProp.prop] = responsiveValueNormalize(
           compiledValues[schemaProp.prop],
-          compilationContext.devices
+          compilationContext.devices,
         );
       }
     });
@@ -563,7 +563,7 @@ export function compileComponent(
       configPrefix,
       editorContext,
       compiledValues,
-      editableElement._component
+      editableElement._component,
     );
 
     /**
@@ -574,11 +574,11 @@ export function compileComponent(
         compiledValues,
         editorContext.breakpointIndex,
         editorContext.devices,
-        renderableComponentDefinition.schema
+        renderableComponentDefinition.schema,
       );
 
       const identityEditingField = assertDefined(
-        editingInfo.fields.find((f) => f.prop === "$myself")
+        editingInfo.fields.find((f) => f.prop === "$myself"),
       );
 
       const editingInfoWithoutIdentityField: InternalEditingInfo = {
@@ -589,7 +589,7 @@ export function compileComponent(
 
       const editingInfoInput = convertInternalEditingInfoToEditingInfo(
         editingInfoWithoutIdentityField,
-        configPrefix
+        configPrefix,
       );
 
       const editingInfoResult = renderableComponentDefinition.editing({
@@ -597,7 +597,7 @@ export function compileComponent(
         params: ownPropsAfterAuto!.params,
         editingInfo: editingInfoInput,
         device: editorContext.devices.find(
-          (device) => device.id === editorContext.breakpointIndex
+          (device) => device.id === editorContext.breakpointIndex,
         )!,
         ...(componentDefinition.id === "@easyblocks/rich-text" ||
         componentDefinition.id === "@easyblocks/rich-text-part"
@@ -616,7 +616,7 @@ export function compileComponent(
           editingInfo,
           componentDefinition,
           editorContext,
-          configPrefix
+          configPrefix,
         );
 
         internalEditingInfo.fields?.unshift(identityEditingField);
@@ -633,7 +633,7 @@ export function compileComponent(
         {
           width: $width,
           auto: $widthAuto,
-        }
+        },
       );
 
     editingContextProps = editingInfo.components;
@@ -649,7 +649,7 @@ export function compileComponent(
     configPrefix,
     compiled,
     configAfterAuto,
-    cache
+    cache,
   );
 
   cache.set(ownProps.values._id, {
@@ -679,7 +679,7 @@ export function compileComponent(
 
 function validateStylesProps(
   props: Record<string, unknown>,
-  componentDefinition: InternalComponentDefinition
+  componentDefinition: InternalComponentDefinition,
 ) {
   for (const key of Object.keys(props)) {
     const schemaProp = componentDefinition.schema.find((s) => s.prop === key);
@@ -690,7 +690,7 @@ function validateStylesProps(
 
     if (!schemaProp.buildOnly) {
       throw new Error(
-        `You've returned property "${key}" in "props" object that conflicts with the same prop in schema of component "${componentDefinition.id}". You can either change the property name or set the schema property as build-only (\`buildOnly: true\`).`
+        `You've returned property "${key}" in "props" object that conflicts with the same prop in schema of component "${componentDefinition.id}". You can either change the property name or set the schema property as build-only (\`buildOnly: true\`).`,
       );
     }
   }
@@ -760,7 +760,7 @@ function createOwnComponentProps({
                 string,
                 Array<NoCodeComponentEntry>
               >,
-              compilationContext
+              compilationContext,
             )?.value ?? [];
         }
 
@@ -770,7 +770,7 @@ function createOwnComponentProps({
               config,
               componentDefinition,
               schemaProp,
-              schemaProp.itemFields
+              schemaProp.itemFields,
             );
 
             return {
@@ -790,7 +790,7 @@ function createOwnComponentProps({
       }
 
       return [schemaProp.prop, config[schemaProp.prop]];
-    })
+    }),
   );
 
   const ownValues: { _id: string; _component: string; [key: string]: any } = {
@@ -812,7 +812,7 @@ function flattenItemProps(
   collectionSchemaProp:
     | ComponentCollectionSchemaProp
     | ComponentCollectionLocalisedSchemaProp,
-  itemsSchemas: Array<SchemaProp>
+  itemsSchemas: Array<SchemaProp>,
 ) {
   const itemProps = Object.fromEntries(
     itemsSchemas.map((itemSchemaProp) => {
@@ -822,7 +822,7 @@ function flattenItemProps(
           itemSchemaProp.prop
         ],
       ];
-    })
+    }),
   );
 
   return itemProps;
@@ -832,7 +832,7 @@ function addComponentToSerializedComponentDefinitions(
   component: NoCodeComponentEntry,
   meta: CompilationMetadata,
   componentType: keyof SerializedComponentDefinitions,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ) {
   const definitions = meta.vars.definitions[componentType];
 
@@ -842,7 +842,7 @@ function addComponentToSerializedComponentDefinitions(
 
   const internalDefinition = findComponentDefinition(
     component,
-    compilationContext
+    compilationContext,
   ) as InternalRenderableComponentDefinition;
 
   const newDef: SerializedRenderableComponentDefinition = {
@@ -869,11 +869,11 @@ function compileSubcomponents(
   configPrefix: string,
   compiledComponentConfig: CompiledCustomComponentConfig,
   configAfterAuto: NoCodeComponentEntry | null, // null means that we don't want auto
-  cache: CompilationCache
+  cache: CompilationCache,
 ) {
   const componentDefinition = findComponentDefinition(
     editableElement,
-    compilationContext
+    compilationContext,
   )!;
 
   componentDefinition.schema.forEach((schemaProp: SchemaProp) => {
@@ -907,11 +907,11 @@ function compileSubcomponents(
         } else {
           const resolvedValue = resolveLocalisedValue(
             editableElement[schemaProp.prop],
-            compilationContext
+            compilationContext,
           );
           if (!resolvedValue) {
             throw new Error(
-              `Can't resolve localised value for prop "${schemaProp.prop}" of component ${editableElement._component}`
+              `Can't resolve localised value for prop "${schemaProp.prop}" of component ${editableElement._component}`,
             );
           }
           value = resolvedValue.value as any[];
@@ -937,12 +937,12 @@ function compileSubcomponents(
         childContextProps,
         meta,
         editingInfoComponents?.[schemaProp.prop],
-        `${configPrefix}${configPrefix === "" ? "" : "."}${schemaProp.prop}`
+        `${configPrefix}${configPrefix === "" ? "" : "."}${schemaProp.prop}`,
       ) as ConfigComponentCompilationOutput[];
 
       compiledComponentConfig.components[schemaProp.prop] =
         compilationOutput.map(
-          (compilationOutput) => compilationOutput.compiledComponentConfig
+          (compilationOutput) => compilationOutput.compiledComponentConfig,
         );
 
       // Merge config after auto
@@ -968,18 +968,18 @@ function compileSubcomponents(
                       ];
 
                     return [itemSchemaProp.prop, itemPropValue];
-                  })
+                  }),
                 );
 
                 dotNotationSet(
                   compilationOutput.configAfterAuto,
                   itemPropsCollectionPath,
-                  itemProps
+                  itemProps,
                 );
               }
 
               return compilationOutput.configAfterAuto;
-            }
+            },
           );
 
           if (schemaProp.type === "component-collection-localised") {
@@ -998,7 +998,7 @@ function compileSubcomponents(
 
 function calculateWidths(
   compilationContext: CompilationContextType,
-  contextProps: ContextProps
+  contextProps: ContextProps,
 ) {
   const $width: TrulyResponsiveValue<number> = { $res: true };
   const $widthAuto: TrulyResponsiveValue<boolean> = { $res: true };
@@ -1023,11 +1023,11 @@ function itemFieldsForEach(
     itemSchemaProp: SchemaProp;
     itemPropPath: string;
     itemPropValue: any;
-  }) => void
+  }) => void,
 ) {
   const componentDefinition = findComponentDefinition(
     config,
-    compilationContext
+    compilationContext,
   )!;
 
   componentDefinition.schema.forEach((schemaProp) => {
@@ -1040,7 +1040,7 @@ function itemFieldsForEach(
       if (schemaProp.type === "component-collection-localised") {
         const localizedValue = resolveLocalisedValue(
           config[schemaProp.prop],
-          compilationContext
+          compilationContext,
         );
 
         if (localizedValue) {
@@ -1075,7 +1075,7 @@ function itemFieldsForEach(
 
 function resolveLocalisedValue<T>(
   localisedValue: Record<string, T>,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ): { value: T; locale: string } | undefined {
   const locale = compilationContext.contextParams.locale;
 
@@ -1088,7 +1088,7 @@ function resolveLocalisedValue<T>(
 
   const fallbackLocale = getFallbackLocaleForLocale(
     locale,
-    compilationContext.locales
+    compilationContext.locales,
   );
 
   if (!fallbackLocale) {
@@ -1106,13 +1106,13 @@ function buildDefaultEditingInfo(
   configPrefix: string,
   editorContext: EditorContextType,
   compiledValues: Record<string, any>,
-  templateId: string
+  templateId: string,
 ) {
   const scalarizedConfig = scalarizeConfig(
     compiledValues,
     editorContext.breakpointIndex,
     editorContext.devices,
-    definition.schema
+    definition.schema,
   );
 
   const schema = [...definition.schema];
@@ -1133,8 +1133,8 @@ function buildDefaultEditingInfo(
         definition,
         editorContext,
         scalarizedConfig,
-        templateId
-      )
+        templateId,
+      ),
     );
 
   // noAction is a special property
@@ -1148,14 +1148,14 @@ function buildDefaultEditingInfo(
   if (parentInfo) {
     const parentDefinition = findComponentDefinitionById(
       parentInfo.templateId,
-      editorContext
+      editorContext,
     );
 
     if (!parentDefinition) {
       throw new Error(`Can't find parent definition: ${parentInfo.templateId}`);
     }
     const parentSchemaProp = parentDefinition.schema.find(
-      (schemaProp) => schemaProp.prop === parentInfo.fieldName
+      (schemaProp) => schemaProp.prop === parentInfo.fieldName,
     ) as
       | ComponentSchemaProp
       | ComponentCollectionSchemaProp
@@ -1163,7 +1163,7 @@ function buildDefaultEditingInfo(
 
     if (!parentSchemaProp) {
       throw new Error(
-        `Can't find parent schemaProp: ${parentInfo.templateId} > ${parentInfo.fieldName}`
+        `Can't find parent schemaProp: ${parentInfo.templateId} > ${parentInfo.fieldName}`,
       );
     }
 
@@ -1199,8 +1199,8 @@ function buildDefaultEditingInfo(
     const rootComponentDefinition = assertDefined(
       findComponentDefinitionById(
         dotNotationGet(editorContext.form.values, "")._component,
-        editorContext
-      )
+        editorContext,
+      ),
     );
 
     const headerSchemaProp: Component$$$SchemaProp = {
@@ -1245,10 +1245,10 @@ function buildDefaultEditingInfo(
                 definition,
                 editorContext,
                 scalarizedConfig,
-                templateId
-              )
+                templateId,
+              ),
             ),
-          })
+          }),
         ),
       };
     } else if (isSchemaPropComponent(schemaProp)) {
@@ -1271,14 +1271,14 @@ function applyEditingInfoToCompiledConfig(
   widthInfo: {
     width: TrulyResponsiveValue<number>;
     auto: TrulyResponsiveValue<boolean>;
-  }
+  },
 ) {
   const headerFields = editingInfo.fields.filter(
-    (field) => field.prop === "$myself"
+    (field) => field.prop === "$myself",
   );
 
   const nonHeaderFields = editingInfo.fields.filter(
-    (field) => field.prop !== "$myself"
+    (field) => field.prop !== "$myself",
   );
 
   const fields = [
@@ -1317,7 +1317,7 @@ const deepObjectMergeWithoutArrays = (target: any, source: any) => {
     if (source[key] instanceof Object && !Array.isArray(source[key]))
       Object.assign(
         source[key],
-        deepObjectMergeWithoutArrays(target[key], source[key])
+        deepObjectMergeWithoutArrays(target[key], source[key]),
       );
   }
 
@@ -1329,27 +1329,27 @@ const deepObjectMergeWithoutArrays = (target: any, source: any) => {
 function compileRichTextValuesFromRichTextParts(
   richTextConfig: RichTextComponentConfig,
   compilationContext: CompilationContextType,
-  cache: CompilationCache
+  cache: CompilationCache,
 ): { mainColor: any; mainFont: any } {
   const mainColor = getMostCommonValueFromRichTextParts(
     richTextConfig,
     "color",
     compilationContext,
-    cache
+    cache,
   );
 
   const mainFont = getMostCommonValueFromRichTextParts(
     richTextConfig,
     "font",
     compilationContext,
-    cache
+    cache,
   );
 
   return { mainColor, mainFont };
 }
 
 function mapResponsiveFontToResponsiveFontSize(
-  responsiveFontValue: Record<string, any>
+  responsiveFontValue: Record<string, any>,
 ) {
   return Object.fromEntries(
     entries(responsiveFontValue).map(([breakpoint, fontValue]) => {
@@ -1358,7 +1358,7 @@ function mapResponsiveFontToResponsiveFontSize(
       }
 
       return [breakpoint, fontValue.fontSize];
-    })
+    }),
   );
 }
 
@@ -1374,7 +1374,7 @@ function addStylesHash(styles: Record<PropertyKey, any>) {
 
 function compileBoxes(
   value: any,
-  compilationContext: CompilationContextType
+  compilationContext: CompilationContextType,
 ): any {
   if (Array.isArray(value)) {
     return value.map((x: any) => compileBoxes(x, compilationContext));
@@ -1398,7 +1398,7 @@ function getDefaultFieldDefinition(
   definition: InternalComponentDefinition,
   editorContext: EditorContextType,
   compiledValues: Record<string, any>,
-  templateId: string
+  templateId: string,
 ): InternalEditingField {
   const tinaField = getTinaField(
     {
@@ -1406,7 +1406,7 @@ function getDefaultFieldDefinition(
       definition,
     },
     editorContext,
-    compiledValues[schemaProp.prop]
+    compiledValues[schemaProp.prop],
   );
 
   let visible = !isSchemaPropComponentOrComponentCollection(schemaProp);
@@ -1433,7 +1433,7 @@ function createFieldName(schemaProp: SchemaProp, configPrefix: string): string {
 
 function convertInternalEditingInfoToEditingInfo(
   editingInfo: InternalEditingInfo,
-  configPrefix: string | undefined
+  configPrefix: string | undefined,
 ): EditingInfo {
   const fields = editingInfo.fields.map((f) => {
     return convertInternalEditingFieldToEditingInfoField(f, configPrefix);
@@ -1446,7 +1446,7 @@ function convertInternalEditingInfoToEditingInfo(
           childEditingInfo.items.map<ChildComponentEditingInfo>((item) => {
             return {
               fields: item.fields.map((f) =>
-                convertInternalEditingFieldToEditingInfoField(f, configPrefix)
+                convertInternalEditingFieldToEditingInfoField(f, configPrefix),
               ),
               direction: item.direction,
               selectable: item.noInline,
@@ -1460,13 +1460,13 @@ function convertInternalEditingInfoToEditingInfo(
         name,
         {
           fields: childEditingInfo.fields.map((f) =>
-            convertInternalEditingFieldToEditingInfoField(f, configPrefix)
+            convertInternalEditingFieldToEditingInfoField(f, configPrefix),
           ),
           direction: childEditingInfo.direction,
           selectable: childEditingInfo.noInline,
         },
       ];
-    })
+    }),
   );
 
   return {
@@ -1477,7 +1477,7 @@ function convertInternalEditingInfoToEditingInfo(
 
 function convertInternalEditingFieldToEditingInfoField(
   field: InternalEditingField,
-  configPrefix: string | undefined
+  configPrefix: string | undefined,
 ): EditingField {
   const path =
     field.schemaProp.prop === "$myself"
@@ -1516,7 +1516,7 @@ function convertEditingInfoToInternalEditingInfo(
   internalEditingInfo: InternalEditingInfo,
   componentDefinition: InternalRenderableComponentDefinition,
   editorContext: EditorContextType,
-  configPrefix: string | undefined
+  configPrefix: string | undefined,
 ): InternalEditingFunctionResult {
   let internalEditingInfoFields:
     | InternalEditingFunctionResult["fields"]
@@ -1534,7 +1534,7 @@ function convertEditingInfoToInternalEditingInfo(
           internalEditingInfo,
           componentDefinition,
           editorContext,
-          configPrefix
+          configPrefix,
         );
 
       internalEditingInfoFields.push(internalEditingInfoField);
@@ -1549,14 +1549,14 @@ function convertEditingInfoToInternalEditingInfo(
     internalEditingInfoComponents = {};
 
     for (const [name, childEditingInfo] of Object.entries(
-      editingInfo.components
+      editingInfo.components,
     )) {
       const sourceInternalEditingInfoComponent =
         internalEditingInfo.components[name];
 
       if (!sourceInternalEditingInfoComponent) {
         throw new Error(
-          `Found component at path ${configPrefix} but it's not defined in the schema`
+          `Found component at path ${configPrefix} but it's not defined in the schema`,
         );
       }
 
@@ -1574,7 +1574,7 @@ function convertEditingInfoToInternalEditingInfo(
                   internalEditingInfo,
                   componentDefinition,
                   editorContext,
-                  configPrefix
+                  configPrefix,
                 );
 
               return internalEditingInfoField;
@@ -1606,7 +1606,7 @@ function convertEditingInfoToInternalEditingInfo(
                 internalEditingInfo,
                 componentDefinition,
                 editorContext,
-                configPrefix
+                configPrefix,
               );
 
             return internalEditingInfoField;
@@ -1644,7 +1644,7 @@ function convertEditingFieldToInternalEditingField(
   internalEditingInfo: InternalEditingInfo,
   componentDefinition: InternalRenderableComponentDefinition,
   editorContext: EditorContextType,
-  configPrefix: string | undefined
+  configPrefix: string | undefined,
 ): NonNullable<InternalEditingFunctionResult["fields"]>[number] {
   if (
     componentDefinition.id === "@easyblocks/rich-text" ||
@@ -1661,7 +1661,7 @@ function convertEditingFieldToInternalEditingField(
         field.path[0]?.split(".").at(-1) ??
         raiseError("Expected field name to be present");
       const sources = field.path.map((p) =>
-        p.split(".").slice(0, -1).join(".")
+        p.split(".").slice(0, -1).join("."),
       );
 
       return {
@@ -1706,7 +1706,7 @@ function convertEditingFieldToInternalEditingField(
           f.name === toAbsolutePath(field.path, configPrefix) ||
           field.path === "$myself"
         );
-      }
+      },
     );
 
     if (!sourceInternalEditingInfoField) {
@@ -1715,13 +1715,13 @@ function convertEditingFieldToInternalEditingField(
 
       if (isPathToComponentField) {
         const componentSchemaProp = componentDefinition.schema.find(
-          isSchemaPropComponentOrComponentCollection
+          isSchemaPropComponentOrComponentCollection,
         );
 
         if (componentSchemaProp) {
           if (isSchemaPropCollection(componentSchemaProp)) {
             const itemField = componentSchemaProp.itemFields?.find(
-              (f) => f.prop === pathFragments.at(-1)
+              (f) => f.prop === pathFragments.at(-1),
             );
 
             if (itemField) {
@@ -1731,7 +1731,7 @@ function convertEditingFieldToInternalEditingField(
                   componentSchemaProp.prop
                 ] as EditingInfoComponentCollection
               ).items[componentItemIndex].fields.find(
-                (f) => f.prop === itemField.prop
+                (f) => f.prop === itemField.prop,
               );
             }
           }
@@ -1742,7 +1742,7 @@ function convertEditingFieldToInternalEditingField(
           ) {
             const absoluteFieldPath = toAbsolutePath(
               pathFragments.slice(0, -1).join("."),
-              configPrefix
+              configPrefix,
             );
 
             const overrides: Extract<
@@ -1770,7 +1770,7 @@ function convertEditingFieldToInternalEditingField(
 
       if (!sourceInternalEditingInfoField) {
         throw new Error(
-          `Field "${field.path}" for component "${componentDefinition.id}" not found.`
+          `Field "${field.path}" for component "${componentDefinition.id}" not found.`,
         );
       }
     }
@@ -1800,7 +1800,7 @@ function convertEditingFieldToInternalEditingField(
 
 function isFieldPathAbsolutePath(
   field: AnyEditingField,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   const pathFragments = field.path.split(".");
   const rootValue = dotNotationGet(editorContext.form.values, "");
@@ -1808,7 +1808,7 @@ function isFieldPathAbsolutePath(
 
   let currentValue = dotNotationGet(
     rootValue,
-    pathFragments[currentPathFragmentIndex]
+    pathFragments[currentPathFragmentIndex],
   );
 
   while (currentValue !== undefined) {
@@ -1818,7 +1818,7 @@ function isFieldPathAbsolutePath(
 
     currentValue = dotNotationGet(
       currentValue,
-      pathFragments[++currentPathFragmentIndex]
+      pathFragments[++currentPathFragmentIndex],
     );
   }
 

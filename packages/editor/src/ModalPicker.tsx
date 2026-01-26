@@ -2,13 +2,13 @@ import {
   NoCodeComponentEntry,
   ComponentSchemaProp,
   Template,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import {
   duplicateConfig,
   findComponentDefinition,
   normalize,
-} from "@easyblocks/core/_internals";
-import { dotNotationGet } from "@easyblocks/utils";
+} from "@suburb-stack/core/_internals";
+import { dotNotationGet } from "@suburb-stack/utils";
 import React, { FC } from "react";
 import { useEditorContext } from "./EditorContext";
 import { SearchableSmallPickerModal } from "./SearchableSmallPickerModal";
@@ -33,17 +33,17 @@ export const ModalPicker: FC<ModalProps> = ({ config, onClose, pickers }) => {
 
   const parentData: NoCodeComponentEntry = dotNotationGet(
     form.values,
-    parentPath
+    parentPath,
   );
   const schemaProp = findComponentDefinition(
     parentData,
-    editorContext
+    editorContext,
   )!.schema.find((x) => x.prop === fieldName) as ComponentSchemaProp;
 
   const componentTypes = config.componentTypes ?? schemaProp.accepts;
   const components = unrollAcceptsFieldIntoComponents(
     componentTypes,
-    editorContext
+    editorContext,
   );
 
   let templatesDictionary: TemplatesDictionary | undefined = undefined;
@@ -93,9 +93,9 @@ export const ModalPicker: FC<ModalProps> = ({ config, onClose, pickers }) => {
               ...config,
               _itemProps,
             },
-            editorContext
+            editorContext,
           ),
-          editorContext
+          editorContext,
         );
 
     onClose(newComponent);

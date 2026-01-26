@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  TableBody,
-  TableCell,
-  TableRoot,
-  TableRow,
-  Text,
-} from "@radix-ui/themes";
+import { Box, Flex, Table, Text } from "@radix-ui/themes";
 import { cookies } from "next/headers";
 import { EasyblocksEditorDialog } from "../components/EasyblocksEditorDialog";
 import { RemoveDocumentButton } from "./RemoveDocumentButton";
@@ -30,27 +22,27 @@ const documents = [
 ];
 
 export default async function DocumentsPage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return (
     <main className="container mx-auto">
       <Box mb="4">
         <Text size="8">Documents</Text>
       </Box>
-      <TableRoot>
-        <TableBody>
+      <Table.Root>
+        <Table.Body>
           {documents.map((d) => {
             const documentCookieId = `${d.id}DocumentId`;
             const documentCookie = cookieStore.get(documentCookieId);
             const isDefined = !!documentCookie?.value;
 
             return (
-              <TableRow key={d.id}>
-                <TableCell className="py-3 px-4 text-right">
+              <Table.Row key={d.id}>
+                <Table.Cell className="py-3 px-4 text-right">
                   {d.title}
-                </TableCell>
+                </Table.Cell>
 
-                <TableCell className="py-3 px-4">
+                <Table.Cell className="py-3 px-4">
                   <Flex gap={"3"}>
                     <EasyblocksEditorDialog
                       documentId={documentCookie?.value}
@@ -64,16 +56,16 @@ export default async function DocumentsPage() {
                       </>
                     )}
                   </Flex>
-                </TableCell>
+                </Table.Cell>
 
-                <TableCell className="py-3 px-4 text-slate-500">
+                <Table.Cell className="py-3 px-4 text-slate-500">
                   {documentCookie?.value ?? "-"}
-                </TableCell>
-              </TableRow>
+                </Table.Cell>
+              </Table.Row>
             );
           })}
-        </TableBody>
-      </TableRoot>
+        </Table.Body>
+      </Table.Root>
     </main>
   );
 }

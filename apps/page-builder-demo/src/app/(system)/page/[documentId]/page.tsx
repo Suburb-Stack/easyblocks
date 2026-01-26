@@ -1,19 +1,17 @@
 import { easyblocksConfig } from "@/app/easyblocks/easyblocks.config";
 import { createMyCustomFetch } from "@/app/easyblocks/myCustomFetch";
 import { components } from "@/app/easyblocks/components";
-import { buildDocument } from "@easyblocks/core";
+import { buildDocument } from "@suburb-stack/core";
 import { EasyblocksContent } from "./EasyblocksContent";
-import { useSearchParams } from "next/navigation";
 
 const fetch = createMyCustomFetch();
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { documentId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function Page(props: {
+  params: Promise<{ documentId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const locale =
     typeof searchParams?.locale === "string" ? searchParams.locale : "en-US";
 

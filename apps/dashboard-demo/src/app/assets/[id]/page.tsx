@@ -1,19 +1,18 @@
 import { EasyblocksContent } from "@/app/components/EasyblocksContent";
 import { LiveDataUpdater } from "@/app/LiveDataUpdater";
 import { NoDocumentError } from "@/app/NoDocumentError";
-import { buildDocument, ComponentOverrides } from "@easyblocks/core";
+import { buildDocument, ComponentOverrides } from "@suburb-stack/core";
 import { cookies } from "next/headers";
 import { buildAppShellContent } from "../../easyblocks/buildAppShellContent";
 import { easyblocksComponents } from "../../easyblocks/components";
 import { easyblocksConfig } from "../../easyblocks/easyblocks.config";
 import { fetchExternalData } from "../../easyblocks/fetchExternalData";
 
-export default async function AssetsPage({
-  params,
-}: {
-  params: { id: string };
+export default async function AssetsPage(props: {
+  params: Promise<{ id: string }>;
 }) {
-  const cookieStore = cookies();
+  const params = await props.params;
+  const cookieStore = await cookies();
   const homeDocumentContent = await buildAppShellContent();
   const assetScreenDocumentId = cookieStore.get("assetScreenDocumentId");
 

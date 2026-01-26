@@ -70,9 +70,11 @@ const SelectInlineRoot = styled.div`
 `;
 
 export const SelectInline: React.FC<SelectInlineProps> = (props) => {
-  const buttons = React.Children.toArray(
-    props.children
-  ) as React.ReactElement[];
+  const buttons = React.Children.toArray(props.children) as React.ReactElement<{
+    value: string;
+    selected?: boolean;
+    onChange?: () => void;
+  }>[];
 
   return (
     <SelectInlineRoot>

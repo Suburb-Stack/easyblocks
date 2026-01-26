@@ -1,6 +1,6 @@
 "use client";
-import type { Widget, WidgetComponentProps } from "@easyblocks/core";
-import { SimplePicker } from "@easyblocks/design-system";
+import type { Widget, WidgetComponentProps } from "@suburb-stack/core";
+import { SimplePicker } from "@suburb-stack/design-system";
 
 import {
   pexelsApiFetch,
@@ -25,7 +25,7 @@ export function PexelsVideoPicker({
           query
             ? `/videos/search?query=${query}`
             : // Pexels API returns 400 if no query is provided, so let's use popular videos instead in that case
-              "/videos/popular"
+              "/videos/popular",
         );
 
         const data = await response.json();

@@ -1,4 +1,4 @@
-import { assertDefined } from "@easyblocks/utils";
+import { assertDefined } from "@suburb-stack/utils";
 import {
   AnyTinaField,
   BooleanSchemaProp,
@@ -21,7 +21,7 @@ import {
 import { EditorContextType } from "./types";
 
 function getCommonFieldProps(
-  schemaProp: SchemaProp
+  schemaProp: SchemaProp,
 ): Pick<
   AnyTinaField,
   | "label"
@@ -55,11 +55,11 @@ type FieldProvider<
     | ComponentCollectionSchemaProp
     | ComponentCollectionLocalisedSchemaProp
   >,
-  Value = Exclude<S["defaultValue"], undefined>
+  Value = Exclude<S["defaultValue"], undefined>,
 > = (
   schemaProp: S,
   editorContext: EditorContextType,
-  value: Value
+  value: Value,
 ) => AnyTinaField;
 
 type TinaFieldProviders = {
@@ -181,7 +181,7 @@ const tinaFieldProviders: TinaFieldProviders = {
 
   "component-collection-localised": () => {
     throw new Error(
-      "component-collection-localised is not yet supported in sidebar"
+      "component-collection-localised is not yet supported in sidebar",
     );
   },
   component$$$: (schemaProp) => {
@@ -234,7 +234,7 @@ const tinaFieldProviders: TinaFieldProviders = {
     if (customTypeDefinition.type === "token") {
       let tokens = assertDefined(
         editorContext.theme[customTypeDefinition.token],
-        `Missing token values within the Easyblocks config for "${customTypeDefinition.token}"`
+        `Missing token values within the Easyblocks config for "${customTypeDefinition.token}"`,
       );
 
       if (
@@ -305,7 +305,7 @@ const tinaFieldProviders: TinaFieldProviders = {
 export function getTinaField<T extends SchemaProp>(
   schemaProp: T,
   editorContext: EditorContextType,
-  value: any
+  value: any,
 ) {
   const fieldProvider =
     editorContext.types[schemaProp.type] && schemaProp.type !== "text"
@@ -316,7 +316,7 @@ export function getTinaField<T extends SchemaProp>(
 }
 
 function isValueLocalTextReference(
-  value: unknown
+  value: unknown,
 ): value is LocalTextReference {
   if (!(typeof value === "object" && value !== null)) {
     return false;

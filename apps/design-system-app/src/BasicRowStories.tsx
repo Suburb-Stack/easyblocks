@@ -1,4 +1,4 @@
-import { BasicRow, Typography } from "@easyblocks/design-system";
+import { BasicRow, Typography } from "@suburb-stack/design-system";
 
 const THUMBNAIL_IMAGE =
   "https://shopstory.s3.eu-central-1.amazonaws.com/picker_icon_button.png";

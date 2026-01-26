@@ -1,6 +1,6 @@
-import { CompiledComponentConfig } from "@easyblocks/core";
-import { Fonts } from "@easyblocks/design-system";
-import { dotNotationGet } from "@easyblocks/utils";
+import { CompiledComponentConfig } from "@suburb-stack/core";
+import { Fonts } from "@suburb-stack/design-system";
+import { dotNotationGet } from "@suburb-stack/utils";
 import React from "react";
 import styled from "styled-components";
 import { buildTinaFields } from "./buildTinaFields";
@@ -34,7 +34,7 @@ export const EditorSidebar: React.FC<EditorSidebarProps> = (props) => {
       const path = focussedField[0];
       const compiledComponent: CompiledComponentConfig = dotNotationGet(
         editorContext.compiledComponentConfig,
-        path
+        path,
       );
       const editableComponent = dotNotationGet(form.values, path);
       if (compiledComponent?._component === "@easyblocks/missing-component") {

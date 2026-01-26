@@ -3,10 +3,10 @@ import {
   SectionProps,
   SectionWrapper,
 } from "@/app/easyblocks/components/utils/sectionWrapper/SectionWrapper";
-import { NoCodeComponentProps } from "@easyblocks/core";
+import { NoCodeComponentProps } from "@suburb-stack/core";
 
 export function BannerSection(
-  props: NoCodeComponentProps & Record<string, any> & SectionProps
+  props: NoCodeComponentProps & Record<string, any> & SectionProps,
 ) {
   const {
     __easyblocks,
@@ -46,7 +46,7 @@ export function BannerSection(
       SubheaderStackContainer__={SubheaderStackContainer__}
       headerMode={headerMode}
     >
-      <SectionRoot.type {...SectionRoot.props}>
+      <SectionRoot.type {...(SectionRoot.props as Record<string, unknown>)}>
         <BannerCard
           Container={Container}
           Root={Root}

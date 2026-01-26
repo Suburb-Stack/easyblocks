@@ -1,4 +1,4 @@
-import { NoCodeComponentProps as NoCodeActionComponentProps$ } from "@easyblocks/core";
+import { NoCodeComponentProps as NoCodeActionComponentProps$ } from "@suburb-stack/core";
 
 export type NoCodeActionComponentProps = Record<string, any>;
 

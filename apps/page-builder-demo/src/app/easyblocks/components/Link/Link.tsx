@@ -3,7 +3,7 @@ export const Link = (props: any) => {
 
   return (
     <TriggerElement.type
-      {...TriggerElement.props}
+      {...(TriggerElement.props as Record<string, unknown>)}
       as={"a"}
       href={url}
       target={shouldOpenInNewWindow ? "_blank" : undefined}

@@ -1,4 +1,4 @@
-import { Template } from "@easyblocks/core";
+import { Template } from "@suburb-stack/core";
 import entry from "./NoomaTwoCards2Entry.json";
 
 export const NoomaTwoCards2: Template = {

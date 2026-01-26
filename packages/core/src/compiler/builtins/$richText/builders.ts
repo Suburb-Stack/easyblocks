@@ -1,4 +1,4 @@
-import { uniqueId } from "@easyblocks/utils";
+import { uniqueId } from "@suburb-stack/utils";
 import { SetOptional } from "type-fest";
 import type { TokenValue } from "../../../types";
 import type { RichTextComponentConfig } from "./$richText";
@@ -97,7 +97,7 @@ function buildRichTextComponentConfig({
 
 function buildRichTextBlockElementComponentConfig(
   type: RichTextBlockElementType,
-  elements: RichTextBlockElementComponentConfig["elements"]
+  elements: RichTextBlockElementComponentConfig["elements"],
 ): RichTextBlockElementComponentConfig {
   return {
     _component: "@easyblocks/rich-text-block-element",

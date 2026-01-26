@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import type { ComponentType, HTMLAttributes } from "react";
 
-const Wrapper = styled.div`
+const Wrapper: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -17,17 +18,17 @@ type FrameWrapperProps = {
   transform: string;
 };
 
-const FrameWrapper = styled.div.attrs<FrameWrapperProps>(
-  ({ width, height, transform }) => {
-    return {
-      style: {
-        width,
-        height,
-        transform,
-      },
-    };
-  }
-)`
+const FrameWrapper: ComponentType<
+  FrameWrapperProps & HTMLAttributes<HTMLDivElement>
+> = styled.div.attrs<FrameWrapperProps>(({ width, height, transform }) => {
+  return {
+    style: {
+      width,
+      height,
+      transform,
+    },
+  };
+})`
   position: relative;
   z-index: 1;
 

@@ -1,5 +1,5 @@
 "use client";
-import { dotNotationGet } from "@easyblocks/utils";
+import { dotNotationGet } from "@suburb-stack/utils";
 import React, { ReactElement } from "react";
 import { InternalNoCodeComponentProps } from "../../../components/ComponentBuilder/ComponentBuilder";
 import { InlineTextarea } from "./InlineTextarea";
@@ -21,8 +21,9 @@ function TextEditor(props: TextProps) {
   const configValue = dotNotationGet(form.values, valuePath);
   const isLocalTextReference = configValue.id?.startsWith("local.");
 
+  const textProps = Text.props as Record<string, unknown>;
   return (
-    <Text.type {...Text.props} as={"div"}>
+    <Text.type {...textProps} as="div">
       {isLocalTextReference ? (
         <InlineTextarea
           path={path}
@@ -30,7 +31,7 @@ function TextEditor(props: TextProps) {
           stitches={runtime.stitches}
         />
       ) : (
-        value ?? <span>&nbsp;</span>
+        (value ?? <span>&nbsp;</span>)
       )}
     </Text.type>
   );

@@ -1,7 +1,7 @@
 import {
   dotNotationGet as get,
   dotNotationSet as set,
-} from "@easyblocks/utils";
+} from "@suburb-stack/utils";
 import { RichTextComponentConfig } from "../$richText";
 import { RichTextPartComponentConfig } from "../$richTextPart/$richTextPart";
 import { duplicateConfig } from "../../../duplicateConfig";
@@ -11,7 +11,7 @@ import { stripRichTextPartSelection } from "./stripRichTextTextPartSelection";
 
 function getRichTextComponentConfigFragment(
   sourceRichTextComponentConfig: RichTextComponentConfig,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ): RichTextComponentConfig & {
   _itemProps?: Record<string, unknown>;
 } {
@@ -27,7 +27,7 @@ function getRichTextComponentConfigFragment(
   focussedField.forEach((focusedField) => {
     const textPartConfig: RichTextPartComponentConfig = get(
       form.values,
-      stripRichTextPartSelection(focusedField)
+      stripRichTextPartSelection(focusedField),
     );
 
     const { path, range } = parseFocusedRichTextPartConfigPath(focusedField);
@@ -48,12 +48,12 @@ function getRichTextComponentConfigFragment(
       } else {
         const parentConfig = get(
           newRichTextComponentConfig,
-          lastParentConfigPath
+          lastParentConfigPath,
         );
 
         currentConfigPath += `.elements.${Math.min(
           parentConfig.elements.length,
-          pathIndex
+          pathIndex,
         )}`;
       }
 
@@ -66,7 +66,7 @@ function getRichTextComponentConfigFragment(
 
         const sourceConfig = get(
           sourceRichTextComponentConfig,
-          sourceConfigPath
+          sourceConfigPath,
         );
 
         const configCopy = {
@@ -82,7 +82,7 @@ function getRichTextComponentConfigFragment(
 
     const textPartParentConfig = get(
       newRichTextComponentConfig,
-      lastParentConfigPath
+      lastParentConfigPath,
     );
 
     set(newRichTextComponentConfig, lastParentConfigPath, {

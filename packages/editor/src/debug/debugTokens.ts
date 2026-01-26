@@ -1,4 +1,4 @@
-import { Config } from "@easyblocks/core";
+import { Config } from "@suburb-stack/core";
 
 export const debugTokens: Config["tokens"] = {
   debug_urls: [

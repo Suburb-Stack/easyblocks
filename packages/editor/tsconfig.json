@@ -6,7 +6,11 @@
     "outDir": "./dist",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "./dist"
+    "declarationDir": "./dist",
+    "paths": {
+      "styled-components": ["./node_modules/styled-components"],
+      "styled-components/*": ["./node_modules/styled-components/*"]
+    }
   },
   "include": ["src/", "typings/"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/utils/tests/**/*"],

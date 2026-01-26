@@ -2,12 +2,12 @@ import { EditorContextType } from "./EditorContext";
 import { getAllComponentTypes } from "./getAllComponentTypes";
 import { normalizeToStringArray } from "./normalizeToStringArray";
 import { getAllComponentsOfType } from "./getAllComponentsOfType";
-import { findComponentDefinitionById } from "@easyblocks/core/_internals";
-import { ComponentDefinitionShared } from "@easyblocks/core";
+import { findComponentDefinitionById } from "@suburb-stack/core/_internals";
+import { ComponentDefinitionShared } from "@suburb-stack/core";
 
 export function unrollAcceptsFieldIntoComponents(
   accepts: string | string[] | undefined,
-  editorContext: EditorContextType
+  editorContext: EditorContextType,
 ) {
   const allComponentTypes = getAllComponentTypes(editorContext);
   const idsSet = new Set<ComponentDefinitionShared>();

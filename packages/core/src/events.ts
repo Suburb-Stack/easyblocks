@@ -1,17 +1,18 @@
-import { serialize } from "@easyblocks/utils";
+import { serialize } from "@suburb-stack/utils";
 import { NoCodeComponentEntry, SchemaProp } from "./types";
 import { Component$$$SchemaProp } from "./compiler/schema";
 
 type EasyblocksEditorEventData<
   Type extends `@easyblocks-editor/${string}${string}`,
-  Payload = never
+  Payload = never,
 > = Payload extends never ? { type: Type } : { type: Type; payload: Payload };
 
-type InferShopstoryEditorEventData<Event> = Event extends MessageEvent<
-  EasyblocksEditorEventData<infer Type, infer Payload>
->
-  ? EasyblocksEditorEventData<Type, Payload>
-  : never;
+type InferShopstoryEditorEventData<Event> =
+  Event extends MessageEvent<
+    EasyblocksEditorEventData<infer Type, infer Payload>
+  >
+    ? EasyblocksEditorEventData<Type, Payload>
+    : never;
 
 type SelectionFramePositionChangedEvent = MessageEvent<
   EasyblocksEditorEventData<
@@ -25,7 +26,7 @@ type SelectionFramePositionChangedEvent = MessageEvent<
 
 function selectionFramePositionChanged(
   target: DOMRect,
-  container?: DOMRect
+  container?: DOMRect,
 ): InferShopstoryEditorEventData<SelectionFramePositionChangedEvent> {
   return {
     type: "@easyblocks-editor/selection-frame-position-changed",
@@ -48,7 +49,7 @@ type RichTextChangedEvent = MessageEvent<
 >;
 
 function richTextChangedEvent(
-  payload: InferShopstoryEditorEventData<RichTextChangedEvent>["payload"]
+  payload: InferShopstoryEditorEventData<RichTextChangedEvent>["payload"],
 ): InferShopstoryEditorEventData<RichTextChangedEvent> {
   return {
     type: "@easyblocks-editor/rich-text-changed",
@@ -64,7 +65,7 @@ type ComponentPickerOpenedEvent = MessageEvent<
 >;
 
 function componentPickerOpened(
-  path: string
+  path: string,
 ): InferShopstoryEditorEventData<ComponentPickerOpenedEvent> {
   return {
     type: "@easyblocks-editor/component-picker-opened",
@@ -82,7 +83,7 @@ type ComponentPickerClosedEvent = MessageEvent<
 >;
 
 function componentPickerClosed(
-  config?: NoCodeComponentEntry
+  config?: NoCodeComponentEntry,
 ): InferShopstoryEditorEventData<ComponentPickerClosedEvent> {
   return {
     type: "@easyblocks-editor/component-picker-closed",
@@ -100,7 +101,7 @@ type ItemInsertedEvent = MessageEvent<
 >;
 
 function itemInserted(
-  payload: InferShopstoryEditorEventData<ItemInsertedEvent>["payload"]
+  payload: InferShopstoryEditorEventData<ItemInsertedEvent>["payload"],
 ): InferShopstoryEditorEventData<ItemInsertedEvent> {
   return {
     type: "@easyblocks-editor/item-inserted",
@@ -120,7 +121,7 @@ type ItemMovedEvent = MessageEvent<
 >;
 
 function itemMoved(
-  payload: InferShopstoryEditorEventData<ItemMovedEvent>["payload"]
+  payload: InferShopstoryEditorEventData<ItemMovedEvent>["payload"],
 ): InferShopstoryEditorEventData<ItemMovedEvent> {
   return {
     type: "@easyblocks-editor/item-moved",

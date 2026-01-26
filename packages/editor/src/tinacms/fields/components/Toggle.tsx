@@ -1,5 +1,5 @@
-import { InternalField } from "@easyblocks/core/_internals";
-import { Toggle as DesignSystemToggle } from "@easyblocks/design-system";
+import { InternalField } from "@suburb-stack/core/_internals";
+import { Toggle as DesignSystemToggle } from "@suburb-stack/design-system";
 import React, { FC } from "react";
 import styled from "styled-components";
 

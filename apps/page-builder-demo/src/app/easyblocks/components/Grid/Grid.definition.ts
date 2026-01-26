@@ -1,7 +1,7 @@
 import {
   ChildComponentEditingInfo,
   NoCodeComponentDefinition,
-} from "@easyblocks/core";
+} from "@suburb-stack/core";
 import { gridStyles } from "./Grid.styles";
 import { gridAuto } from "./Grid.auto";
 import { GridCompiledValues, GridParams } from "./Grid.types";
@@ -276,7 +276,7 @@ export const gridComponentDefinition: NoCodeComponentDefinition<
     });
 
     const fields = Object.fromEntries(
-      editingInfo.fields.map((f) => [f.path, f])
+      editingInfo.fields.map((f) => [f.path, f]),
     );
 
     const leftArrowFields = [fields.leftArrowPlacement];
@@ -298,7 +298,7 @@ export const gridComponentDefinition: NoCodeComponentDefinition<
       fields: [...(sectionEditing.fields ?? []), ...editingInfo.fields].filter(
         (field) =>
           !field.path.startsWith("rightArrow") &&
-          !field.path.startsWith("leftArrow")
+          !field.path.startsWith("leftArrow"),
       ),
       components: {
         ...sectionEditing.components,
