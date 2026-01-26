@@ -63,11 +63,11 @@ jobs:
 
       - name: Update package versions
         run: |
-          pnpm exec lerna version ${{ steps.version.outputs.version }} --yes --no-git-tag-version --no-push --force-publish
+          ./node_modules/.bin/lerna version ${{ steps.version.outputs.version }} --yes --no-git-tag-version --no-push --force-publish
 
       - name: Publish packages
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: pnpm exec lerna publish from-package --yes --no-private
+        run: ./node_modules/.bin/lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -76,7 +76,7 @@ jobs:
         run: |
           echo "=== Dry run mode - showing packages that would be published ==="
           echo "Version: ${{ steps.version.outputs.version }}"
-          pnpm exec lerna ls --json --no-private | jq -r '.[].name'
+          ./node_modules/.bin/lerna ls --json --no-private | jq -r '.[].name'
           echo ""
           echo "=== Package versions ==="
-          pnpm exec lerna ls -l --no-private
+          ./node_modules/.bin/lerna ls -l --no-private
