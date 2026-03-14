@@ -131,7 +131,7 @@ const globalEditorRendererStyles = `
       background-color: black;
   }
   
-  .Shopstory__ReactModal__Content::focus {
+  .Shopstory__ReactModal__Content:focus {
     border: none;
     outline: none;
   }
@@ -146,7 +146,7 @@ const globalEditorRendererStyles = `
   }
   
   
-  .Shopstory__ReactModal__Content__Left::focus {
+  .Shopstory__ReactModal__Content__Left:focus {
     border: none;
     outline: none;
   }

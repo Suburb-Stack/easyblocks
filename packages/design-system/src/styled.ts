@@ -171,11 +171,13 @@ export function createGlobalStyle(
   ...values: any[]
 ): React.FC {
   return function GlobalStyle() {
-    // Process template literal with interpolations
-    const processedValues = values.map((v) =>
-      typeof v === "function" ? v({}) : v,
-    );
-    glob(tag, ...processedValues);
+    React.useEffect(() => {
+      // Process template literal with interpolations
+      const processedValues = values.map((v) =>
+        typeof v === "function" ? v({}) : v,
+      );
+      glob(tag, ...processedValues);
+    }, []);
     return null;
   };
 }

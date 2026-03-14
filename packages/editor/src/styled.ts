@@ -122,10 +122,12 @@ export function createGlobalStyle(
   ...values: any[]
 ): React.FC {
   return function GlobalStyle() {
-    const processedValues = values.map((v) =>
-      typeof v === "function" ? v({}) : v,
-    );
-    glob(tag, ...processedValues);
+    React.useEffect(() => {
+      const processedValues = values.map((v) =>
+        typeof v === "function" ? v({}) : v,
+      );
+      glob(tag, ...processedValues);
+    }, []);
     return null;
   };
 }

@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "../styled";
 import { Fonts } from "../fonts";
 import { ButtonGhost } from "../buttons";
@@ -155,6 +155,13 @@ export const ModalContext = React.createContext<any>(null);
 export const Modal: React.FC<ModalProps> = (props) => {
   const { isOpen, onRequestClose, mode = "center-small", ...bodyProps } = props;
 
+  // Defer isOpen to avoid React-Modal "Cannot register modal instance that's
+  // already open" warning when mounting with isOpen={true}
+  const [deferredOpen, setDeferredOpen] = useState(false);
+  useEffect(() => {
+    setDeferredOpen(isOpen);
+  }, [isOpen]);
+
   const parentSelector =
     useContext(ModalContext) ??
     (() => {
@@ -179,7 +186,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
   return (
     <ReactModal
-      isOpen={isOpen}
+      isOpen={deferredOpen}
       onRequestClose={onRequestClose}
       parentSelector={parentSelector}
       className={{
@@ -200,13 +207,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-const sharedContentStyles = `
-    &:focus {
-      border: none;
-      outline: none;
-    }
-`;
-
 export const GlobalModalStyles = createGlobalStyle`
   .Shopstory__ReactModalPortal {
     position: absolute;
@@ -215,54 +215,52 @@ export const GlobalModalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
-  
+
   .Shopstory__ReactModal__Overlay {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.2;
-      z-index: -1;
-      /* background-color: black; */
-    }
   }
-  
-  .Shopstory__ReactModal__Overlay.background-shade {
-    &:before {
-      background-color: black;
-    }
+
+  .Shopstory__ReactModal__Overlay:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: -1;
   }
-  
-  .Shopstory__ReactModal__Content {
-    ${sharedContentStyles}
+
+  .Shopstory__ReactModal__Overlay.background-shade:before {
+    background-color: black;
   }
-  
+
+  .Shopstory__ReactModal__Content:focus {
+    border: none;
+    outline: none;
+  }
+
+  .Shopstory__ReactModal__Content__Left:focus {
+    border: none;
+    outline: none;
+  }
+
   .Shopstory__ReactModal__Content__Left {
-    ${sharedContentStyles}
-    
     height: 100vh;
     width: 70vw;
-    
     transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateX(-100%);
   }
-  
+
   .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--after-open {
-      transform: none;
-  }
-  
-  .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--before-close{
-      transform: translateX(-100%);
+    transform: none;
   }
 
-  
+  .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--before-close {
+    transform: translateX(-100%);
+  }
 `;
