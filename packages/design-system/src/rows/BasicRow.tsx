@@ -41,7 +41,7 @@ const Root = styled.div`
   }
 `;
 
-const ImageContainer = styled.div<BasicRowProps>`
+const ImageContainer = styled.div<{ image?: string }>`
   position: relative;
   box-sizing: border-box;
   background: ${Colors.black10};
@@ -98,7 +98,7 @@ const EditContainer = styled.div`
 export const BasicRow: React.FC<BasicRowProps> = (props) => {
   return (
     <Root onClick={props.onClick}>
-      <ImageContainer {...props}>
+      <ImageContainer image={props.image}>
         {props.image && <Image src={props.image} loading="lazy" />}
       </ImageContainer>
       <TextContainer>
