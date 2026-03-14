@@ -2,10 +2,11 @@
 
 import React from "react";
 import { useServerInsertedHTML } from "next/navigation";
-import { extractCss, setup } from "goober";
+import { extractCss } from "goober";
 
-// Ensure goober is initialized
-setup(React.createElement);
+// goober setup() is auto-initialized by @suburb-stack/design-system on import.
+// Do NOT call setup() again here — it would overwrite the shouldForwardProp
+// configuration established by design-system.
 
 export default function StyledComponentsRegistry({
   children,

@@ -16,6 +16,7 @@ export {
   easyblocksGetStyleTag,
   easyblocksGetCssTextAndFlush,
   easyblocksGetStyleTagAndFlush,
+  easyblocksResetSsrState,
 } from "./components/ssr";
 export { isNoCodeComponentOfType } from "./isNoCodeComponentOfType";
 export * from "./locales";

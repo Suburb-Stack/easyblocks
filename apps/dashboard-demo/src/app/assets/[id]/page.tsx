@@ -1,4 +1,7 @@
-import { EasyblocksContent } from "@/app/components/EasyblocksContent";
+import {
+  EasyblocksContent,
+  EasyblocksStyleProvider,
+} from "@/app/components/EasyblocksContent";
 import { LiveDataUpdater } from "@/app/LiveDataUpdater";
 import { NoDocumentError } from "@/app/NoDocumentError";
 import { buildDocument, ComponentOverrides } from "@suburb-stack/core";
@@ -52,12 +55,14 @@ export default async function AssetsPage(props: {
 
   return (
     <main>
-      <EasyblocksContent
-        renderableDocument={homeDocumentContent.renderableDocument}
-        externalData={homeDocumentContent.externalData}
-        componentOverrides={componentOverrides}
-        components={easyblocksComponents}
-      />
+      <EasyblocksStyleProvider>
+        <EasyblocksContent
+          renderableDocument={homeDocumentContent.renderableDocument}
+          externalData={homeDocumentContent.externalData}
+          componentOverrides={componentOverrides}
+          components={easyblocksComponents}
+        />
+      </EasyblocksStyleProvider>
       <LiveDataUpdater />
     </main>
   );

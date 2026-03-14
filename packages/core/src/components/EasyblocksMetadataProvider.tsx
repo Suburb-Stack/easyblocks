@@ -8,11 +8,16 @@ import { CompilationMetadata } from "../types";
 // Skip if another package (editor / design-system) already called setup() —
 // their configuration includes shouldForwardProp and the css-prop wrapper
 // which would be lost if we call setup() again with a basic configuration.
+//
+// IMPORTANT: Do NOT set (globalThis).__GOOBER_SETUP__ here. That flag signals
+// "goober is fully configured (including shouldForwardProp + css-prop wrapper)".
+// Core only does a basic setup; design-system/editor will overwrite it with
+// the full configuration.  If we set the flag, their guards would skip,
+// leaving goober without shouldForwardProp and causing prop leaks to the DOM.
 let _gooberInitialized = false;
 function ensureGooberSetup() {
   if (_gooberInitialized || (globalThis as any).__GOOBER_SETUP__) return;
   _gooberInitialized = true;
-  (globalThis as any).__GOOBER_SETUP__ = true;
   gooberSetup(React.createElement);
 }
 

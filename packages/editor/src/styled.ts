@@ -17,11 +17,13 @@ import isPropValid from "@emotion/is-prop-valid";
 import React from "react";
 
 /**
- * Monkey-patch React.createElement to convert the `css` prop to a className.
+ * Monkey-patch React.createElement to:
+ *   1. Convert the `css` prop to a className (goober css-prop support).
+ *   2. Strip `$`-prefixed transient props from native HTML elements.
  *
- * goober does NOT wrap createElement — the `css` prop on arbitrary JSX elements
- * (e.g. `<div css="color:red">`) is silently passed through as an HTML attribute
- * unless we intercept it here and convert it to a goober-generated className.
+ * (2) acts as a safety net: even if goober's global shouldForwardProp is not
+ * active (race-condition, tree-shaking, or a later setup() call that clears it),
+ * transient props will never leak to the DOM.
  */
 function installCssPropSupport() {
   if ((globalThis as any).__GOOBER_CSS_PROP__) return;
@@ -32,11 +34,11 @@ function installCssPropSupport() {
     type: any,
     props: any,
   ) {
+    // --- css prop handling ---
     if (props != null && typeof props.css === "string" && props.css) {
       const newProps = Object.assign({}, props);
       const cssStr: string = newProps.css;
       delete newProps.css;
-      // Build a tagged-template-like argument for goober's css()
       const cls = gooberCss(Object.assign([cssStr], { raw: [cssStr] }) as any);
       newProps.className = newProps.className
         ? cls + " " + newProps.className
@@ -46,29 +48,51 @@ function installCssPropSupport() {
       args[1] = newProps;
       return _origCE.apply(null, args as any);
     }
+
+    // --- Strip $-prefixed transient props from native HTML elements ---
+    if (typeof type === "string" && props != null) {
+      const keys = Object.keys(props);
+      const hasDollarProps = keys.some((k) => k.charCodeAt(0) === 36 /* $ */);
+      if (hasDollarProps) {
+        const cleaned: Record<string, any> = {};
+        for (let i = 0; i < keys.length; i++) {
+          if (keys[i].charCodeAt(0) !== 36) {
+            cleaned[keys[i]] = props[keys[i]];
+          }
+        }
+        // eslint-disable-next-line prefer-rest-params
+        const args: any[] = Array.prototype.slice.call(arguments);
+        args[1] = cleaned;
+        return _origCE.apply(null, args as any);
+      }
+    }
+
     // eslint-disable-next-line prefer-rest-params
     return _origCE.apply(null, arguments as any);
   };
 }
 
 // Ensure goober is initialized with React's createElement + prop filtering
+// Ensure goober is initialized with React's createElement + prop filtering.
+// Check both a local flag and the global __GOOBER_SETUP__ sentinel so that
+// if another package (design-system, core) already called setup(), we don't
+// overwrite goober's internal configuration.
 let _initialized = false;
 export function ensureGooberSetup() {
-  if (!_initialized) {
-    _initialized = true;
-    installCssPropSupport();
-    setup(
-      React.createElement,
-      undefined,
-      undefined,
-      gooberShouldForwardProp((prop) => {
-        // Strip $-prefixed transient props (styled-components convention)
-        if (prop.startsWith("$")) return false;
-        return isPropValid(prop);
-      }),
-    );
-    (globalThis as any).__GOOBER_SETUP__ = true;
-  }
+  if (_initialized || (globalThis as any).__GOOBER_SETUP__) return;
+  _initialized = true;
+  installCssPropSupport();
+  setup(
+    React.createElement,
+    undefined,
+    undefined,
+    gooberShouldForwardProp((prop) => {
+      // Strip $-prefixed transient props (styled-components convention)
+      if (prop.startsWith("$")) return false;
+      return isPropValid(prop);
+    }),
+  );
+  (globalThis as any).__GOOBER_SETUP__ = true;
 }
 
 ensureGooberSetup();
@@ -260,9 +284,10 @@ function wrapInterpolations(values: any[]): any[] {
  *
  * In styled-components, shouldForwardProp only filters what reaches the final
  * DOM element — template interpolation functions still receive ALL props.
- * We replicate this by passing ALL props to goober's styled component (so CSS
- * interpolations see them), then goober's global shouldForwardProp (set up via
- * setup()) filters them at the DOM boundary.
+ * For string tags, we use goober's `as` prop to redirect rendering through a
+ * FilteredTag component that strips blocked props at the DOM boundary, while
+ * CSS interpolation still sees all props.  For component tags, we filter
+ * before passing to goober (original behaviour).
  */
 function createTaggedStyled(
   tag: string | React.ComponentType,
@@ -287,10 +312,49 @@ function createTaggedStyled(
   return function wrappedTagged(strOrObj: any, ...values: any[]) {
     const GooberComponent = styledFn(strOrObj, ...wrapInterpolations(values));
 
+    // For string tags, create a DOM-boundary filter that applies BOTH the
+    // per-component shouldForwardProp AND isPropValid.  This component is
+    // created once per styled() call, not per render.
+    let FilteredTag: React.ForwardRefExoticComponent<any> | null = null;
+    if (typeof tag === "string") {
+      FilteredTag = React.forwardRef((innerProps: any, innerRef: any) => {
+        const clean: Record<string, any> = {};
+        for (const key of Object.keys(innerProps)) {
+          if (key === "children" || key === "ref") {
+            clean[key] = innerProps[key];
+          } else if (isPropValid(key) && componentShouldForwardProp(key)) {
+            clean[key] = innerProps[key];
+          }
+          // Props that fail either filter are silently dropped
+        }
+        return React.createElement(tag, { ...clean, ref: innerRef });
+      });
+      FilteredTag.displayName = `FilteredTag(${tag})`;
+    }
+
     const FilteredComponent = React.forwardRef((props: any, ref: any) => {
-      // Pass all props to goober so CSS interpolation functions can access them.
-      // goober's global setup() shouldForwardProp will handle DOM filtering.
-      return React.createElement(GooberComponent, { ...props, ref });
+      if (FilteredTag) {
+        // String tag: pass all props to goober for CSS interpolation, but
+        // render through FilteredTag which strips non-forward props.
+        return React.createElement(GooberComponent, {
+          ...props,
+          ref,
+          as: FilteredTag,
+        });
+      }
+      // Component tag: filter props before passing to goober.
+      const filteredProps: Record<string, any> = {};
+      for (const key of Object.keys(props)) {
+        if (
+          key === "children" ||
+          key === "ref" ||
+          key === "as" ||
+          componentShouldForwardProp(key)
+        ) {
+          filteredProps[key] = props[key];
+        }
+      }
+      return React.createElement(GooberComponent, { ...filteredProps, ref });
     });
 
     FilteredComponent.displayName = `Filtered(${
