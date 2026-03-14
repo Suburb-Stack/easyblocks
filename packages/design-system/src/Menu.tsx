@@ -57,7 +57,7 @@ function MenuItem(props: {
         }
 
         @media (hover: hover) {
-          &:hover:not([aria-disabled="true"])]) {
+          &:hover:not([aria-disabled="true"]) {
             cursor: pointer;
             background-color: ${Colors.black700};
           }

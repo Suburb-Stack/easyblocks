@@ -71,7 +71,7 @@ const PrimaryButton = styled.button<ButtonPropsInternal>`
   ${(p) =>
     p.disabled
       ? `
-    opacity 0.7;
+    opacity: 0.7;
   `
       : `
     &:hover {
@@ -99,7 +99,7 @@ const DangerButton = styled.button<ButtonPropsInternal>`
   ${(p) =>
     p.disabled
       ? `
-    opacity 0.7;
+    opacity: 0.7;
   `
       : `
     &:hover {
@@ -127,7 +127,7 @@ const SecondaryButton = styled.button<ButtonPropsInternal>`
   ${(p) =>
     p.disabled
       ? `
-    opacity 0.7;
+    opacity: 0.7;
   `
       : `
       &:hover {

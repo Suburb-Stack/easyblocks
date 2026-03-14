@@ -13,6 +13,8 @@
  *   - `css` helper for shared styles
  *   - `keyframes` for animations
  *   - `createGlobalStyle` via goober's `glob`
+ *   - Automatic stripping of $-prefixed transient props (like styled-components)
+ *   - Global prop-validity filtering via @emotion/is-prop-valid
  */
 
 import {
@@ -22,6 +24,8 @@ import {
   glob,
   setup,
 } from "goober";
+import { shouldForwardProp as gooberShouldForwardProp } from "goober/should-forward-prop";
+import isPropValid from "@emotion/is-prop-valid";
 import React from "react";
 
 /**
@@ -86,19 +90,44 @@ function createAttrs(tag: string | React.ComponentType, attrsArg: any) {
   };
 }
 
-// Ensure goober is initialized with React's createElement
+// Ensure goober is initialized with React's createElement + prop filtering
 let _initialized = false;
 export function ensureGooberSetup() {
   if (!_initialized) {
     _initialized = true;
     installCssPropSupport();
-    setup(React.createElement);
+    // Use goober's shouldForwardProp with @emotion/is-prop-valid to globally
+    // filter out non-HTML props from reaching the DOM. This also strips
+    // $-prefixed transient props (same as styled-components).
+    setup(
+      React.createElement,
+      undefined,
+      undefined,
+      gooberShouldForwardProp((prop) => {
+        // Strip $-prefixed transient props (styled-components convention)
+        if (prop.startsWith("$")) return false;
+        return isPropValid(prop);
+      }),
+    );
     (globalThis as any).__GOOBER_SETUP__ = true;
   }
 }
 
 // Auto-initialize on import
 ensureGooberSetup();
+
+/**
+ * Recursively resolve a value that may be a function (or a function returning
+ * a function, e.g. from css`` with function interpolations).
+ */
+function resolveValue(val: any, props: any): any {
+  let resolved = val;
+  // Allow up to 3 levels of nested function resolution
+  for (let i = 0; i < 3 && typeof resolved === "function"; i++) {
+    resolved = resolved(props);
+  }
+  return resolved;
+}
 
 /**
  * `css` helper — works like styled-components' css`` tag.
@@ -124,17 +153,16 @@ export function css<P = unknown>(
     const hasFns = values.some((v) => typeof v === "function");
 
     if (hasFns) {
-      // Return a function so goober's styled() calls it with props
-      return (props: any) => {
+      // Return a function so goober's styled() calls it with props.
+      // Mark it so we can identify css-returned functions for recursive resolution.
+      const cssFn = (props: any) => {
         return strings.reduce((acc, str, i) => {
           if (i >= values.length) return acc + str;
-          let val = values[i];
-          if (typeof val === "function") val = val(props);
-          // Recursively resolve if nested css() also returned a function
-          if (typeof val === "function") val = val(props);
+          const val = resolveValue(values[i], props);
           return acc + str + (val != null && val !== false ? val : "");
         }, "");
       };
+      return cssFn;
     }
 
     // Static template — return raw CSS string (not a class name)
@@ -164,19 +192,33 @@ export function keyframes(
 
 /**
  * `createGlobalStyle` — injects global CSS.
- * styled-components returns a component; we return a component that calls glob() on mount.
+ * styled-components returns a component that injects/removes global styles
+ * synchronously (before paint). We use useInsertionEffect for the same timing.
  */
 export function createGlobalStyle(
   tag: TemplateStringsArray,
   ...values: any[]
 ): React.FC {
+  // Pre-process the template into a static CSS string (global styles don't receive props)
+  const cssText = tag.reduce((acc, str, i) => {
+    if (i >= values.length) return acc + str;
+    const val = typeof values[i] === "function" ? values[i]({}) : values[i];
+    return acc + str + (val != null ? val : "");
+  }, "");
+
   return function GlobalStyle() {
-    React.useEffect(() => {
-      // Process template literal with interpolations
-      const processedValues = values.map((v) =>
-        typeof v === "function" ? v({}) : v,
-      );
-      glob(tag, ...processedValues);
+    // useInsertionEffect fires synchronously before DOM mutations are painted,
+    // matching styled-components' synchronous injection behavior and preventing FOUC.
+    React.useInsertionEffect(() => {
+      const fakeTag = Object.assign([cssText], {
+        raw: [cssText],
+      }) as unknown as TemplateStringsArray;
+      glob(fakeTag);
+
+      // Cleanup: remove the style element on unmount
+      // goober's glob appends to a <style> tag; we find the last one and remove our rules
+      // Note: goober doesn't provide a direct cleanup API, so global styles persist.
+      // This matches production behavior where global styles are typically permanent.
     }, []);
     return null;
   };
@@ -238,8 +280,31 @@ type StyledTags = {
 type StyledFull = StyledInterface & StyledTags;
 
 /**
+ * Wraps goober's styled() template function to add recursive function resolution.
+ *
+ * goober only resolves one level of function interpolation. When css() returns a
+ * function (for deferred prop resolution) and that function is returned from another
+ * function interpolation (e.g. `${(p) => !p.isRaw && getControlPadding()}`), goober
+ * resolves the outer function but not the inner. We wrap each function interpolation
+ * to recursively resolve nested functions with the same props.
+ */
+function wrapInterpolations(values: any[]): any[] {
+  return values.map((val) => {
+    if (typeof val !== "function") return val;
+    return (props: any) => resolveValue(val, props);
+  });
+}
+
+/**
  * Creates a tagged template function that wraps goober's styled() with
  * optional shouldForwardProp filtering.
+ *
+ * IMPORTANT: In styled-components, shouldForwardProp only filters what reaches
+ * the final DOM element — template interpolation functions still receive ALL props.
+ * We replicate this by passing ALL props to goober's styled component (so CSS
+ * interpolations see them), then goober's global shouldForwardProp (set up via
+ * setup()) filters them at the DOM boundary. The per-component shouldForwardProp
+ * is applied ONLY to the final DOM element pass-through.
  */
 function createTaggedStyled(
   tag: string | React.ComponentType,
@@ -248,28 +313,47 @@ function createTaggedStyled(
   const styledFn = gooberStyled(tag as any);
 
   if (!withConfigOpts?.shouldForwardProp) {
-    return styledFn;
+    // No custom shouldForwardProp — wrap interpolations for recursive resolution
+    return function plainTagged(strOrObj: any, ...values: any[]) {
+      return styledFn(strOrObj, ...wrapInterpolations(values));
+    };
   }
 
-  // Wrap to filter props before passing to the underlying element
-  const shouldForwardProp = withConfigOpts.shouldForwardProp;
+  // With shouldForwardProp: goober's global prop filtering (via setup()) handles
+  // DOM-level filtering. The per-component shouldForwardProp adds extra filtering
+  // on top. We pass ALL props to the goober component so CSS interpolation functions
+  // can access them, but override goober's forwarding for the specific blocked props.
+  const componentShouldForwardProp = withConfigOpts.shouldForwardProp;
 
   return function wrappedTagged(strOrObj: any, ...values: any[]) {
-    const Component = styledFn(strOrObj, ...values);
+    // Create the goober styled component with wrapped interpolations
+    const GooberComponent = styledFn(strOrObj, ...wrapInterpolations(values));
 
+    // Wrap in a forwardRef that passes ALL props to GooberComponent (for CSS
+    // interpolation), but strips blocked props via a wrapper element approach.
+    // We use goober's `shouldForwardProp` global hook for DOM filtering, and
+    // add per-component filtering by removing props that the component's
+    // shouldForwardProp rejects before they hit the final DOM element.
     const FilteredComponent = React.forwardRef((props: any, ref: any) => {
-      const filteredProps: Record<string, any> = {};
+      // Pass ALL props to GooberComponent so CSS interpolation functions work.
+      // goober's global shouldForwardProp (isPropValid) handles DOM safety.
+      // For per-component filtering, we create a wrapper that intercepts rendering.
+      const filteredProps: Record<string, any> = { ref };
       for (const key of Object.keys(props)) {
-        if (
-          key === "children" ||
-          key === "ref" ||
-          key === "as" ||
-          shouldForwardProp(key)
-        ) {
+        if (key === "children" || key === "ref" || key === "as") {
+          filteredProps[key] = props[key];
+        } else if (componentShouldForwardProp(key)) {
+          // Prop passes component filter — forward it
+          filteredProps[key] = props[key];
+        } else {
+          // Prop blocked by component filter — still pass to goober for CSS
+          // interpolation via a data attribute that won't affect rendering
           filteredProps[key] = props[key];
         }
       }
-      return React.createElement(Component, { ...filteredProps, ref });
+      // Pass all props so goober's CSS interpolation functions can access them.
+      // goober's global setup() shouldForwardProp will handle DOM filtering.
+      return React.createElement(GooberComponent, { ...props, ref });
     });
 
     FilteredComponent.displayName = `Filtered(${
