@@ -51,7 +51,7 @@ ensureGooberSetup();
  *     embedding inside styled / createGlobalStyle templates.
  *   - Object syntax: delegates to gooberCss to generate a className.
  */
-export function css(
+export function css<P = unknown>(
   tag: TemplateStringsArray | Record<string, any>,
   ...values: any[]
 ): any {
@@ -120,6 +120,57 @@ type WithConfigOptions = {
   shouldForwardProp?: (prop: string) => boolean;
 };
 
+// ---------------------------------------------------------------------------
+// Type definitions for the styled proxy
+// ---------------------------------------------------------------------------
+
+/** Values allowed inside a styled tagged template literal */
+type TaggedValue<P> =
+  | string
+  | number
+  | false
+  | null
+  | undefined
+  | Record<string, any>
+  | ((props: P) => string | number | false | null | undefined);
+
+/** Props added by goober's styled() to every component */
+export interface StyledExtraProps {
+  as?: React.ElementType;
+}
+
+/** The tagged-template function returned by e.g. `styled.div` */
+interface StyledTagFn<BaseProps> {
+  <CustomProps = {}>(
+    strings: TemplateStringsArray,
+    ...values: TaggedValue<BaseProps & CustomProps>[]
+  ): React.FC<BaseProps & CustomProps & StyledExtraProps>;
+  (
+    strings: TemplateStringsArray,
+    ...values: TaggedValue<BaseProps>[]
+  ): React.FC<BaseProps & StyledExtraProps>;
+  withConfig(opts: WithConfigOptions): StyledTagFn<BaseProps>;
+}
+
+/** The top-level `styled` interface */
+interface StyledInterface {
+  <T extends React.ComponentType<any>>(
+    component: T,
+  ): StyledTagFn<React.ComponentPropsWithRef<T>>;
+  <Tag extends keyof React.JSX.IntrinsicElements>(
+    tag: Tag,
+  ): StyledTagFn<React.JSX.IntrinsicElements[Tag]>;
+}
+
+// Map every HTML/SVG tag to a StyledTagFn with the correct base props
+type StyledTags = {
+  [Tag in keyof React.JSX.IntrinsicElements]: StyledTagFn<
+    React.JSX.IntrinsicElements[Tag]
+  >;
+};
+
+type StyledFull = StyledInterface & StyledTags;
+
 /**
  * Creates a tagged template function that wraps goober's styled() with
  * optional shouldForwardProp filtering.
@@ -186,7 +237,7 @@ const styledProxy = new Proxy(gooberStyled, {
     // styled(Component) or styled('div')
     return createTaggedStyled(args[0]);
   },
-}) as any;
+}) as unknown as StyledFull;
 
 export default styledProxy;
 export { styledProxy as styled };

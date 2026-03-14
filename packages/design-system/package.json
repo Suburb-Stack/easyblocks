@@ -9,14 +9,15 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "main": "dist/cjs/index.js",
+  "type": "module",
+  "main": "dist/cjs/index.cjs",
   "module": "dist/es/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "browser": "./dist/es/index.js",
-      "node": "./dist/cjs/index.js"
+      "node": "./dist/cjs/index.cjs"
     }
   },
   "sideEffects": false,

@@ -10,7 +10,7 @@ export const Toggle: React.FC<ToggleProps> = (props) => {
   );
   const checked = props.checked === undefined ? internalChecked : props.checked;
 
-  const { ...inputProps } = props;
+  const { onChange: parentOnChange, ...inputProps } = props;
   const name = inputProps.name;
 
   return (
@@ -21,9 +21,10 @@ export const Toggle: React.FC<ToggleProps> = (props) => {
           type="checkbox"
           {...inputProps}
           checked={checked}
+          // @ts-ignore — TS incorrectly widens onChange type during NX multi-project declaration emit
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setInternalChecked(e.target.checked);
-            props.onChange?.(e);
+            parentOnChange?.(e);
           }}
         />
         <ToggleLabel

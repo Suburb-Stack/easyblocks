@@ -118,8 +118,8 @@ export const ControlContainer: React.FC<
 };
 
 export function getControlPadding() {
-  return css<ControlProps>`
-    padding-left: ${(p) => sizing(p).paddingIcon};
-    padding-right: ${(p) => sizing(p).paddingHorizontal};
+  return css`
+    padding-left: ${(p: ControlProps) => sizing(p).paddingIcon};
+    padding-right: ${(p: ControlProps) => sizing(p).paddingHorizontal};
   `;
 }

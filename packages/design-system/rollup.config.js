@@ -112,6 +112,7 @@ const configCjs = {
     dir: "./dist/cjs",
     preserveModules: true,
     preserveModulesRoot: "src",
+    entryFileNames: "[name].cjs",
     exports: "auto",
     interop: "auto",
   },
