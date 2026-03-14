@@ -317,6 +317,12 @@ function createTaggedStyled(
   tag: string | React.ComponentType,
   withConfigOpts?: WithConfigOptions,
 ) {
+  // Defensive: ensure goober is configured even if the module-level
+  // ensureGooberSetup() was tree-shaken by the consumer's bundler
+  // (packages declare "sideEffects": false).  The guard inside
+  // ensureGooberSetup makes this a no-op after the first call.
+  ensureGooberSetup();
+
   const styledFn = gooberStyled(tag as any);
 
   if (!withConfigOpts?.shouldForwardProp) {

@@ -10,7 +10,14 @@ export const Toggle: React.FC<ToggleProps> = (props) => {
   );
   const checked = props.checked === undefined ? internalChecked : props.checked;
 
-  const { onChange: parentOnChange, ...inputProps } = props;
+  // Destructure onChange + any non-HTML props that callers might spread in
+  // (e.g. `labels: null` from tinacms Toggle wrapper) so they don't leak to DOM.
+  const {
+    onChange: parentOnChange,
+    // @ts-ignore — not in InputHTMLAttributes but may be spread by callers
+    labels,
+    ...inputProps
+  } = props as any;
   const name = inputProps.name;
 
   return (
@@ -30,12 +37,12 @@ export const Toggle: React.FC<ToggleProps> = (props) => {
         <ToggleLabel
           htmlFor={name}
           role="switch"
-          disabled={!!props.disabled}
+          $disabled={!!props.disabled}
           className={TOGGLE_LABEL_CLASS}
         >
           <ToggleSwitch
-            checked={checked}
-            disabled={!!props.disabled}
+            $checked={checked}
+            $disabled={!!props.disabled}
             className={TOGGLE_SWITCH_CLASS}
           >
             <span></span>
@@ -55,7 +62,7 @@ const ToggleWrap = styled.div`
   }
 `;
 
-const ToggleElement = styled.div<{ hasToggleLabels?: boolean }>`
+const ToggleElement = styled.div`
   position: relative;
   width: 32px;
   height: 18px;
@@ -66,26 +73,26 @@ const TOGGLE_LABEL_CLASS = "eb-toggle-label";
 const TOGGLE_SWITCH_CLASS = "eb-toggle-switch";
 
 const ToggleLabel = styled.label<{
-  disabled?: boolean;
+  $disabled?: boolean;
 }>`
   background: none;
   color: inherit;
   padding: 0;
-  opacity: ${(props) => (props.disabled ? "0.4" : "1")};
+  opacity: ${(props) => (props.$disabled ? "0.4" : "1")};
   outline: none;
   width: 30px;
   height: 16px;
-  pointer-events: ${(props) => (props.disabled ? "none" : "inherit")};
+  pointer-events: ${(props) => (props.$disabled ? "none" : "inherit")};
 `;
 
-const ToggleSwitch = styled.div<{ checked: boolean; disabled: boolean }>`
+const ToggleSwitch = styled.div<{ $checked: boolean; $disabled: boolean }>`
   position: relative;
   width: 30px;
   height: 16px;
   border-radius: 8px;
   background-color: white;
   box-shadow: 0 0 0 1px
-    ${(p) => (!p.checked || p.disabled ? Colors.black40 : "black")};
+    ${(p) => (!p.$checked || p.$disabled ? Colors.black40 : "black")};
 
   transition: all 0.1s;
   pointer-events: none;
@@ -96,8 +103,9 @@ const ToggleSwitch = styled.div<{ checked: boolean; disabled: boolean }>`
     top: 50%;
     width: 10px;
     height: 10px;
-    background: ${(p) => (!p.checked || p.disabled ? Colors.black40 : "black")};
-    transform: translate3d(${(p) => (p.checked ? "16px" : "0")}, -50%, 0);
+    background: ${(p) =>
+      !p.$checked || p.$disabled ? Colors.black40 : "black"};
+    transform: translate3d(${(p) => (p.$checked ? "16px" : "0")}, -50%, 0);
     transition:
       transform 150ms ease-out,
       opacity 0.1s;

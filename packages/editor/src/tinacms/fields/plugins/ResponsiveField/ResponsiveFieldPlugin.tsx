@@ -117,7 +117,7 @@ const ResponsiveField = (props: ResponsivePluginProps) => {
           />
         ) : (
           <AutoLabel
-            align={isExternalField ? "left" : "right"}
+            $align={isExternalField ? "left" : "right"}
             onClick={() => {
               controller.toggleOffAuto();
             }}
@@ -135,10 +135,10 @@ export const ResponsiveFieldPlugin = {
   Component: ResponsiveField,
 };
 
-const AutoLabel = styled.div<{ align: "left" | "right" }>`
+const AutoLabel = styled.div<{ $align: "left" | "right" }>`
   ${Fonts.body};
   color: ${Colors.black40};
-  text-align: ${(props) => props.align};
+  text-align: ${(props) => props.$align};
 
   &:hover {
     color: black;

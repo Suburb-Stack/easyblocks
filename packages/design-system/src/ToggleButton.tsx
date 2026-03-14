@@ -18,7 +18,15 @@ export type ToggleButtonProps = ControlProps & {
   onChange?: (val: boolean) => void;
 };
 
-const StyledButton = styled.button<ToggleButtonProps>`
+type StyledToggleButtonProps = {
+  $hideLabel?: boolean;
+  $selected?: boolean;
+  $controlSize?: any;
+  $icon?: any;
+  $iconOnly?: boolean;
+};
+
+const StyledButton = styled.button<StyledToggleButtonProps>`
   all: unset;
   box-sizing: border-box;
 
@@ -28,10 +36,10 @@ const StyledButton = styled.button<ToggleButtonProps>`
   outline: none;
   border: none;
   ${getControlPadding()}
-  ${(p) => (p.hideLabel ? "padding-right: 0;" : "")}
+  ${(p) => (p.$hideLabel ? "padding-right: 0;" : "")}
   
   border-radius: 2px;
-  background-color: ${(p) => (p.selected ? Colors.black10 : "transparent")};
+  background-color: ${(p) => (p.$selected ? Colors.black10 : "transparent")};
 `;
 
 export const ToggleButton = (
@@ -39,18 +47,47 @@ export const ToggleButton = (
     children: string /* children must be a string */;
   },
 ) => {
-  const { onChange, ...restProps } = props;
+  const {
+    onChange,
+    selected,
+    hideLabel,
+    value,
+    icon,
+    iconBlack,
+    iconOnly,
+    controlSize,
+    error,
+    withBorder,
+    hasError,
+    disabled,
+    children,
+    ...restHtmlProps
+  } = props;
 
   return (
-    <ControlContainer {...props} iconBlack={true} iconOnly={props.hideLabel}>
+    <ControlContainer
+      icon={icon}
+      iconBlack={true}
+      iconOnly={hideLabel}
+      controlSize={controlSize}
+      error={error}
+      withBorder={withBorder}
+      hasError={hasError}
+      disabled={disabled}
+    >
       <StyledButton
-        {...restProps}
-        aria-label={props.children}
+        {...restHtmlProps}
+        $hideLabel={hideLabel}
+        $selected={selected}
+        $controlSize={controlSize}
+        $icon={icon}
+        $iconOnly={iconOnly}
+        aria-label={children}
         onClick={() => {
-          props.onChange?.(!props.selected);
+          onChange?.(!selected);
         }}
       >
-        {props.hideLabel ? null : props.children}
+        {hideLabel ? null : children}
       </StyledButton>
     </ControlContainer>
   );

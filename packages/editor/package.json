@@ -21,7 +21,10 @@
       }
     }
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/es/index.js",
+    "./dist/cjs/index.cjs"
+  ],
   "scripts": {
     "lint": "eslint src/",
     "dev": "concurrently -n bundle,emit-declarations 'npm run bundle:watch' 'npm run emit-declarations:watch'",

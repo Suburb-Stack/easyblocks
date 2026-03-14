@@ -13,13 +13,13 @@ const Root = styled.div`
   display: grid;
 `;
 
-const PanelRoot = styled.div<{ index: number }>`
+const PanelRoot = styled.div<{ $index: number }>`
   grid-row: 1 / span 1;
   grid-column: 1 / span 1;
   position: relative;
   display: grid;
   overflow-y: auto;
-  transform: translateX(${(p) => p.index * 30}px);
+  transform: translateX(${(p) => p.$index * 30}px);
 `;
 
 export type NavigationControllerProps = {
@@ -32,7 +32,7 @@ export const NavigationController: React.FC<NavigationControllerProps> = ({
   return (
     <Root>
       {panels.map(({ id, title, element }, index) => (
-        <PanelRoot index={index}>{element}</PanelRoot>
+        <PanelRoot $index={index}>{element}</PanelRoot>
       ))}
     </Root>
   );

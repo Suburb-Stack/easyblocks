@@ -28,27 +28,36 @@ type ButtonPropsInternal = CustomButtonProps & {
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   CustomButtonProps;
 
-const sharedCSS = (p: ButtonPropsInternal) => css`
+/** Transient props for styled button components */
+type StyledButtonProps = {
+  $isGhost?: boolean;
+  $noPadding?: boolean;
+  $hideLabel?: boolean;
+  $variant?: "standard" | "large" | "tiny";
+  $height?: string;
+};
+
+const sharedCSS = (p: StyledButtonProps) => css`
   ${Fonts.body};
   border: none;
   outline: none;
-  height: ${p.height !== undefined
-    ? p.height
-    : p.variant === "large"
+  height: ${p.$height !== undefined
+    ? p.$height
+    : p.$variant === "large"
       ? "36px"
-      : p.variant === "tiny"
+      : p.$variant === "tiny"
         ? "24px"
         : "28px"};
 
-  ${p.hideLabel
+  ${p.$hideLabel
     ? `
     width: ${
-      p.variant === "large" ? "36px" : p.variant === "tiny" ? "24px" : "28px"
+      p.$variant === "large" ? "36px" : p.$variant === "tiny" ? "24px" : "28px"
     };
   `
     : `
-    padding-left: ${p.isGhost ? (p.noPadding ? "0px" : "6px") : "10px"};
-    padding-right: ${p.isGhost ? (p.noPadding ? "0px" : "6px") : "10px"};
+    padding-left: ${p.$isGhost ? (p.$noPadding ? "0px" : "6px") : "10px"};
+    padding-right: ${p.$isGhost ? (p.$noPadding ? "0px" : "6px") : "10px"};
   `}
   border-radius: 6px;
   line-height: 1;
@@ -61,7 +70,7 @@ const sharedCSS = (p: ButtonPropsInternal) => css`
   align-items: center;
 `;
 
-const PrimaryButton = styled.button<ButtonPropsInternal>`
+const PrimaryButton = styled.button<StyledButtonProps>`
   ${(p) => sharedCSS(p)}
 
   background-color: ${Colors.blue50};
@@ -89,7 +98,7 @@ const PrimaryButton = styled.button<ButtonPropsInternal>`
   `}
 `;
 
-const DangerButton = styled.button<ButtonPropsInternal>`
+const DangerButton = styled.button<StyledButtonProps>`
   ${(p) => sharedCSS(p)}
 
   background-color: ${Colors.red};
@@ -117,7 +126,7 @@ const DangerButton = styled.button<ButtonPropsInternal>`
   `}
 `;
 
-const SecondaryButton = styled.button<ButtonPropsInternal>`
+const SecondaryButton = styled.button<StyledButtonProps>`
   ${(p) => sharedCSS(p)}
 
   background-color: ${Colors.black5};
@@ -145,7 +154,7 @@ const SecondaryButton = styled.button<ButtonPropsInternal>`
   `}
 `;
 
-const GhostButton = styled.button<ButtonPropsInternal>`
+const GhostButton = styled.button<StyledButtonProps>`
   ${(p) => sharedCSS(p)}
 
   background-color: transparent;
@@ -166,7 +175,7 @@ const GhostButton = styled.button<ButtonPropsInternal>`
   }
 `;
 
-const GhostColorButton = styled.button<ButtonPropsInternal>`
+const GhostColorButton = styled.button<StyledButtonProps>`
   ${(p) => sharedCSS(p)}
 
   background-color: transparent;
@@ -185,35 +194,57 @@ const GhostColorButton = styled.button<ButtonPropsInternal>`
   }
 `;
 
-const EnhancerContainer = styled.div<Pick<CustomButtonProps, "variant">>`
+const EnhancerContainer = styled.div<{ $variant?: string }>`
   position: relative;
-  width: ${(p) => (p.variant === "large" ? "24px" : "16px")};
-  height: ${(p) => (p.variant === "large" ? "24px" : "16px")};
+  width: ${(p) => (p.$variant === "large" ? "24px" : "16px")};
+  height: ${(p) => (p.$variant === "large" ? "24px" : "16px")};
   overflow: hidden;
   flex-shrink: 0;
 `;
 
 const Button = forwardRef<HTMLButtonElement, ButtonPropsInternal>(
-  ({ component, Button, ...props }, ref) => {
-    let enhancer: React.ReactElement | null = null;
-    if (props.isLoading) {
-      enhancer = <Loader />;
-    } else if (props.enhancer) {
-      enhancer = (
-        <EnhancerContainer variant={props.variant}>
-          {props.enhancer}
-        </EnhancerContainer>
+  (
+    {
+      component,
+      Button: ButtonComponent,
+      isGhost,
+      noPadding,
+      hideLabel,
+      icon,
+      enhancer,
+      variant,
+      height,
+      isLoading,
+      children,
+      ...htmlProps
+    },
+    ref,
+  ) => {
+    let enhancerEl: React.ReactElement | null = null;
+    if (isLoading) {
+      enhancerEl = <Loader />;
+    } else if (enhancer) {
+      enhancerEl = (
+        <EnhancerContainer $variant={variant}>{enhancer}</EnhancerContainer>
       );
-    } else if (props.icon) {
-      const Icon = props.icon;
-      enhancer = <Icon />;
+    } else if (icon) {
+      const IconEl = icon;
+      enhancerEl = <IconEl />;
     }
 
+    const styledProps: StyledButtonProps = {
+      $isGhost: isGhost,
+      $noPadding: noPadding,
+      $hideLabel: hideLabel,
+      $variant: variant,
+      $height: height,
+    };
+
     return (
-      <Button as={component} {...props} ref={ref}>
-        {enhancer}
-        {!props.hideLabel && props.children}
-      </Button>
+      <ButtonComponent as={component} {...htmlProps} {...styledProps} ref={ref}>
+        {enhancerEl}
+        {!hideLabel && children}
+      </ButtonComponent>
     );
   },
 );

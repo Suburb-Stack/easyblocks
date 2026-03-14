@@ -1,12 +1,12 @@
 import styled, { css } from "../../styled";
 
 interface ButtonProps {
-  primary?: boolean;
-  small?: boolean;
-  margin?: boolean;
-  grow?: boolean;
-  open?: boolean;
-  busy?: boolean;
+  $primary?: boolean;
+  $small?: boolean;
+  $margin?: boolean;
+  $grow?: boolean;
+  $open?: boolean;
+  $busy?: boolean;
   disabled?: boolean;
 }
 
@@ -44,7 +44,7 @@ const Button = styled.button<ButtonProps>`
     `};
 
   ${(p) =>
-    p.primary &&
+    p.$primary &&
     css`
       background-color: var(--tina-color-primary);
       color: var(--tina-color-grey-0);
@@ -59,7 +59,7 @@ const Button = styled.button<ButtonProps>`
     `};
 
   ${(p) =>
-    p.small &&
+    p.$small &&
     css`
       height: 32px;
       font-size: var(--tina-font-size-0);
@@ -67,7 +67,7 @@ const Button = styled.button<ButtonProps>`
     `};
 
   ${(p) =>
-    p.margin &&
+    p.$margin &&
     css`
       &:not(:first-child) {
         margin-left: 8px;
@@ -75,13 +75,13 @@ const Button = styled.button<ButtonProps>`
     `};
 
   ${(p) =>
-    p.grow &&
+    p.$grow &&
     css`
       flex-grow: 1;
     `};
 
   ${(p) =>
-    p.busy &&
+    p.$busy &&
     css`
       cursor: wait;
     `};
@@ -111,7 +111,7 @@ export const IconButton: typeof Button = styled(Button)`
   }
 
   ${(props) =>
-    props.open &&
+    props.$open &&
     css`
       background-color: var(--tina-color-grey-0);
       border-color: var(--tina-color-grey-2);

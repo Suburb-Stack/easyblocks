@@ -69,6 +69,7 @@ const baseConfig = {
     ...Object.keys(packageJson.dependencies),
     /@babel\/runtime/,
     /lodash/,
+    /^goober/,
   ],
   onwarn: (warning, warn) => {
     // We're using eval on purpose, so let's ignore this warning.

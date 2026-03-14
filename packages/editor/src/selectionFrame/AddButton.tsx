@@ -40,17 +40,17 @@ function AddButton({ position, index, offset, onClick }: AddButtonProps) {
 
   return (
     <AddButtonWrapper
-      index={index}
-      offset={offset}
-      position={position}
-      isOpen={isOpen}
+      $index={index}
+      $offset={offset}
+      $position={position}
+      $isOpen={isOpen}
     >
       <AddIconButton
         ref={addBlockButtonRef}
         onClick={handleOpenBlockMenu}
-        isOpen={isOpen}
-        primary
-        small
+        $isOpen={isOpen}
+        $primary
+        $small
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -70,9 +70,9 @@ function AddButton({ position, index, offset, onClick }: AddButtonProps) {
 export { AddButton, ICON_BUTTON_SIZE as ADD_BUTTON_SIZE };
 
 interface AddMenuProps {
-  isOpen?: boolean;
-  active?: boolean;
-  openTop?: boolean;
+  $isOpen?: boolean;
+  $active?: boolean;
+  $openTop?: boolean;
 }
 
 const AddIconButton = styled(IconButton)<AddMenuProps>`
@@ -84,33 +84,33 @@ const AddIconButton = styled(IconButton)<AddMenuProps>`
   }
 
   ${(props) =>
-    props.isOpen &&
+    props.$isOpen &&
     css`
       pointer-events: none;
     `};
 `;
 
 interface AddButtonWrapperProps {
-  index?: number;
-  offset?: number | { x: number; y: number };
-  position: "before" | "after";
-  isOpen: boolean;
+  $index?: number;
+  $offset?: number | { x: number; y: number };
+  $position: "before" | "after";
+  $isOpen: boolean;
 }
 
 const AddButtonWrapper = styled.div<AddButtonWrapperProps>`
   position: absolute;
   top: var(
-    ${({ position }) =>
-      position === "before" ? BEFORE_ADD_BUTTON_TOP : AFTER_ADD_BUTTON_TOP}
+    ${({ $position }) =>
+      $position === "before" ? BEFORE_ADD_BUTTON_TOP : AFTER_ADD_BUTTON_TOP}
   );
   left: var(
-    ${({ position }) =>
-      position === "before" ? BEFORE_ADD_BUTTON_LEFT : AFTER_ADD_BUTTON_LEFT}
+    ${({ $position }) =>
+      $position === "before" ? BEFORE_ADD_BUTTON_LEFT : AFTER_ADD_BUTTON_LEFT}
   );
 
   display: var(
-    ${({ position }) =>
-      position === "before"
+    ${({ $position }) =>
+      $position === "before"
         ? BEFORE_ADD_BUTTON_DISPLAY
         : AFTER_ADD_BUTTON_DISPLAY},
     none

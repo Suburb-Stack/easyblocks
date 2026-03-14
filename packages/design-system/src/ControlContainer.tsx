@@ -15,30 +15,41 @@ export type ControlProps = {
   disabled?: boolean;
 };
 
-function sizing(p: ControlProps) {
-  const height = p.controlSize === "tiny" ? 24 : 28;
-  const paddingHorizontal = p.controlSize === "tiny" ? 4 : 6;
-  let paddingIcon = paddingHorizontal + (p.icon ? 20 : 0);
+/** Transient-prop version used only by styled components */
+type StyledControlProps = {
+  $icon?: Icon;
+  $iconBlack?: boolean;
+  $controlSize?: any;
+  $iconOnly?: boolean;
+  $withBorder?: boolean;
+  $hasError?: boolean;
+  disabled?: boolean; // valid HTML attr — no prefix needed
+};
 
-  if (p.iconOnly) {
+function sizing(p: StyledControlProps) {
+  const height = p.$controlSize === "tiny" ? 24 : 28;
+  const paddingHorizontal = p.$controlSize === "tiny" ? 4 : 6;
+  let paddingIcon = paddingHorizontal + (p.$icon ? 20 : 0);
+
+  if (p.$iconOnly) {
     paddingIcon = 0;
   }
 
   return {
     height: height + "px",
     width:
-      p.controlSize === "full-width"
+      p.$controlSize === "full-width"
         ? "100%"
-        : p.iconOnly
+        : p.$iconOnly
           ? height + "px"
           : "auto",
     paddingHorizontal: paddingHorizontal + "px",
-    paddingVertical: p.controlSize === "tiny" ? "4px" : "6px",
+    paddingVertical: p.$controlSize === "tiny" ? "4px" : "6px",
     paddingIcon: paddingIcon + "px",
   };
 }
 
-const Root = styled.div<ControlProps>`
+const Root = styled.div<StyledControlProps>`
   position: relative;
   height: ${(p) => sizing(p).height};
   width: ${(p) => sizing(p).width};
@@ -46,13 +57,13 @@ const Root = styled.div<ControlProps>`
 
   ${(p) => {
     const outlineStyles = `
-      box-shadow: 0 0 0 1px ${p.hasError ? "red" : Colors.black10};
+      box-shadow: 0 0 0 1px ${p.$hasError ? "red" : Colors.black10};
       .ss-arrow {
         color: black;
       }
     `;
 
-    if (p.withBorder) {
+    if (p.$withBorder) {
       if (p.disabled) {
         return `
           ${outlineStyles}
@@ -79,7 +90,7 @@ const Root = styled.div<ControlProps>`
   }}
 
   &:focus-within {
-    box-shadow: 0 0 0 2px ${(p) => (p.hasError ? Colors.red : Colors.focus)};
+    box-shadow: 0 0 0 2px ${(p) => (p.$hasError ? Colors.red : Colors.focus)};
     .ss-arrow {
       color: black;
     }
@@ -92,34 +103,48 @@ const Root = styled.div<ControlProps>`
   ${Fonts.body};
 `;
 
-const IconContainer = styled.div<ControlProps>`
-  color: ${(p) => (p.iconBlack ? "black" : Colors.black40)};
+const IconContainer = styled.div<StyledControlProps>`
+  color: ${(p) => (p.$iconBlack ? "black" : Colors.black40)};
   position: absolute;
   left: ${(p) => sizing(p).paddingHorizontal};
   top: ${(p) => sizing(p).paddingVertical};
   pointer-events: none;
 `;
 
+/** Map public ControlProps to transient $-prefixed props for styled components */
+function toStyledProps(props: ControlProps): StyledControlProps {
+  return {
+    $icon: props.icon,
+    $iconBlack: props.iconBlack,
+    $controlSize: props.controlSize,
+    $iconOnly: props.iconOnly,
+    $withBorder: props.withBorder,
+    $hasError: props.hasError,
+    disabled: props.disabled,
+  };
+}
+
 export const ControlContainer: React.FC<
   ControlProps & { children: ReactNode; className?: string }
-> = ({ className, ...props }) => {
+> = ({ className, children, ...props }) => {
   const Icon = props.icon;
+  const styledProps = toStyledProps(props);
 
   return (
-    <Root className={className} {...props}>
+    <Root className={className} {...styledProps}>
       {Icon && (
-        <IconContainer {...props}>
+        <IconContainer {...styledProps}>
           <Icon />
         </IconContainer>
       )}
-      {props.children}
+      {children}
     </Root>
   );
 };
 
 export function getControlPadding() {
   return css`
-    padding-left: ${(p: ControlProps) => sizing(p).paddingIcon};
-    padding-right: ${(p: ControlProps) => sizing(p).paddingHorizontal};
+    padding-left: ${(p: StyledControlProps) => sizing(p).paddingIcon};
+    padding-right: ${(p: StyledControlProps) => sizing(p).paddingHorizontal};
   `;
 }

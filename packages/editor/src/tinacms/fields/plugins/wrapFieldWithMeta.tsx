@@ -179,13 +179,13 @@ export function FieldMetaWrapper<
     );
 
   return (
-    <FieldWrapper margin={false} layout={resolvedLayout}>
+    <FieldWrapper $margin={false} $layout={resolvedLayout}>
       {!isLabelHidden && (
-        <FieldLabelWrapper isFullWidth={resolvedLayout === "column"}>
+        <FieldLabelWrapper $isFullWidth={resolvedLayout === "column"}>
           {renderLabel?.({ label }) ?? (
             <FieldLabel
               htmlFor={toArray(field.name).join(",")}
-              isError={
+              $isError={
                 externalValues !== undefined && "error" in externalValues
               }
               {...triggerProps}
@@ -263,7 +263,7 @@ export function FieldMetaWrapper<
         </FieldLabelWrapper>
       )}
 
-      <FieldInputWrapper layout={resolvedLayout}>{content}</FieldInputWrapper>
+      <FieldInputWrapper $layout={resolvedLayout}>{content}</FieldInputWrapper>
 
       {!isMixedFieldValue &&
         isExternalField &&
@@ -382,18 +382,18 @@ export function wrapFieldsWithMeta<
 }
 
 interface FieldWrapperProps {
-  margin: boolean;
-  layout: "column" | "row";
+  $margin: boolean;
+  $layout: "column" | "row";
 }
 
 const FieldWrapper = styled.div<FieldWrapperProps>`
   display: flex;
-  flex-direction: ${({ layout }) => layout};
-  gap: ${({ layout }) => (layout === "row" ? "10px" : "4px")};
+  flex-direction: ${({ $layout }) => $layout};
+  gap: ${({ $layout }) => ($layout === "row" ? "10px" : "4px")};
   justify-content: space-between;
   align-items: flex-start;
-  ${({ layout }) =>
-    layout === "column" &&
+  ${({ $layout }) =>
+    $layout === "column" &&
     css`
       flex-grow: 1;
     `}
@@ -401,25 +401,25 @@ const FieldWrapper = styled.div<FieldWrapperProps>`
   padding: 4px 16px;
 `;
 
-const FieldLabelWrapper = styled.div<{ isFullWidth: boolean }>`
+const FieldLabelWrapper = styled.div<{ $isFullWidth: boolean }>`
   all: unset;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  ${({ isFullWidth }) => isFullWidth && { width: "100%" }}
+  ${({ $isFullWidth }) => $isFullWidth && { width: "100%" }}
   min-height: 28px;
   overflow: hidden;
 `;
 
 type FieldLabelProps = {
-  isError: boolean;
+  $isError: boolean;
 };
 
 const FieldLabel = styled.label<FieldLabelProps>`
   all: unset;
   ${Fonts.body};
-  color: ${({ isError }) => (isError ? "red" : "#000")};
+  color: ${({ $isError }) => ($isError ? "red" : "#000")};
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: default;
@@ -448,7 +448,7 @@ const FieldError = styled.span`
 `;
 
 interface FieldInputWrapper {
-  layout: "row" | "column";
+  $layout: "row" | "column";
 }
 
 const FieldInputWrapper = styled.div<FieldInputWrapper>`
@@ -456,8 +456,8 @@ const FieldInputWrapper = styled.div<FieldInputWrapper>`
   justify-content: flex-end;
   align-items: center;
 
-  ${({ layout }) =>
-    layout === "row"
+  ${({ $layout }) =>
+    $layout === "row"
       ? css`
           flex-grow: 1;
         `

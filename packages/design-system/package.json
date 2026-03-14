@@ -20,7 +20,10 @@
       "node": "./dist/cjs/index.cjs"
     }
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/es/styled.js",
+    "./dist/cjs/styled.cjs"
+  ],
   "dependencies": {
     "@babel/runtime": "^7.21.0",
     "@emotion/is-prop-valid": "^1.4.0",

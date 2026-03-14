@@ -109,7 +109,7 @@ export const BasicRow: React.FC<BasicRowProps> = (props) => {
         <DescriptionContainer>
           {props.description && (
             <>
-              {props.customDescription && <CustomComponentSymbol size={4} />}
+              {props.customDescription && <CustomComponentSymbol $size={4} />}
               <Description
                 tinyDescription={props.tinyDescription}
                 custom={props.customDescription}
