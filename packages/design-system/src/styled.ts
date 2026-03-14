@@ -21,7 +21,6 @@ import {
   styled as gooberStyled,
   css as gooberCss,
   keyframes as gooberKeyframes,
-  glob,
   setup,
 } from "goober";
 import { shouldForwardProp as gooberShouldForwardProp } from "goober/should-forward-prop";
@@ -192,8 +191,15 @@ export function keyframes(
 
 /**
  * `createGlobalStyle` — injects global CSS.
+ *
  * styled-components returns a component that injects/removes global styles
  * synchronously (before paint). We use useInsertionEffect for the same timing.
+ *
+ * IMPORTANT: We do NOT use goober's `glob()` here because goober's glob is
+ * designed for a single global style block — each call REPLACES the previous
+ * one's CSS. When multiple createGlobalStyle components mount (e.g.
+ * GlobalStyles + GlobalModalStyles), only the last one's CSS would survive.
+ * Instead, we create a dedicated <style> tag per createGlobalStyle instance.
  */
 export function createGlobalStyle(
   tag: TemplateStringsArray,
@@ -210,15 +216,16 @@ export function createGlobalStyle(
     // useInsertionEffect fires synchronously before DOM mutations are painted,
     // matching styled-components' synchronous injection behavior and preventing FOUC.
     React.useInsertionEffect(() => {
-      const fakeTag = Object.assign([cssText], {
-        raw: [cssText],
-      }) as unknown as TemplateStringsArray;
-      glob(fakeTag);
+      const style = document.createElement("style");
+      style.setAttribute("data-goober-global", "");
+      style.textContent = cssText;
+      document.head.appendChild(style);
 
-      // Cleanup: remove the style element on unmount
-      // goober's glob appends to a <style> tag; we find the last one and remove our rules
-      // Note: goober doesn't provide a direct cleanup API, so global styles persist.
-      // This matches production behavior where global styles are typically permanent.
+      // Cleanup: remove the style tag on unmount so global styles don't leak
+      // when the component is conditionally rendered.
+      return () => {
+        document.head.removeChild(style);
+      };
     }, []);
     return null;
   };

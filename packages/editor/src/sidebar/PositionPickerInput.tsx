@@ -92,7 +92,7 @@ function PositionPickerInput({
               padding: 8px;
 
               &:hover > div {
-                opacity: ${p.value === position ? 1 : 0.5}};
+                opacity: ${p.value === position ? 1 : 0.5};
               }
             `}
           >
