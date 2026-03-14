@@ -1,12 +1,12 @@
 import React, { ChangeEvent, InputHTMLAttributes, useState } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { Colors } from "./colors";
 
 export type ToggleProps = InputHTMLAttributes<HTMLInputElement>;
 
 export const Toggle: React.FC<ToggleProps> = (props) => {
   const [internalChecked, setInternalChecked] = useState<boolean>(
-    props.checked ?? false
+    props.checked ?? false,
   );
   const checked = props.checked === undefined ? internalChecked : props.checked;
 
@@ -26,8 +26,17 @@ export const Toggle: React.FC<ToggleProps> = (props) => {
             props.onChange?.(e);
           }}
         />
-        <ToggleLabel htmlFor={name} role="switch" disabled={!!props.disabled}>
-          <ToggleSwitch checked={checked} disabled={!!props.disabled}>
+        <ToggleLabel
+          htmlFor={name}
+          role="switch"
+          disabled={!!props.disabled}
+          className={TOGGLE_LABEL_CLASS}
+        >
+          <ToggleSwitch
+            checked={checked}
+            disabled={!!props.disabled}
+            className={TOGGLE_SWITCH_CLASS}
+          >
             <span></span>
           </ToggleSwitch>
         </ToggleLabel>
@@ -51,6 +60,9 @@ const ToggleElement = styled.div<{ hasToggleLabels?: boolean }>`
   height: 18px;
   padding: 1px;
 `;
+
+const TOGGLE_LABEL_CLASS = "eb-toggle-label";
+const TOGGLE_SWITCH_CLASS = "eb-toggle-switch";
 
 const ToggleLabel = styled.label<{
   disabled?: boolean;
@@ -85,7 +97,9 @@ const ToggleSwitch = styled.div<{ checked: boolean; disabled: boolean }>`
     height: 10px;
     background: ${(p) => (!p.checked || p.disabled ? Colors.black40 : "black")};
     transform: translate3d(${(p) => (p.checked ? "16px" : "0")}, -50%, 0);
-    transition: transform 150ms ease-out, opacity 0.1s;
+    transition:
+      transform 150ms ease-out,
+      opacity 0.1s;
   }
 `;
 
@@ -113,11 +127,11 @@ const ToggleInput = styled.input`
       ? ""
       : `
   &:hover {
-    + ${ToggleLabel} ${ToggleSwitch} {
+    + .${TOGGLE_LABEL_CLASS} .${TOGGLE_SWITCH_CLASS} {
       box-shadow: 0 0 0 1px black;
     }
     
-    + ${ToggleLabel} ${ToggleSwitch} span {
+    + .${TOGGLE_LABEL_CLASS} .${TOGGLE_SWITCH_CLASS} span {
       background-color: black;
     }
   }

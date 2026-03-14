@@ -6,7 +6,7 @@ import {
 import { Colors } from "@suburb-stack/design-system";
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import React from "react";
-import styled from "styled-components";
+import styled from "../styled";
 
 const positions: ReadonlyArray<{ label: string; value: Position }> = [
   { label: "Top Left", value: "top-left" },

@@ -2,7 +2,7 @@ import { InternalField } from "@suburb-stack/core/_internals";
 import { Colors, Fonts, Typography } from "@suburb-stack/design-system";
 import { toArray } from "@suburb-stack/utils";
 import React, { useContext } from "react";
-import styled, { css } from "styled-components";
+import styled, { css } from "../../styled";
 import { useEditorContext } from "../../EditorContext";
 import { Form } from "../../form";
 import {

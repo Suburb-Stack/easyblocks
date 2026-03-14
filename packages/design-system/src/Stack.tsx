@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from "react";
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 
 const StackWrapper = styled.div<
   Pick<ComponentPropsWithoutRef<typeof Stack>, "gap" | "align">
@@ -12,10 +12,10 @@ const StackWrapper = styled.div<
     props.align === "start"
       ? "flex-start"
       : props.align === "end"
-      ? "flex-end"
-      : props.align === "stretch"
-      ? "stretch"
-      : "center"};
+        ? "flex-end"
+        : props.align === "stretch"
+          ? "stretch"
+          : "center"};
 `;
 
 function Stack(props: {

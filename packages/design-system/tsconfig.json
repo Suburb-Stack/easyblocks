@@ -7,6 +7,6 @@
     "baseUrl": ".",
     "declarationMap": true
   },
-  "include": ["src/", "typings/"],
+  "include": ["src/"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }

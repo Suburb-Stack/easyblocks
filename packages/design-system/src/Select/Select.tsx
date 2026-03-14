@@ -5,7 +5,7 @@ import {
 } from "@radix-ui/react-icons";
 import * as RadixSelect from "@radix-ui/react-select";
 import React, { forwardRef, ReactNode } from "react";
-import styled from "styled-components";
+import styled from "../styled";
 import { Colors } from "../colors";
 import { Fonts } from "../fonts";
 

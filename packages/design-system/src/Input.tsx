@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { Fonts } from "./fonts";
 
 import {
@@ -66,5 +66,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 export const InputRaw = forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => {
     return <InputBase {...props} ref={ref} isRaw={true} />;
-  }
+  },
 );

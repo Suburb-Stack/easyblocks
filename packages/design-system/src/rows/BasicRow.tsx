@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import styled from "styled-components";
+import styled from "../styled";
 import { Colors } from "../colors";
 import { Fonts } from "../fonts";
 import { CustomComponentSymbol } from "../CustomComponentSymbol";

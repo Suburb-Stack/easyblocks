@@ -50,7 +50,7 @@ import React, {
   useState,
 } from "react";
 import Modal from "react-modal";
-import styled from "styled-components";
+import styled from "./styled";
 import { ConfigAfterAutoContext } from "./ConfigAfterAutoContext";
 import { ExternalDataChangeHandler } from "./EasyblocksEditorProps";
 import { EditorContext, EditorContextType } from "./EditorContext";

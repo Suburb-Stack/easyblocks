@@ -11,7 +11,7 @@ import {
 } from "@suburb-stack/design-system";
 import { dotNotationGet } from "@suburb-stack/utils";
 import * as React from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { useEditorContext } from "./EditorContext";
 import { pathToCompiledPath } from "./pathToCompiledPath";
 

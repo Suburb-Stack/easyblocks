@@ -5,7 +5,7 @@ import { Modal } from "./modals/Modal";
 import { Colors } from "./colors";
 import { Icons } from "./icons";
 import { Fonts } from "./fonts";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "./styled";
 import debounce from "lodash/debounce";
 import { ThumbnailButton } from "./ThumbnailButton";
 
@@ -49,7 +49,7 @@ const ProductPicker: React.FC<ProductPickerProps> = ({
   api,
 }) => {
   const [product, setProduct] = useState<ProductType | null>(
-    getProductFromCache(value ?? null)
+    getProductFromCache(value ?? null),
   );
   const [isOpen, setOpen] = useState(false);
   const [state, setState] = useState<ProductPickerState>("unknown");
@@ -95,7 +95,7 @@ const ProductPicker: React.FC<ProductPickerProps> = ({
         }
 
         error();
-      }
+      },
     );
 
     return () => {
@@ -132,7 +132,7 @@ const ProductPicker: React.FC<ProductPickerProps> = ({
               : undefined
           }
           label={
-            state === "loading" ? "Loading..." : product?.title ?? placeholder
+            state === "loading" ? "Loading..." : (product?.title ?? placeholder)
           }
           onClick={() => {
             setOpen(true);
@@ -186,7 +186,7 @@ type ProductPickerProps = {
 
 function getProductFromId(
   id: string,
-  api: ProductPickerAPI
+  api: ProductPickerAPI,
 ): Promise<ProductType> {
   return new Promise<ProductType>((resolve, reject) => {
     const cached = getProductFromCache(id);
@@ -201,7 +201,7 @@ function getProductFromId(
       },
       () => {
         reject();
-      }
+      },
     );
   });
 }

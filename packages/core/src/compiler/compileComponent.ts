@@ -847,16 +847,52 @@ function addComponentToSerializedComponentDefinitions(
 
   const newDef: SerializedRenderableComponentDefinition = {
     id: internalDefinition.id,
-    label: internalDefinition.label,
-    schema: internalDefinition.schema,
     type: internalDefinition.type,
+    schema: compilationContext.isEditing
+      ? internalDefinition.schema
+      : stripSchemaForRuntime(internalDefinition.schema),
   };
 
   if (compilationContext.isEditing) {
+    newDef.label = internalDefinition.label;
     newDef.pasteSlots = internalDefinition.pasteSlots ?? [];
   }
 
   definitions.push(newDef);
+}
+
+/**
+ * Strips editor-only fields from schema props to reduce the RSC payload size
+ * in production renders. Keeps only the fields needed at runtime by
+ * ComponentBuilder: type, prop, optional, noInline, accepts.
+ */
+function stripSchemaForRuntime(schema: SchemaProp[]): SchemaProp[] {
+  return schema.map((schemaProp) => {
+    const stripped: Record<string, any> = {
+      type: schemaProp.type,
+      prop: schemaProp.prop,
+    };
+
+    // Keep runtime-required optional fields
+    if ("optional" in schemaProp && schemaProp.optional !== undefined) {
+      stripped.optional = schemaProp.optional;
+    }
+
+    if ("noInline" in schemaProp && schemaProp.noInline !== undefined) {
+      stripped.noInline = schemaProp.noInline;
+    }
+
+    if ("accepts" in schemaProp && schemaProp.accepts !== undefined) {
+      stripped.accepts = schemaProp.accepts;
+    }
+
+    // Keep normalize for text props (used in rendering)
+    if ("normalize" in schemaProp && schemaProp.normalize !== undefined) {
+      stripped.normalize = schemaProp.normalize;
+    }
+
+    return stripped as SchemaProp;
+  });
 }
 
 function compileSubcomponents(

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { Colors } from "./colors";
 import {
   ControlContainer,
@@ -37,7 +37,7 @@ const StyledButton = styled.button<ToggleButtonProps>`
 export const ToggleButton = (
   props: ToggleButtonProps & {
     children: string /* children must be a string */;
-  }
+  },
 ) => {
   const { onChange, ...restProps } = props;
 

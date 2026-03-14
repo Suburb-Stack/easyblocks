@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "../styled";
 import { Fonts } from "../fonts";
 import { ButtonGhost } from "../buttons";
 import { Icons } from "../icons";

@@ -1,7 +1,7 @@
 "use client";
 import type { ElementType, JSX, ReactNode } from "react";
 import React, { ComponentPropsWithRef } from "react";
-import styled, { css } from "styled-components";
+import styled, { css } from "./styled";
 import { Colors } from "./colors";
 import { Fonts } from "./fonts";
 
@@ -25,11 +25,11 @@ interface TypographyProps {
 interface TypographyComponent {
   <Component extends ElementType>(
     props: { component: Component } & TypographyProps &
-      Omit<ComponentPropsWithRef<Component>, keyof TypographyProps>
+      Omit<ComponentPropsWithRef<Component>, keyof TypographyProps>,
   ): JSX.Element;
   (
     props: TypographyProps &
-      Omit<ComponentPropsWithRef<"div">, keyof TypographyProps>
+      Omit<ComponentPropsWithRef<"div">, keyof TypographyProps>,
   ): JSX.Element;
 }
 

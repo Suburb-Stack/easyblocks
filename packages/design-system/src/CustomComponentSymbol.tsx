@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "./styled";
 import { Colors } from "./colors";
 
 const DEFAULT_SIZE = 6;

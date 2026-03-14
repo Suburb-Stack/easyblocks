@@ -2,7 +2,7 @@ import { responsiveValueForceGet } from "@suburb-stack/core";
 import { Colors, Fonts, Icons } from "@suburb-stack/design-system";
 import { dotNotationGet, toArray } from "@suburb-stack/utils";
 import React from "react";
-import styled from "styled-components";
+import styled from "../../../../styled";
 import { useConfigAfterAuto } from "../../../../ConfigAfterAutoContext";
 import { useEditorContext } from "../../../../EditorContext";
 import { FieldBuilder } from "../../../form-builder";

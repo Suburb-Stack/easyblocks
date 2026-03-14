@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "../styled";
 import type { ComponentType, HTMLAttributes } from "react";
 
 const Wrapper: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`

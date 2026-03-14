@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styled, { css } from "styled-components";
+import styled, { css } from "./styled";
 import { Colors } from "./colors";
 import { Fonts } from "./fonts";
 import { Icon } from "./icons";
@@ -30,8 +30,8 @@ function sizing(p: ControlProps) {
       p.controlSize === "full-width"
         ? "100%"
         : p.iconOnly
-        ? height + "px"
-        : "auto",
+          ? height + "px"
+          : "auto",
     paddingHorizontal: paddingHorizontal + "px",
     paddingVertical: p.controlSize === "tiny" ? "4px" : "6px",
     paddingIcon: paddingIcon + "px",

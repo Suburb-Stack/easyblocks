@@ -24,7 +24,7 @@ import {
 } from "@suburb-stack/design-system";
 import { dotNotationGet, toArray, uniqueId } from "@suburb-stack/utils";
 import React, { ReactNode, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css } from "../../../styled";
 import { useConfigAfterAuto } from "../../../ConfigAfterAutoContext";
 import {
   EditorExternalTypeDefinition,

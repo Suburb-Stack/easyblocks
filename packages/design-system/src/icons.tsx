@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "./styled";
 
 const IconContainer = styled.div.withConfig({
   shouldForwardProp(prop) {
@@ -65,7 +65,7 @@ const Dropdown = createIcon(
       d="M8.35355 10.0606L8.70711 9.70709L11.7071 6.70709L11 5.99998L8.35355 8.64643L5.70711 5.99998L5 6.70709L8 9.70709L8.35355 10.0606Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const MaxHeight = createIcon(
@@ -80,7 +80,7 @@ const MaxHeight = createIcon(
       d="M14 2H2.5V1H14V2ZM8.54545 2.82172L8.88332 3.13142L11.0651 5.13142L10.3894 5.86858L9.04545 4.63662V10.8634L10.3894 9.63142L11.0651 10.3686L8.88332 12.3686L8.54545 12.6783L8.20759 12.3686L8.54545 12L8.20758 12.3686L8.20753 12.3685L8.20735 12.3684L8.20663 12.3677L8.20375 12.3651L8.19245 12.3547L8.14879 12.3147L7.9865 12.1659L7.4362 11.6615L6.02577 10.3686L6.7015 9.63142L8.04545 10.8634V4.63662L6.7015 5.86858L6.02577 5.13142L8.20759 3.13142L8.54545 2.82172ZM8.54545 15H2.5V14H8.54545H14V15H8.54545Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Add = createIcon(
@@ -93,7 +93,7 @@ const Add = createIcon(
   >
     <path d="M8 2V14M2 8H14" stroke="black" />
   </svg>,
-  true
+  true,
 );
 
 const AlignLeft = createIcon(
@@ -105,7 +105,7 @@ const AlignLeft = createIcon(
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M1 3H15V4H1V3ZM1 7H9V8H1V7ZM11 11H1V12H11V11Z" fill="black" />
-  </svg>
+  </svg>,
 );
 
 const AlignCenter = createIcon(
@@ -117,7 +117,7 @@ const AlignCenter = createIcon(
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M1 3H15V4H1V3ZM4 7H12V8H4V7ZM13 11H3V12H13V11Z" fill="black" />
-  </svg>
+  </svg>,
 );
 
 const AlignRight = createIcon(
@@ -129,7 +129,7 @@ const AlignRight = createIcon(
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M1 3H15V4H1V3ZM7 7H15V8H7V7ZM15 11H5V12H15V11Z" fill="black" />
-  </svg>
+  </svg>,
 );
 
 const Close = createIcon(
@@ -144,7 +144,7 @@ const Close = createIcon(
       d="M7.76732 7.06025L12.2584 2.56918L12.9655 3.27629L8.47443 7.76735L12.9655 12.2584L12.2584 12.9655L7.76732 8.47446L3.2763 12.9655L2.56919 12.2584L7.06021 7.76735L2.56919 3.27637L3.2763 2.56926L7.76732 7.06025Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Desktop = createIcon(
@@ -173,7 +173,7 @@ const Desktop = createIcon(
       d="M11 13L5 13V12L11 12V13Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Mobile = createIcon(
@@ -196,7 +196,7 @@ const Mobile = createIcon(
       d="M10 13H6V12H10V13Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Drag = createIcon(
@@ -214,7 +214,7 @@ const Drag = createIcon(
       fill="black"
       fillOpacity="0.8"
     />
-  </svg>
+  </svg>,
 );
 
 const ArrowDown = createIcon(
@@ -227,7 +227,7 @@ const ArrowDown = createIcon(
   >
     <path d="M8 12L8 2.5M8 12L5 9M8 12L11 9" stroke="black" />
   </svg>,
-  true
+  true,
 );
 
 const ArrowRight = createIcon(
@@ -240,7 +240,7 @@ const ArrowRight = createIcon(
   >
     <path d="M12 8L2.5 8M12 8L9 11M12 8L9 5" stroke="black" />
   </svg>,
-  true
+  true,
 );
 
 const Master = createIcon(
@@ -267,7 +267,7 @@ const Master = createIcon(
       d="M8.50835 8.04933L10.8035 5.75418L13.0986 8.04933L10.8035 10.3445L8.50835 8.04933Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Redo = createIcon(
@@ -284,7 +284,7 @@ const Redo = createIcon(
       d="M12.0858 6.35355L9.43934 9L10.1464 9.70711L13.6464 6.20711L14 5.85355L13.6464 5.5L10.1464 2L9.43934 2.70711L12.0858 5.35355H8.29289C4.71675 5.35355 1.79289 8.27741 1.79289 11.8536L1.79289 13.3536H2.79289L2.79289 11.8536C2.79289 8.8297 5.26904 6.35355 8.29289 6.35355H12.0858Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Undo = createIcon(
@@ -301,7 +301,7 @@ const Undo = createIcon(
       d="M3.91421 6.35355L6.56066 9L5.85355 9.70711L2.35355 6.20711L2 5.85355L2.35355 5.5L5.85355 2L6.56066 2.70711L3.91421 5.35355H7.70711C11.2832 5.35355 14.2071 8.27741 14.2071 11.8536L14.2071 13.3536H13.2071L13.2071 11.8536C13.2071 8.8297 10.731 6.35355 7.70711 6.35355H3.91421Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 const Remove = createIcon(
   <svg
@@ -318,7 +318,7 @@ const Remove = createIcon(
       fill="black"
       fillOpacity="0.8"
     />
-  </svg>
+  </svg>,
 );
 const ChevronRight = createIcon(
   <svg
@@ -334,7 +334,7 @@ const ChevronRight = createIcon(
       d="M10.0607 8.64645L9.70711 8.29289L6.70711 5.29289L6 6L8.64645 8.64645L6 11.2929L6.70711 12L9.70711 9L10.0607 8.64645Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Back = createIcon(
@@ -347,7 +347,7 @@ const Back = createIcon(
   >
     <path d="M10.5 3L6 7.5L10.5 12" stroke="black" />
   </svg>,
-  true
+  true,
 );
 
 const Share = createIcon(
@@ -364,7 +364,7 @@ const Share = createIcon(
       d="M8.35355 0.646461L8 0.292908L7.64645 0.646461L4.64645 3.64646L5.35355 4.35357L7.5 2.20712L7.5 10.5H8.5L8.5 2.20712L10.6464 4.35357L11.3536 3.64646L8.35355 0.646461ZM3 5.50001C2.72386 5.50001 2.5 5.72387 2.5 6.00001V15C2.5 15.2762 2.72386 15.5 3 15.5H13C13.2761 15.5 13.5 15.2762 13.5 15V6.00001C13.5 5.72387 13.2761 5.50001 13 5.50001H10.5V6.50001H12.5V14.5H3.5V6.50001H5.5V5.50001H3Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const Reset = createIcon(
@@ -392,7 +392,7 @@ const Reset = createIcon(
       fill="#000"
       mask="url(#a)"
     />
-  </svg>
+  </svg>,
 );
 
 const Grid3x3 = createIcon(
@@ -409,7 +409,7 @@ const Grid3x3 = createIcon(
       d="M3 3.34674H5V5.34674H3V3.34674ZM3 7.34674H5V9.34674H3V7.34674ZM5 11.3467H3V13.3467H5V11.3467ZM7 3.34674H9V5.34674H7V3.34674ZM9 7.34674H7V9.34674H9V7.34674ZM7 11.3467H9V13.3467H7V11.3467ZM13 3.34674H11V5.34674H13V3.34674ZM11 7.34674H13V9.34674H11V7.34674ZM13 11.3467H11V13.3467H13V11.3467Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const ChevronLeft = createIcon(
@@ -421,7 +421,7 @@ const ChevronLeft = createIcon(
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M10.5 3L6 7.5L10.5 12" stroke="black" />
-  </svg>
+  </svg>,
 );
 
 const Link = createIcon(
@@ -438,7 +438,7 @@ const Link = createIcon(
       d="M10 5.34674V6.63245H11V5.34674C11 3.68989 9.65685 2.34674 8 2.34674C6.34315 2.34674 5 3.68989 5 5.34674V6.63245H6V5.34674C6 4.24217 6.89543 3.34674 8 3.34674C9.10457 3.34674 10 4.24217 10 5.34674ZM10 10.061H11V11.3467C11 13.0036 9.65685 14.3467 8 14.3467C6.34315 14.3467 5 13.0036 5 11.3467V10.061H6V11.3467C6 12.4513 6.89543 13.3467 8 13.3467C9.10457 13.3467 10 12.4513 10 11.3467V10.061ZM7.5 5.77531V10.9182H8.5V5.77531H7.5Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const MarginBottom = createIcon(
@@ -456,7 +456,7 @@ const MarginBottom = createIcon(
       fill="black"
     />
     <rect x="4.5" y="4.84674" width="7" height="7" stroke="black" />
-  </svg>
+  </svg>,
 );
 
 const MarginHorizontal = createIcon(
@@ -480,7 +480,7 @@ const MarginHorizontal = createIcon(
       fill="black"
     />
     <rect x="4.5" y="4.84674" width="7" height="7" stroke="black" />
-  </svg>
+  </svg>,
 );
 
 const MarginTop = createIcon(
@@ -498,7 +498,7 @@ const MarginTop = createIcon(
       fill="black"
     />
     <rect x="4.5" y="4.84674" width="7" height="7" stroke="black" />
-  </svg>
+  </svg>,
 );
 
 const CornerRadius = createIcon(
@@ -513,7 +513,7 @@ const CornerRadius = createIcon(
       d="M14 3.34674H10C6.13401 3.34674 3 6.48075 3 10.3467V14.3467H2V10.3467C2 5.92846 5.58172 2.34674 10 2.34674H14V3.34674Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const ThreeDotsHorizontal = createIcon(
@@ -530,7 +530,7 @@ const ThreeDotsHorizontal = createIcon(
       d="M3.80444 8.47266C3.80444 7.92037 4.25216 7.47266 4.80444 7.47266C5.35673 7.47266 5.80444 7.92037 5.80444 8.47266C5.80444 9.02494 5.35673 9.47266 4.80444 9.47266C4.25216 9.47266 3.80444 9.02494 3.80444 8.47266ZM7.80444 8.47266C7.80444 7.92037 8.25216 7.47266 8.80444 7.47266C9.35673 7.47266 9.80444 7.92037 9.80444 8.47266C9.80444 9.02494 9.35673 9.47266 8.80444 9.47266C8.25216 9.47266 7.80444 9.02494 7.80444 8.47266ZM12.8044 7.47266C12.2522 7.47266 11.8044 7.92037 11.8044 8.47266C11.8044 9.02494 12.2522 9.47266 12.8044 9.47266C13.3567 9.47266 13.8044 9.02494 13.8044 8.47266C13.8044 7.92037 13.3567 7.47266 12.8044 7.47266Z"
       fill="black"
     />
-  </svg>
+  </svg>,
 );
 
 const OpenInNew = createIcon(
@@ -541,7 +541,7 @@ const OpenInNew = createIcon(
     width="24"
   >
     <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" />
-  </svg>
+  </svg>,
 );
 
 export const Icons = {

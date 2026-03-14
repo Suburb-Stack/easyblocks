@@ -15,7 +15,7 @@
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.0.7",
+    "goober": "^2.1.18",
     "typescript": "^5.3.3"
   },
   "version": "1.0.10-porting-to-next-16.a6b001d-porting-to-next-16.070c28a-main.85770d1"

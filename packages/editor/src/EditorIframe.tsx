@@ -1,6 +1,6 @@
 import { Colors } from "@suburb-stack/design-system";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { ExtraKeys, useWindowKeyDown } from "./useWindowKeyDown";
 
 interface EditorIframeWrapperProps {

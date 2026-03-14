@@ -11,7 +11,12 @@ export type {
   ComponentOverrides,
   EasyblocksProps,
 } from "./components/Easyblocks";
-export { easyblocksGetCssText, easyblocksGetStyleTag } from "./components/ssr";
+export {
+  easyblocksGetCssText,
+  easyblocksGetStyleTag,
+  easyblocksGetCssTextAndFlush,
+  easyblocksGetStyleTagAndFlush,
+} from "./components/ssr";
 export { isNoCodeComponentOfType } from "./isNoCodeComponentOfType";
 export * from "./locales";
 export * from "./resourcesUtils";

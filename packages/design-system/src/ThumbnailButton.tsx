@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "./styled";
 import * as React from "react";
 
 import { ButtonGhost } from "./buttons";
@@ -95,8 +95,8 @@ export function ThumbnailButton({
       thumbnail.icon === "link"
         ? Icons.Link
         : thumbnail.icon === "grid_3x3"
-        ? Icons.Grid3x3
-        : Icons.Link;
+          ? Icons.Grid3x3
+          : Icons.Link;
     preview = <ComponentIcon size={16} />;
   } else {
     preview = <SolidColorPreview color={"transparent"} />;

@@ -1,7 +1,7 @@
 import { InternalField } from "@suburb-stack/core/_internals";
 import { Toggle as DesignSystemToggle } from "@suburb-stack/design-system";
 import React, { FC } from "react";
-import styled from "styled-components";
+import styled from "../../../styled";
 
 export interface ToggleProps {
   name: string;

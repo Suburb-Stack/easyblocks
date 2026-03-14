@@ -1,5 +1,5 @@
 "use client";
-import { Easyblocks, easyblocksGetStyleTag } from "@suburb-stack/core";
+import { Easyblocks, easyblocksGetStyleTagAndFlush } from "@suburb-stack/core";
 import { useServerInsertedHTML } from "next/navigation";
 import { ComponentPropsWithoutRef } from "react";
 
@@ -9,7 +9,7 @@ function EasyblocksContent({
   components,
 }: ComponentPropsWithoutRef<typeof Easyblocks>) {
   useServerInsertedHTML(() => {
-    return easyblocksGetStyleTag();
+    return easyblocksGetStyleTagAndFlush();
   });
 
   return (

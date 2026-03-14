@@ -2,7 +2,7 @@ import { CompiledComponentConfig } from "@suburb-stack/core";
 import { Fonts } from "@suburb-stack/design-system";
 import { dotNotationGet } from "@suburb-stack/utils";
 import React from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { buildTinaFields } from "./buildTinaFields";
 import { useEditorContext } from "./EditorContext";
 import { InlineSettings } from "./inline-settings";
