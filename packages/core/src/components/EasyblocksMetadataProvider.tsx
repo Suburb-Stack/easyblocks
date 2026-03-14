@@ -4,13 +4,16 @@ import { css as gooberCss, setup as gooberSetup } from "goober";
 import React, { createContext, ReactNode, useContext } from "react";
 import { CompilationMetadata } from "../types";
 
-// Initialize goober with React's createElement
+// Initialize goober with React's createElement.
+// Skip if another package (editor / design-system) already called setup() —
+// their configuration includes shouldForwardProp and the css-prop wrapper
+// which would be lost if we call setup() again with a basic configuration.
 let _gooberInitialized = false;
 function ensureGooberSetup() {
-  if (!_gooberInitialized) {
-    gooberSetup(React.createElement);
-    _gooberInitialized = true;
-  }
+  if (_gooberInitialized || (globalThis as any).__GOOBER_SETUP__) return;
+  _gooberInitialized = true;
+  (globalThis as any).__GOOBER_SETUP__ = true;
+  gooberSetup(React.createElement);
 }
 
 /**

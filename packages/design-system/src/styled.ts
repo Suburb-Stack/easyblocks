@@ -24,12 +24,76 @@ import {
 } from "goober";
 import React from "react";
 
+/**
+ * Monkey-patch React.createElement to convert the `css` prop to a className.
+ *
+ * goober does NOT wrap createElement — the `css` prop on arbitrary JSX elements
+ * (e.g. `<div css="color:red">`) is silently passed through as an HTML attribute
+ * unless we intercept it here and convert it to a goober-generated className.
+ */
+function installCssPropSupport() {
+  if ((globalThis as any).__GOOBER_CSS_PROP__) return;
+  (globalThis as any).__GOOBER_CSS_PROP__ = true;
+
+  const _origCE = React.createElement;
+  (React as any).createElement = function gooberCssPropInterceptor(
+    type: any,
+    props: any,
+  ) {
+    if (props != null && typeof props.css === "string" && props.css) {
+      const newProps = Object.assign({}, props);
+      const cssStr: string = newProps.css;
+      delete newProps.css;
+      // Build a tagged-template-like argument for goober's css()
+      const cls = gooberCss(Object.assign([cssStr], { raw: [cssStr] }) as any);
+      newProps.className = newProps.className
+        ? cls + " " + newProps.className
+        : cls;
+      // eslint-disable-next-line prefer-rest-params
+      const args: any[] = Array.prototype.slice.call(arguments);
+      args[1] = newProps;
+      return _origCE.apply(null, args as any);
+    }
+    // eslint-disable-next-line prefer-rest-params
+    return _origCE.apply(null, arguments as any);
+  };
+}
+
+/**
+ * Creates a styled-components-compatible `.attrs()` wrapper.
+ */
+function createAttrs(tag: string | React.ComponentType, attrsArg: any) {
+  const styledFn = gooberStyled(tag as any);
+
+  return function attrsTagged(strOrObj: any, ...values: any[]) {
+    const StyledComponent = styledFn(strOrObj, ...values);
+
+    const AttrsComponent = React.forwardRef((props: any, ref: any) => {
+      const extraProps =
+        typeof attrsArg === "function" ? attrsArg(props) : attrsArg;
+      return React.createElement(StyledComponent, {
+        ...props,
+        ...extraProps,
+        ref,
+      });
+    });
+
+    AttrsComponent.displayName = `Attrs(${
+      typeof tag === "string" ? tag : tag.displayName || tag.name || "Component"
+    })`;
+
+    return AttrsComponent;
+  };
+}
+
 // Ensure goober is initialized with React's createElement
 let _initialized = false;
 export function ensureGooberSetup() {
   if (!_initialized) {
-    setup(React.createElement);
     _initialized = true;
+    installCssPropSupport();
+    setup(React.createElement);
+    (globalThis as any).__GOOBER_SETUP__ = true;
   }
 }
 
@@ -228,6 +292,9 @@ const styledProxy = new Proxy(gooberStyled, {
       get(_styledTag, innerProp: string) {
         if (innerProp === "withConfig") {
           return (opts: WithConfigOptions) => createTaggedStyled(prop, opts);
+        }
+        if (innerProp === "attrs") {
+          return (attrsArg: any) => createAttrs(prop, attrsArg);
         }
         return Reflect.get(_styledTag, innerProp);
       },
