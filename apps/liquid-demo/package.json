@@ -1,6 +1,6 @@
 {
   "name": "liquid-demo",
-  "version": "1.0.11",
+  "version": "1.0.11-main.d71b358",
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",

@@ -1,6 +1,6 @@
 {
   "name": "dashboard-demo",
-  "version": "1.0.11",
+  "version": "1.0.11-main.d71b358",
   "private": true,
   "scripts": {
     "dev": "json-server seed.js --port 3200 & next dev --webpack",
