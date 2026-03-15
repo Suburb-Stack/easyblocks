@@ -2,7 +2,10 @@ import { easyblocksConfig } from "@/app/easyblocks/easyblocks.config";
 import { createMyCustomFetch } from "@/app/easyblocks/myCustomFetch";
 import { components } from "@/app/easyblocks/components";
 import { buildDocument } from "@suburb-stack/core";
-import { EasyblocksContent } from "./EasyblocksContent";
+import {
+  EasyblocksContent,
+  EasyblocksStyleProvider,
+} from "./EasyblocksContent";
 
 const fetch = createMyCustomFetch();
 
@@ -36,11 +39,13 @@ export default async function Page(props: {
           Easyblocks content can be rendered anywhere within your project.
         </div>
       </div>
-      <EasyblocksContent
-        renderableDocument={renderableDocument}
-        externalData={fetchedExternalData}
-        components={components}
-      />
+      <EasyblocksStyleProvider>
+        <EasyblocksContent
+          renderableDocument={renderableDocument}
+          externalData={fetchedExternalData}
+          components={components}
+        />
+      </EasyblocksStyleProvider>
     </div>
   );
 }

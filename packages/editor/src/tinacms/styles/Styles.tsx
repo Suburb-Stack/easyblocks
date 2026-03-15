@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, css } from "styled-components";
+import styled, { createGlobalStyle, css } from "../../styled";
 
 const theme = css`
   :root {
@@ -47,8 +47,8 @@ const theme = css`
     --tina-font-weight-regular: 400;
     --tina-font-weight-bold: 600;
 
-    --tina-shadow-big: 0px 2px 3px rgba(0, 0, 0, 0.05),
-      0 4px 12px rgba(0, 0, 0, 0.1);
+    --tina-shadow-big:
+      0px 2px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.1);
     --tina-shadow-small: 0px 2px 3px rgba(0, 0, 0, 0.12);
 
     --tina-timing-short: 85ms;

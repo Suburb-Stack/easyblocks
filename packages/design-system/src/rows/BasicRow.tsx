@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import styled from "styled-components";
+import styled from "../styled";
 import { Colors } from "../colors";
 import { Fonts } from "../fonts";
 import { CustomComponentSymbol } from "../CustomComponentSymbol";
@@ -41,7 +41,7 @@ const Root = styled.div`
   }
 `;
 
-const ImageContainer = styled.div<BasicRowProps>`
+const ImageContainer = styled.div<{ image?: string }>`
   position: relative;
   box-sizing: border-box;
   background: ${Colors.black10};
@@ -98,7 +98,7 @@ const EditContainer = styled.div`
 export const BasicRow: React.FC<BasicRowProps> = (props) => {
   return (
     <Root onClick={props.onClick}>
-      <ImageContainer {...props}>
+      <ImageContainer image={props.image}>
         {props.image && <Image src={props.image} loading="lazy" />}
       </ImageContainer>
       <TextContainer>
@@ -109,7 +109,7 @@ export const BasicRow: React.FC<BasicRowProps> = (props) => {
         <DescriptionContainer>
           {props.description && (
             <>
-              {props.customDescription && <CustomComponentSymbol size={4} />}
+              {props.customDescription && <CustomComponentSymbol $size={4} />}
               <Description
                 tinyDescription={props.tinyDescription}
                 custom={props.customDescription}

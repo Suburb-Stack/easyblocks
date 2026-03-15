@@ -1,6 +1,6 @@
 import { InternalField } from "@suburb-stack/core/_internals";
 import React, { MouseEvent } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { useEditorContext } from "./EditorContext";
 import { SidebarFooter } from "./SidebarFooter";
 import { FieldsBuilder } from "./tinacms/form-builder";

@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { Fonts } from "./fonts";
 
 import {
@@ -16,7 +16,14 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
     align?: "left" | "right";
   };
 
-const StyledInput = styled.input<InputProps & { isRaw?: boolean }>`
+type StyledInputProps = {
+  $isRaw?: boolean;
+  $controlSize?: any;
+  $icon?: any;
+  $iconOnly?: boolean;
+};
+
+const StyledInput = styled.input<StyledInputProps>`
   all: unset;
   box-sizing: border-box;
 
@@ -33,38 +40,82 @@ const StyledInput = styled.input<InputProps & { isRaw?: boolean }>`
     display: none;
   }
 
-  ${(p) => !p.isRaw && getControlPadding()}
+  ${(p) => !p.$isRaw && getControlPadding()}
 
   ${Fonts.body};
-
-  text-align: ${(p) => (p.align === "right" ? "right" : "left")};
 `;
 
 const InputBase = forwardRef<
   HTMLInputElement,
-  InputProps & { isRaw?: boolean }
->((props, ref) => {
-  return <StyledInput {...props} ref={ref} />;
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    $isRaw?: boolean;
+    $controlSize?: any;
+    $icon?: any;
+    $iconOnly?: boolean;
+    align?: "left" | "right";
+  }
+>(({ align, ...props }, ref) => {
+  return (
+    <StyledInput
+      {...props}
+      ref={ref}
+      style={align === "right" ? { textAlign: "right" } : undefined}
+    />
+  );
 });
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { iconBlack, controlSize, iconOnly, onBlur, value, ...inputProps } =
-    props;
+  const {
+    iconBlack,
+    controlSize,
+    iconOnly,
+    icon,
+    error,
+    withBorder,
+    hasError,
+    debounce,
+    onBlur,
+    value,
+    ...inputProps
+  } = props;
 
   return (
     <ControlContainer
       iconBlack={iconBlack}
       controlSize={controlSize}
       iconOnly={iconOnly}
-      {...inputProps}
+      icon={icon}
+      error={error}
+      withBorder={withBorder}
+      hasError={hasError}
+      disabled={props.disabled}
     >
-      <InputBase {...inputProps} value={value} onBlur={onBlur} ref={ref} />
+      <InputBase
+        {...inputProps}
+        value={value}
+        onBlur={onBlur}
+        ref={ref}
+        $controlSize={controlSize}
+        $icon={icon}
+        $iconOnly={iconOnly}
+      />
     </ControlContainer>
   );
 });
 
 export const InputRaw = forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => {
-    return <InputBase {...props} ref={ref} isRaw={true} />;
-  }
+    const {
+      iconBlack,
+      controlSize,
+      iconOnly,
+      icon,
+      error,
+      withBorder,
+      hasError,
+      debounce,
+      ...htmlProps
+    } = props;
+    return <InputBase {...htmlProps} ref={ref} $isRaw={true} />;
+  },
 );

@@ -69,6 +69,7 @@ const baseConfig = {
     ...Object.keys(packageJson.dependencies),
     /@babel\/runtime/,
     /lodash/,
+    /^goober/,
   ],
   onwarn: (warning, warn) => {
     // We're using eval on purpose, so let's ignore this warning.
@@ -112,6 +113,7 @@ const configCjs = {
     dir: "./dist/cjs",
     preserveModules: true,
     preserveModulesRoot: "src",
+    entryFileNames: "[name].cjs",
     exports: "auto",
     interop: "auto",
   },

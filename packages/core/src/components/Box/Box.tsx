@@ -41,12 +41,13 @@ const Box = React.forwardRef<HTMLElement, BoxProps>((props, ref) => {
     /**
      * Why parse+stringify?
      *
-     * Because if we remove them some nested objects in styles (like media queries etc) don't work (although they exist in the object).
-     * Why? My bet is this: Stitches uses CSSOM to inject styles. Maybe (for some weird reason, maybe even browser bug) if some part of the object is not in iframe scope but in parent window scope then it's somehow ignored? Absolutely no idea right now, happy this works.
+     * This ensures style objects from different execution contexts (e.g. iframe
+     * vs parent window) are normalized into plain objects. Without this, nested
+     * objects like media queries may be silently ignored by the CSS engine.
      */
     const correctedStyles = getBoxStyles(
       JSON.parse(JSON.stringify(styles)),
-      devices
+      devices,
     );
 
     const generateBoxClass = stitches.css(boxStyles);
@@ -68,7 +69,7 @@ const Box = React.forwardRef<HTMLElement, BoxProps>((props, ref) => {
         .join(" "),
       "data-testid": __name,
     },
-    props.children
+    props.children,
   );
 });
 

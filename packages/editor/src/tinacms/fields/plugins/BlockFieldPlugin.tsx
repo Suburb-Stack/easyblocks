@@ -28,7 +28,7 @@ import {
 import { dotNotationGet, toArray } from "@suburb-stack/utils";
 import React from "react";
 import ReactDOM from "react-dom";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "../../../styled";
 import { useConfigAfterAuto } from "../../../ConfigAfterAutoContext";
 import { EditorContextType, useEditorContext } from "../../../EditorContext";
 import { useEditorExternalData } from "../../../EditorExternalDataProvider";
@@ -359,7 +359,7 @@ function Panel({ onCollapse, isExpanded, paths }: PanelProps) {
         onClose: onCollapse,
       }}
     >
-      <GroupPanel isExpanded={isExpanded}>
+      <GroupPanel $isExpanded={isExpanded}>
         <PanelBody>
           {isExpanded ? (
             <div>
@@ -395,7 +395,7 @@ const GroupPanelKeyframes = keyframes`
   }
 `;
 
-const GroupPanel = styled.div<{ isExpanded: boolean }>`
+const GroupPanel = styled.div<{ $isExpanded: boolean }>`
   position: absolute;
   width: 100%;
   top: 0;
@@ -403,11 +403,11 @@ const GroupPanel = styled.div<{ isExpanded: boolean }>`
   left: 0;
   overflow: hidden;
   /* z-index: var(--tina-z-index-1); */
-  pointer-events: ${(p) => (p.isExpanded ? "all" : "none")};
+  pointer-events: ${(p) => (p.$isExpanded ? "all" : "none")};
 
   > * {
     ${(p) =>
-      p.isExpanded &&
+      p.$isExpanded &&
       css`
         animation-name: ${GroupPanelKeyframes};
         animation-duration: 150ms;
@@ -418,7 +418,7 @@ const GroupPanel = styled.div<{ isExpanded: boolean }>`
       `};
 
     ${(p) =>
-      !p.isExpanded &&
+      !p.$isExpanded &&
       css`
         transition: transform 150ms ease-out;
         transform: translate3d(100%, 0, 0);

@@ -6,12 +6,12 @@ import {
   Modal,
 } from "@suburb-stack/design-system";
 import React, { useRef } from "react";
-import styled from "styled-components";
+import styled from "./styled";
 import { EditorContextType, useEditorContext } from "./EditorContext";
 import { TemplatePicker } from "./TemplatePicker";
 
 type VisualProps = {
-  mode: string;
+  $mode: string;
 };
 
 /**
@@ -39,7 +39,7 @@ const ImageContainer = styled.div<VisualProps>`
   position: relative;
   background-color: ${Colors.black10};
   margin-bottom: 8px;
-  padding-bottom: ${(p) => (p.mode === "large-3" ? "90%" : "60%")};
+  padding-bottom: ${(p) => (p.$mode === "large-3" ? "90%" : "60%")};
   cursor: pointer;
 `;
 
@@ -140,7 +140,7 @@ const SectionCard: React.FC<SectionCardProps> = ({
 
   return (
     <CardRoot>
-      <ImageContainer ref={imageRef} onClick={onSelect} mode={mode}>
+      <ImageContainer ref={imageRef} onClick={onSelect} $mode={mode}>
         {previewImage && <CardImg src={previewImage} />}
         {!previewImage && template.thumbnailLabel && (
           <CardImgPlaceholder>
@@ -227,7 +227,7 @@ const ModalRoot = styled.div`
 const ModalGridRoot = styled.div<VisualProps>`
   display: grid;
   grid-template-columns: ${(p) =>
-    p.mode === "large-3" ? "1fr 1fr 1fr" : "1fr 1fr"};
+    p.$mode === "large-3" ? "1fr 1fr 1fr" : "1fr 1fr"};
   grid-column-gap: 16px;
   grid-row-gap: 30px;
 `;
@@ -349,7 +349,7 @@ export const SectionPickerModal: TemplatePicker = ({
                   <TitleContainer>
                     <Title>{label ?? componentId}</Title>
                   </TitleContainer>
-                  <ModalGridRoot mode={mode}>
+                  <ModalGridRoot $mode={mode}>
                     {templates.map((template, index) => (
                       <SectionCard
                         key={index}

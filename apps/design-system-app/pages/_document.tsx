@@ -5,33 +5,19 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import React from "react";
+
+// NOTE: goober CSS extraction for SSR is handled by StyledComponentsRegistry
+// (lib/registry.tsx) via useServerInsertedHTML. Do NOT call extractCss() here
+// as well — that would compete for the same goober buffer and produce either
+// missing or duplicate styles.
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
-
-    try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
-        });
-
-      const initialProps = await Document.getInitialProps(ctx);
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
-      };
-    } finally {
-      sheet.seal();
-    }
+    ctx.renderPage = () => originalRenderPage();
+    const initialProps = await Document.getInitialProps(ctx);
+    return initialProps;
   }
 
   render() {

@@ -145,7 +145,7 @@ function SelectionFrame({ width, height, transform }: SelectionFrameProps) {
 
   return (
     <Wrapper>
-      <FrameWrapper width={width} height={height} transform={transform}>
+      <FrameWrapper $width={width} $height={height} $transform={transform}>
         <AddButton
           position="before"
           onClick={() => handleAddButtonClick("before")}

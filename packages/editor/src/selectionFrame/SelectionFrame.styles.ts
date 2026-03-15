@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "../styled";
 import type { ComponentType, HTMLAttributes } from "react";
 
 const Wrapper: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`
@@ -13,19 +13,19 @@ const Wrapper: ComponentType<HTMLAttributes<HTMLDivElement>> = styled.div`
 `;
 
 type FrameWrapperProps = {
-  width: number;
-  height: number;
-  transform: string;
+  $width: number;
+  $height: number;
+  $transform: string;
 };
 
 const FrameWrapper: ComponentType<
   FrameWrapperProps & HTMLAttributes<HTMLDivElement>
-> = styled.div.attrs<FrameWrapperProps>(({ width, height, transform }) => {
+> = styled.div.attrs<FrameWrapperProps>(({ $width, $height, $transform }) => {
   return {
     style: {
-      width,
-      height,
-      transform,
+      width: $width,
+      height: $height,
+      transform: $transform,
     },
   };
 })`

@@ -50,7 +50,7 @@ import React, {
   useState,
 } from "react";
 import Modal from "react-modal";
-import styled from "styled-components";
+import styled from "./styled";
 import { ConfigAfterAutoContext } from "./ConfigAfterAutoContext";
 import { ExternalDataChangeHandler } from "./EasyblocksEditorProps";
 import { EditorContext, EditorContextType } from "./EditorContext";
@@ -94,8 +94,8 @@ const ContentContainer = styled.div`
   flex-direction: column;
 `;
 
-const SidebarAndContentContainer = styled.div<{ height: "100vh" | "100%" }>`
-  height: ${(props) => `calc(${props.height} - ${TOP_BAR_HEIGHT}px)`};
+const SidebarAndContentContainer = styled.div<{ $height: "100vh" | "100%" }>`
+  height: ${(props) => `calc(${props.$height} - ${TOP_BAR_HEIGHT}px)`};
   width: 100%;
   background: #fafafa;
   display: flex;
@@ -1054,7 +1054,7 @@ const EditorContent = ({
               hideCloseButton={props.config.hideCloseButton ?? false}
               readOnly={editorContext.readOnly}
             />
-            <SidebarAndContentContainer height={appHeight}>
+            <SidebarAndContentContainer $height={appHeight}>
               <ContentContainer
                 onClick={() => {
                   setFocussedField([]);

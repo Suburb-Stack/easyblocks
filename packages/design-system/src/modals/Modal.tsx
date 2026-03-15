@@ -1,5 +1,5 @@
-import React, { ReactNode, useContext } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import styled, { createGlobalStyle } from "../styled";
 import { Fonts } from "../fonts";
 import { ButtonGhost } from "../buttons";
 import { Icons } from "../icons";
@@ -23,11 +23,18 @@ type ModalBodyProps = {
 
 const ModalRoot = styled.div``;
 
-const Root = styled.div<ModalBodyProps>`
-  width: ${(p) => p.width || "100%"};
-  max-width: ${(p) => p.maxWidth || "none"};
-  height: ${(p) => p.height || "auto"};
-  max-height: ${(p) => p.maxHeight || "none"};
+type StyledRootProps = {
+  $width?: string;
+  $maxWidth?: string;
+  $height?: string;
+  $maxHeight?: string;
+};
+
+const Root = styled.div<StyledRootProps>`
+  width: ${(p) => p.$width || "100%"};
+  max-width: ${(p) => p.$maxWidth || "none"};
+  height: ${(p) => p.$height || "auto"};
+  max-height: ${(p) => p.$maxHeight || "none"};
   position: relative;
   box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
@@ -41,17 +48,17 @@ const Root = styled.div<ModalBodyProps>`
   overflow: hidden;
 `;
 
-const HeaderBody = styled.div<Pick<ModalBodyProps, "headerLine">>`
+const HeaderBody = styled.div<{ $headerLine?: boolean }>`
   position: relative;
-  ${(p) => p.headerLine && `border-bottom: 1px solid ${Colors.black10};`}
+  ${(p) => p.$headerLine && `border-bottom: 1px solid ${Colors.black10};`}
   color: black;
 `;
 
-const ContentBody = styled.div<Pick<ModalBodyProps, "noPadding" | "maxHeight">>`
+const ContentBody = styled.div<{ $noPadding?: boolean; $maxHeight?: string }>`
   position: relative;
-  overflow-y: ${(p) => (p.maxHeight == "auto" ? "auto" : "scroll")};
+  overflow-y: ${(p) => (p.$maxHeight == "auto" ? "auto" : "scroll")};
   overflow-x: hidden;
-  padding: ${(p) => (p.noPadding ? "0" : "12px 12px")};
+  padding: ${(p) => (p.$noPadding ? "0" : "12px 12px")};
 `;
 
 const TitleHeader = styled.div`
@@ -83,16 +90,23 @@ export const ModalBody: React.FC<ModalBodyProps> = ({
   onRequestClose,
   title,
   width,
+  height,
   maxHeight,
   maxWidth,
   headerLine,
-  ...props
+  noPadding,
+  children,
+  headerSymbol = "close",
+  searchProps,
 }) => {
-  const { children, headerSymbol = "close", searchProps } = props;
-
   return (
-    <Root width={width} maxWidth={maxWidth} maxHeight={maxHeight} {...props}>
-      <HeaderBody headerLine={headerLine}>
+    <Root
+      $width={width}
+      $maxWidth={maxWidth}
+      $height={height}
+      $maxHeight={maxHeight}
+    >
+      <HeaderBody $headerLine={headerLine}>
         <TitleHeader>
           {title && <TitleHeaderLabel>{title}</TitleHeaderLabel>}
           {searchProps && (
@@ -124,7 +138,7 @@ export const ModalBody: React.FC<ModalBodyProps> = ({
           )}
         </TitleHeader>
       </HeaderBody>
-      <ContentBody maxHeight={maxHeight} {...props}>
+      <ContentBody $maxHeight={maxHeight} $noPadding={noPadding}>
         {children}
       </ContentBody>
     </Root>
@@ -155,6 +169,13 @@ export const ModalContext = React.createContext<any>(null);
 export const Modal: React.FC<ModalProps> = (props) => {
   const { isOpen, onRequestClose, mode = "center-small", ...bodyProps } = props;
 
+  // Defer isOpen to avoid React-Modal "Cannot register modal instance that's
+  // already open" warning when mounting with isOpen={true}
+  const [deferredOpen, setDeferredOpen] = useState(false);
+  useEffect(() => {
+    setDeferredOpen(isOpen);
+  }, [isOpen]);
+
   const parentSelector =
     useContext(ModalContext) ??
     (() => {
@@ -179,7 +200,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
   return (
     <ReactModal
-      isOpen={isOpen}
+      isOpen={deferredOpen}
       onRequestClose={onRequestClose}
       parentSelector={parentSelector}
       className={{
@@ -200,13 +221,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-const sharedContentStyles = `
-    &:focus {
-      border: none;
-      outline: none;
-    }
-`;
-
 export const GlobalModalStyles = createGlobalStyle`
   .Shopstory__ReactModalPortal {
     position: absolute;
@@ -215,54 +229,52 @@ export const GlobalModalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
-  
+
   .Shopstory__ReactModal__Overlay {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.2;
-      z-index: -1;
-      /* background-color: black; */
-    }
   }
-  
-  .Shopstory__ReactModal__Overlay.background-shade {
-    &:before {
-      background-color: black;
-    }
+
+  .Shopstory__ReactModal__Overlay:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: -1;
   }
-  
-  .Shopstory__ReactModal__Content {
-    ${sharedContentStyles}
+
+  .Shopstory__ReactModal__Overlay.background-shade:before {
+    background-color: black;
   }
-  
+
+  .Shopstory__ReactModal__Content:focus {
+    border: none;
+    outline: none;
+  }
+
+  .Shopstory__ReactModal__Content__Left:focus {
+    border: none;
+    outline: none;
+  }
+
   .Shopstory__ReactModal__Content__Left {
-    ${sharedContentStyles}
-    
     height: 100vh;
     width: 70vw;
-    
     transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateX(-100%);
   }
-  
+
   .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--after-open {
-      transform: none;
-  }
-  
-  .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--before-close{
-      transform: translateX(-100%);
+    transform: none;
   }
 
-  
+  .Shopstory__ReactModal__Content__Left.Shopstory__ReactModal__Content__Left--before-close {
+    transform: translateX(-100%);
+  }
 `;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "./styled";
 import * as React from "react";
 
 import { ButtonGhost } from "./buttons";
@@ -54,13 +54,13 @@ const PreviewImage = styled.img`
 `;
 
 interface SolidColorPreviewProps {
-  color: string;
+  $color: string;
 }
 
 const SolidColorPreview = styled.div<SolidColorPreviewProps>`
   width: 100%;
   height: 100%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ $color }) => $color};
 `;
 
 const ContentRoot = styled.div`
@@ -89,17 +89,17 @@ export function ThumbnailButton({
   if (thumbnail?.type === "image") {
     preview = <PreviewImage src={thumbnail.src} aria-hidden="true" />;
   } else if (thumbnail?.type === "color") {
-    preview = <SolidColorPreview color={thumbnail.color} />;
+    preview = <SolidColorPreview $color={thumbnail.color} />;
   } else if (thumbnail?.type === "icon") {
     const ComponentIcon =
       thumbnail.icon === "link"
         ? Icons.Link
         : thumbnail.icon === "grid_3x3"
-        ? Icons.Grid3x3
-        : Icons.Link;
+          ? Icons.Grid3x3
+          : Icons.Link;
     preview = <ComponentIcon size={16} />;
   } else {
-    preview = <SolidColorPreview color={"transparent"} />;
+    preview = <SolidColorPreview $color={"transparent"} />;
   }
 
   const content = (

@@ -65,6 +65,7 @@ const baseConfig = {
     /lodash/,
     /react-dom/,
     /@suburb-stack\/core/,
+    /^goober/,
   ],
 };
 

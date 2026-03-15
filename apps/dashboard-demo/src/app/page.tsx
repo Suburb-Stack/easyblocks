@@ -2,7 +2,10 @@ import { LiveDataUpdater } from "@/app/LiveDataUpdater";
 import { NoDocumentError } from "@/app/NoDocumentError";
 import { ComponentOverrides, buildDocument } from "@suburb-stack/core";
 import { cookies } from "next/headers";
-import { EasyblocksContent } from "./components/EasyblocksContent";
+import {
+  EasyblocksContent,
+  EasyblocksStyleProvider,
+} from "./components/EasyblocksContent";
 import { buildAppShellContent } from "./easyblocks/buildAppShellContent";
 import { easyblocksComponents } from "./easyblocks/components";
 import { easyblocksConfig } from "./easyblocks/easyblocks.config";
@@ -46,12 +49,14 @@ export default async function HomePage() {
 
   return (
     <main>
-      <EasyblocksContent
-        renderableDocument={appShellDocumentContent.renderableDocument}
-        externalData={appShellDocumentContent.externalData}
-        componentOverrides={componentOverrides}
-        components={easyblocksComponents}
-      />
+      <EasyblocksStyleProvider>
+        <EasyblocksContent
+          renderableDocument={appShellDocumentContent.renderableDocument}
+          externalData={appShellDocumentContent.externalData}
+          componentOverrides={componentOverrides}
+          components={easyblocksComponents}
+        />
+      </EasyblocksStyleProvider>
       <LiveDataUpdater />
     </main>
   );

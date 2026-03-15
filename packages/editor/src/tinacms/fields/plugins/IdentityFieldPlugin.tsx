@@ -11,7 +11,7 @@ import { ButtonGhost, Icons, Typography } from "@suburb-stack/design-system";
 import { toArray } from "@suburb-stack/utils";
 import React, { useContext } from "react";
 import type { FieldRenderProps } from "../../form-builder/FieldRenderProps";
-import { css } from "styled-components";
+import { css } from "../../../styled";
 import { useEditorContext } from "../../../EditorContext";
 import { isMixedFieldValue } from "../components/isMixedFieldValue";
 import { PanelContext } from "./BlockFieldPlugin";
