@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 import { extractCss } from "goober";
 
@@ -13,10 +13,19 @@ export default function StyledComponentsRegistry({
 }: {
   children: React.ReactNode;
 }) {
+  const didReset = useRef(false);
+  if (!didReset.current) {
+    didReset.current = true;
+    // Drain any leftover CSS from a previous request so it doesn't leak.
+    extractCss();
+  }
+
   useServerInsertedHTML(() => {
     const css = extractCss();
     if (!css) return null;
-    return <style id="goober" dangerouslySetInnerHTML={{ __html: css }} />;
+    // Use goober's own style-tag id so the client reuses the SSR element
+    // and its built-in dedup prevents re-injecting the same rules.
+    return <style id="_goober" dangerouslySetInnerHTML={{ __html: css }} />;
   });
 
   return <>{children}</>;
